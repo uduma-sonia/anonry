@@ -24,7 +24,7 @@ function VotingPower() {
     datasets: [
       {
         label: "# of Votes",
-        data: [400, 300, 200, 100, 5],
+        data: [400, 300, 200, 100, 50],
         backgroundColor: [
           "#408AFD",
           "#70CF98",
