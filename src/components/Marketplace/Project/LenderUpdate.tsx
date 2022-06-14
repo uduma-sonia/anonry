@@ -14,11 +14,6 @@ import {
   TableContainer,
   Tag,
   Image,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
   useDisclosure,
 } from "@chakra-ui/react";
 import NotAllowed from "@components/Modal/NotAllowed";

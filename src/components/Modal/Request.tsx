@@ -1,6 +1,5 @@
 import {
   Text,
-  Link as ChakraLink,
   Button,
   Modal,
   ModalOverlay,
@@ -8,7 +7,6 @@ import {
   ModalFooter,
   ModalBody,
 } from "@chakra-ui/react";
-import Link from "next/link";
 
 export default function Request({ isOpen, onClose, name, action }: any) {
   return (
