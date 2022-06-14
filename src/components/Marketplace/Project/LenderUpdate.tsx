@@ -1,28 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Text,
   Button,
-  Input,
-  Center,
   HStack,
   Link as ChakraLink,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Tag,
   Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalBody,
+  useDisclosure,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import { format } from "date-fns";
+import NotAllowed from "@components/Modal/NotAllowed";
+import Request from "@components/Modal/Request";
 
 function LenderUpdate() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenRequest,
+    onOpen: onOpenRequest,
+    onClose: onCloseRequest,
+  } = useDisclosure();
+  const [userName, setUserName] = useState("");
+  const [actionType, setActionType] = useState("");
+
+  const handleRequest = (a: any, b: string) => {
+    setUserName(a);
+    setActionType(b);
+    onOpenRequest();
+  };
+
   return (
     <Box
       outline="1px solid #E2E2EA"
@@ -32,20 +49,27 @@ function LenderUpdate() {
       py="1.8rem"
       px="1.4rem"
     >
+      <NotAllowed isOpen={isOpen} onClose={onClose} />
+      <Request
+        isOpen={isOpenRequest}
+        onClose={onCloseRequest}
+        name={userName}
+        action={actionType}
+      />
+
       <HStack mb="1rem" justifyContent="space-between" alignItems="start">
         <Text color="text.gray" fontWeight="medium" fontSize="lg" mb="1rem">
-          Lenders&lsquo; Update
+          Your Lending History
         </Text>
 
-        <Link href="/" passHref>
-          <ChakraLink
-            color="brand.400"
-            fontSize="sm"
-            textDecoration="underline"
-          >
-            View All
-          </ChakraLink>
-        </Link>
+        <ChakraLink
+          color="brand.400"
+          fontSize="sm"
+          textDecoration="underline"
+          onClick={onOpen}
+        >
+          View All
+        </ChakraLink>
       </HStack>
 
       <TableContainer>
@@ -115,8 +139,11 @@ function LenderUpdate() {
                         fontWeight="medium"
                         py="0px"
                         size="sm"
+                        onClick={() => {
+                          handleRequest(item.name, "Accept");
+                        }}
                       >
-                        Accepted
+                        Accept
                       </Button>
 
                       <Button
@@ -124,13 +151,16 @@ function LenderUpdate() {
                         bgColor="transparent"
                         color="#FC2E53"
                         _focus={{ outline: "none" }}
-                        _hover={{ bgColor: "brand.400" }}
-                        _active={{ bgColor: "brand.400" }}
+                        _hover={{ bgColor: "transparent" }}
+                        _active={{ bgColor: "transparent" }}
                         fontSize="10px"
                         fontWeight="medium"
                         py="0px"
                         size="sm"
                         border="2px solid #FC2E53"
+                        onClick={() => {
+                          handleRequest(item.name, "Reject");
+                        }}
                       >
                         Reject
                       </Button>
@@ -188,7 +218,7 @@ export default LenderUpdate;
 const history = [
   {
     image: "/images/avatar.png",
-    name: "Anna",
+    name: "Johnson Doe",
     date: "2022-07-02T03:36:49.452785+01:00",
     points: "100",
     amount: "100",
@@ -196,15 +226,15 @@ const history = [
   },
   {
     image: "/images/avatar2.png",
-    name: "Bayo",
+    name: "Anna Kendrick",
     date: "2022-04-10T03:36:49.452785+01:00",
     points: "150",
     amount: "200",
     status: "REJECTED",
   },
   {
-    image: "/images/avatar.png",
-    name: "Tunde",
+    image: "/images/avatar3.png",
+    name: "Tunde Segun",
     date: "2022-02-22T03:36:49.452785+01:00",
     points: "200",
     amount: "300",

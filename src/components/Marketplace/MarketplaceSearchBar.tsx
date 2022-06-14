@@ -8,10 +8,10 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import NotAllowed from "@components/Modal/NotAllowed";
 import { RiSearchLine } from "react-icons/ri";
 import { BsFunnel } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
-import NotAllowed from "@components/Modal/NotAllowed";
 
 function MarketplaceSearchBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -55,35 +55,37 @@ function VotingPower() {
       py="1.8rem"
       px="1.4rem"
     >
-      <HStack mb="1rem" justifyContent="space-between" alignItems="center">
-        <Text color="text.gray" fontWeight="medium" fontSize="lg" mb="1rem">
-          Voting Power
+      <HStack mb=".51rem" justifyContent="space-between" alignItems="center">
+        <Text color="text.gray" fontWeight="medium" fontSize="md" w="50%">
+          Voting Power Distribution
         </Text>
 
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<BiChevronDown size="1.5rem" />}
-            bgColor="transparent"
-            borderRadius="20px"
-            border="1px solid #717579"
-            _focus={{ outline: "none" }}
-            _hover={{ bgColor: "transparent" }}
-            _active={{ bgColor: "transparent" }}
-            h="33px"
-            fontWeight="normal"
-            fontSize="xs"
-            color="text.secondary"
-          >
-            March 2022
-          </MenuButton>
-          <MenuList fontWeight="normal" fontSize="xs" color="text.secondary">
-            <MenuItem>January 2022</MenuItem>
-            <MenuItem>February 2022</MenuItem>
-            <MenuItem>March 2022</MenuItem>
-            <MenuItem>April 2022</MenuItem>
-          </MenuList>
-        </Menu>
+        <Box w="50%">
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon={<BiChevronDown size="1.5rem" />}
+              bgColor="transparent"
+              borderRadius="20px"
+              border="1px solid #717579"
+              _focus={{ outline: "none" }}
+              _hover={{ bgColor: "transparent" }}
+              _active={{ bgColor: "transparent" }}
+              h="33px"
+              fontWeight="normal"
+              fontSize="xs"
+              color="text.secondary"
+            >
+              March 2022
+            </MenuButton>
+            <MenuList fontWeight="normal" fontSize="xs" color="text.secondary">
+              <MenuItem>January 2022</MenuItem>
+              <MenuItem>February 2022</MenuItem>
+              <MenuItem>March 2022</MenuItem>
+              <MenuItem>April 2022</MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
       </HStack>
 
       <HStack>

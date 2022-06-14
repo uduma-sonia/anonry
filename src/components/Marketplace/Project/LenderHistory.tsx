@@ -13,11 +13,15 @@ import {
   TableContainer,
   Tag,
   Image,
+  useDisclosure,
 } from "@chakra-ui/react";
+import NotAllowed from "@components/Modal/NotAllowed";
 import Link from "next/link";
 import { format } from "date-fns";
 
 function LenderHistory() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box
       outline="1px solid #E2E2EA"
@@ -27,20 +31,21 @@ function LenderHistory() {
       py="1.8rem"
       px="1.4rem"
     >
+      <NotAllowed isOpen={isOpen} onClose={onClose} />
+
       <HStack mb="1rem" justifyContent="space-between" alignItems="start">
         <Text color="text.gray" fontWeight="medium" fontSize="lg" mb="1rem">
-          Lenders&lsquo; History
+          Network Lending History
         </Text>
 
-        <Link href="/" passHref>
-          <ChakraLink
-            color="brand.400"
-            fontSize="sm"
-            textDecoration="underline"
-          >
-            View All
-          </ChakraLink>
-        </Link>
+        <ChakraLink
+          color="brand.400"
+          fontSize="sm"
+          textDecoration="underline"
+          onClick={onOpen}
+        >
+          View All
+        </ChakraLink>
       </HStack>
 
       <TableContainer>
@@ -72,7 +77,7 @@ function LenderHistory() {
                   height="80px"
                 >
                   <Tag bg="#eeeeee" boxSize="50px" p="0px">
-                    <Image src={item.image} alt="user" />
+                    <Image src={item.image} alt="user" borderRadius="md" />
                   </Tag>
 
                   <Text as="span" color="text.gray" opacity="0.8">
@@ -111,22 +116,22 @@ export default LenderHistory;
 
 const history = [
   {
-    image: "/images/avatar.png",
-    name: "Anna",
+    image: "/images/avatar_1.jpg",
+    name: "Haruto",
     date: "2022-07-02T03:36:49.452785+01:00",
     points: "100",
     amount: "100",
   },
   {
-    image: "/images/avatar.png",
-    name: "Bayo",
+    image: "/images/avatar_2.jpg",
+    name: "Fredrick",
     date: "2022-04-10T03:36:49.452785+01:00",
     points: "150",
     amount: "200",
   },
   {
-    image: "/images/avatar.png",
-    name: "Tunde",
+    image: "/images/avatar_3.jpg",
+    name: "Giovanni",
     date: "2022-02-22T03:36:49.452785+01:00",
     points: "200",
     amount: "300",

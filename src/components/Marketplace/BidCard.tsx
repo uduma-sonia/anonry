@@ -1,9 +1,25 @@
 import React from "react";
-import { Box, Heading, Text, Tag, Progress } from "@chakra-ui/react";
+import { Box, Heading, Text, Tag, Progress, Image } from "@chakra-ui/react";
 import { BsClock } from "react-icons/bs";
 import { format } from "date-fns";
 
 function BidCard({ data }: any) {
+  const checkDaysLeft = (arg: number) => {
+    if (arg < 3) {
+      return "#FC5A5A40";
+    } else {
+      return "#00a15d32";
+    }
+  };
+
+  const checkDays = (arg: number) => {
+    if (arg < 3) {
+      return "#FC5A5A";
+    } else {
+      return "#00a15d";
+    }
+  };
+
   return (
     <Box position="relative" maxH="400px" borderRadius="24px" h="400px">
       <Box h="50%" w="100%" position="relative">
@@ -74,9 +90,20 @@ function BidCard({ data }: any) {
           />
         </Box>
 
-        <Box d="flex" alignItems="flex-end" mt="1rem" gap="7px">
-          <Heading color="brand.400" fontWeight="semibold" fontSize="lg">
-            USD {data.final_amount}
+        <Box d="flex" alignItems="center" mt="1rem" gap="7px">
+          <Heading
+            color="brand.400"
+            fontWeight="semibold"
+            fontSize="lg"
+            d="flex"
+            alignItems="center"
+            gap="5px"
+          >
+            <Tag p="0px" bg="none" minW="0px">
+              <Image alt="" src="/images/hedera.svg" boxSize="16px" />
+            </Tag>
+
+            {data.final_amount}
           </Heading>
 
           <Text
@@ -96,17 +123,21 @@ function BidCard({ data }: any) {
           alignItems="center"
         >
           <Tag
-            color="#FC5A5A"
+            color={checkDays(data.days_left)}
             size="xs"
             fontSize="11px"
             p="6px"
-            bgColor="#FC5A5A40"
+            bgColor={checkDaysLeft(data.days_left)}
             borderRadius="md"
           >
             <Box as="span" mr="4px">
               <BsClock />
             </Box>
-            {data.days_left} days left
+            {/* {data.days_left} days left */}
+
+            {data.days_left < 2
+              ? `${data.days_left} day left`
+              : `${data.days_left} days left`}
           </Tag>
 
           <Text fontSize="11px">

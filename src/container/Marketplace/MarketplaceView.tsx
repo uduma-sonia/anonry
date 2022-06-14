@@ -91,8 +91,8 @@ const defaultBids = [
     description:
       "Voluptatem et est. Et facere ea ipsum iste sed quibusdam fugit velit eius. Eos excepturi voluptatibus.",
     funding_level: 75,
-    final_amount: "950,000",
-    days_left: "2",
+    final_amount: "150,000",
+    days_left: "1",
     payback_date: "2022-07-02T03:36:49.452785+01:00",
   },
   {
@@ -102,29 +102,29 @@ const defaultBids = [
     description:
       "Bacon ipsum dolor amet andouille pork belly drumstick doner chislic turkey. Cow strip steak landjaeger,",
     funding_level: 55,
-    final_amount: "950,000",
-    days_left: "2",
+    final_amount: "50,000",
+    days_left: "4",
     payback_date: "2022-08-02T03:36:49.452785+01:00",
   },
   {
     image: "/images/img_3.jpg",
-    name: "Project Agerbee",
+    name: "Sputnik",
     owner: "Wayne Enterprises",
     description:
       "Brisket swine andouille, shank capicola spare ribs pork. Fatback chuck venison, ribeye sausage pork loin.",
     funding_level: 15,
-    final_amount: "950,000",
-    days_left: "2",
+    final_amount: "10,000",
+    days_left: "7",
     payback_date: "2022-09-02T03:36:49.452785+01:00",
   },
   {
     image: "/images/img_4.jpg",
-    name: "Project Agerbee",
+    name: "Linkage, Inc.",
     owner: "Cyberdyne Systems",
     description:
       "Voluptatem et est. Et facere ea ipsum iste sed quibusdam fugit velit eius. Eos excepturi voluptatibus.",
     funding_level: 90,
-    final_amount: "950,000",
+    final_amount: "3,000",
     days_left: "2",
     payback_date: "2022-10-02T03:36:49.452785+01:00",
   },
