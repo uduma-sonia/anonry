@@ -7,9 +7,13 @@ import {
   Td,
   TableContainer,
   IconButton,
+  Tag,
+  Image,
+  HStack,
 } from "@chakra-ui/react";
 import { BsThreeDots } from "react-icons/bs";
 import { GoPrimitiveDot } from "react-icons/go";
+import { format } from "date-fns";
 
 const Transactions = () => {
   return (
@@ -41,7 +45,7 @@ const Transactions = () => {
                   <Td border="none" textTransform="capitalize">
                     {item.title}
                     <Text color="#0D0138" opacity="0.5" mt="3px">
-                      21 Dec 2021, at 08.12 am
+                      {format(new Date(item.createdAt), "PP")}
                     </Text>
                   </Td>
 
@@ -63,7 +67,14 @@ const Transactions = () => {
                     </Box>
                   </Td>
 
-                  <Td border="none">+${item.amount}</Td>
+                  <Td>
+                    <HStack spacing={1}>
+                      <Tag p="0px" bg="none" minW="0px">
+                        <Image alt="" src="/images/hedera.svg" boxSize="12px" />
+                      </Tag>
+                      <Text>{item.amount}</Text>
+                    </HStack>
+                  </Td>
 
                   <Td border="none">
                     <IconButton
@@ -91,7 +102,7 @@ const defaultTransaction = [
     name: "Emmanuel Johnson",
     schema: "income",
     amount: 10000,
-    createdAt: "21 Dec 2021, at 08.12 am",
+    createdAt: "2022-03-02T03:36:49.452785+01:00",
   },
   {
     title: "Design project",
@@ -99,7 +110,7 @@ const defaultTransaction = [
     name: "Linda Howsten",
     schema: "income",
     amount: 1000,
-    createdAt: "21 Dec 2021, at 08.12 am",
+    createdAt: "2022-04-15T03:36:49.452785+01:00",
   },
   {
     title: "paypal topup",
@@ -107,7 +118,7 @@ const defaultTransaction = [
     name: "Paypal.INC",
     schema: "expenses",
     amount: 3000,
-    createdAt: "21 Dec 2021, at 08.12 am",
+    createdAt: "2022-05-17T03:36:49.452785+01:00",
   },
   {
     title: "transfer money",
@@ -115,6 +126,6 @@ const defaultTransaction = [
     name: "Heyston Wilson",
     schema: "expenses",
     amount: 10000,
-    createdAt: "21 Dec 2021, at 08.12 am",
+    createdAt: "2022-06-10T03:36:49.452785+01:00",
   },
 ];

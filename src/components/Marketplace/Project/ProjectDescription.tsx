@@ -51,7 +51,7 @@ function ProjectDescription() {
                 _selected={{ color: "text.gray", bg: "#ffffff" }}
                 _focus={{ outline: "none" }}
               >
-                Donate{" "}
+                Invest
               </Tab>
             </TabList>
           </Box>

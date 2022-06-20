@@ -8,6 +8,8 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  Tag,
+  Image,
 } from "@chakra-ui/react";
 
 function DonateForm() {
@@ -31,7 +33,9 @@ function DonateForm() {
             color="gray.300"
             fontSize="1.2em"
           >
-            $
+            <Tag p="0px" bg="none" minW="0px">
+              <Image alt="" src="/images/hedera.svg" boxSize="12px" />
+            </Tag>
           </InputLeftElement>
           <Input
             placeholder="Type amount"
@@ -60,7 +64,7 @@ function DonateForm() {
             minW="17rem"
             py="23px"
           >
-            Donate to Project
+            Invest in Project
           </Button>
         </Center>
       </Box>

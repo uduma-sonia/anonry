@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, Progress, Tag, HStack } from "@chakra-ui/react";
+import { Box, Text, Progress, Tag, HStack, Image } from "@chakra-ui/react";
 import { BsClock } from "react-icons/bs";
 
 function ProjectAction() {
@@ -70,7 +70,10 @@ function ProjectAction() {
         </Box>
 
         <Text mt="1.3rem" color="brand.400" fontSize="2xl" fontWeight="medium">
-          $950,000.00{" "}
+          <Tag p="0px" bg="none" minW="0px">
+            <Image alt="" src="/images/hedera.svg" boxSize="18px" />
+          </Tag>
+          950,000.00{" "}
           <Text
             textAlign="right"
             color="#696974"

@@ -16,7 +16,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import NotAllowed from "@components/Modal/NotAllowed";
-import Link from "next/link";
 import { format } from "date-fns";
 
 function LenderHistory() {
@@ -101,7 +100,12 @@ function LenderHistory() {
                 </Td>
 
                 <Td color="text.gray" opacity="0.8">
-                  ${item.amount}
+                  <HStack spacing={1}>
+                    <Tag p="0px" bg="none" minW="0px">
+                      <Image alt="" src="/images/hedera.svg" boxSize="12px" />
+                    </Tag>
+                    <Text>{item.amount}</Text>
+                  </HStack>
                 </Td>
               </Tr>
             ))}

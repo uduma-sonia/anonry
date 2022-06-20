@@ -42,7 +42,10 @@ const AllTimeWallet = () => {
         </Text>
 
         <Text color="#0D0138" fontWeight="semibold" mt="1.2rem" fontSize="xl">
-          $147,242,131,40
+          <Tag p="0px" bg="none" minW="0px" mr="4px">
+            <Image alt="" src="/images/hedera.svg" boxSize="16px" />
+          </Tag>
+          146,000.20
         </Text>
       </Box>
     </Box>
@@ -84,7 +87,10 @@ const MainWallet = () => {
         </Text>
 
         <Text color="#0D0138" fontWeight="medium" fontSize="xl">
-          $123,000.10
+          <Tag p="0px" bg="none" minW="0px" mr="4px">
+            <Image alt="" src="/images/hedera.svg" boxSize="16px" />
+          </Tag>
+          123,000.10
         </Text>
 
         <HStack d="flex" justifyContent="space-between">
@@ -120,7 +126,10 @@ const CeloWallet = () => {
         </Text>
 
         <Text color="#0D0138" fontWeight="medium" fontSize="xl">
-          $123,000.10
+          <Tag p="0px" bg="none" minW="0px" mr="4px">
+            <Image alt="" src="/images/hedera.svg" boxSize="16px" />
+          </Tag>
+          23,000.10
         </Text>
 
         <HStack d="flex" justifyContent="space-between">
