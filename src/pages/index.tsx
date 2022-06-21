@@ -8,7 +8,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Sync!</title>
         <meta name="Sync" content="Sync landing page" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/sync_favicon.png" />
       </Head>
 
       <CrowdLending />

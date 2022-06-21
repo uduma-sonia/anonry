@@ -23,7 +23,7 @@ function DonateForm() {
       px="2.4rem"
     >
       <Text color="text.gray" fontWeight="semibold" fontSize="md" mb="1rem">
-        Donate to Project
+        Invest in Project
       </Text>
 
       <Box px="50px" mt="3rem">
@@ -64,7 +64,7 @@ function DonateForm() {
             minW="17rem"
             py="23px"
           >
-            Invest in Project
+            Invest
           </Button>
         </Center>
       </Box>
