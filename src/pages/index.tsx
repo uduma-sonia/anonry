@@ -1,17 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import CrowdLending from "./crowd-lending";
 
 const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Sync!</title>
-        <meta name="Sync" content="Sync landing page" />
+        <title>Dairy App</title>
+        <meta name="Dairy App" content="Dairy App" />
         <link rel="icon" href="/sync_favicon.png" />
       </Head>
-
-      <CrowdLending />
+      DAIRY APP BY SONIA AND LEKAN
     </div>
   );
 };
