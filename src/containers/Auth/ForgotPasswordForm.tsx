@@ -82,7 +82,7 @@ export default function ForgotPasswordForm() {
             <Center mt="1.5rem">
               <Link
                 fontSize="sm"
-                href="/signup"
+                href="/login"
                 textDecoration="underline"
                 _focus={{ outline: "none" }}
               >
