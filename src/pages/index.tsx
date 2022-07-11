@@ -5,9 +5,9 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Dairy App</title>
-        <meta name="Dairy App" content="Dairy App" />
-        <link rel="icon" href="/sync_favicon.png" />
+        <title>Anonry</title>
+        <meta name="Anonry" content="Anonry" />
+        <link rel="icon" href="" />
       </Head>
       DAIRY APP BY SONIA AND LEKAN
     </div>
