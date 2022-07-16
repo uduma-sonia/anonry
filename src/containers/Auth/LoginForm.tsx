@@ -132,10 +132,10 @@ export default function LoginForm() {
               color="#000000"
               justifyContent="space-between"
               spacing={0}
-              gap={3}
+              // gap={3}
               flexDir={{ base: "column", md: "row" }}
             >
-              <Text>
+              <Text mb={3}>
                 Don&apos;t Have an account?{" "}
                 <Link
                   href="/signup"
