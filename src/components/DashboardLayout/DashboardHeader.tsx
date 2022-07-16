@@ -2,9 +2,7 @@ import {
   Box,
   Divider,
   HStack,
-  IconButton,
   Heading,
-  Text,
   Button,
   Avatar,
 } from "@chakra-ui/react";
@@ -55,7 +53,16 @@ export default function DashboardHeader({ onOpen }: any) {
               </Link>
             </Button>
 
-            <Avatar size="sm" />
+            <Avatar
+              size="sm"
+              src="https://robohash.org/40"
+              display={{ base: "block", xl: "none" }}
+            />
+            <Avatar
+              size="md"
+              src="https://robohash.org/40"
+              display={{ base: "none", xl: "block" }}
+            />
           </Box>
         </HStack>
       </Box>

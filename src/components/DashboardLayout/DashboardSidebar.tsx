@@ -22,13 +22,13 @@ export default function DashboardSidebar() {
       icon: <AiFillHome />,
     },
     {
-      route: "/dairy",
-      label: "Dairy",
+      route: "/diary",
+      label: "Diary",
       icon: <RiBookletFill />,
     },
     {
-      route: "/views",
-      label: "Views",
+      route: "/entries",
+      label: "Entries",
       icon: <HiOutlineViewBoards />,
     },
     {
