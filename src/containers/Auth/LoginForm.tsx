@@ -27,7 +27,7 @@ export default function LoginForm() {
         maxW="min(100%, 1600px)"
         mx="auto"
         px={{ base: "1rem", lg: "3.5rem" }}
-        py="3rem"
+        py="2rem"
       >
         <Box maxW="540px" mx="auto">
           <Link
@@ -62,6 +62,7 @@ export default function LoginForm() {
                 w="100%"
                 _focus={{ outline: "none" }}
                 _active={{ bg: "none" }}
+                type="button"
               >
                 <FcGoogle size="1.5rem" />
               </Button>
@@ -101,6 +102,7 @@ export default function LoginForm() {
                     _hover={{ bg: "none" }}
                     bg="none"
                     onClick={handleClick}
+                    type="button"
                   >
                     {show ? (
                       <AiOutlineEyeInvisible size="1.4rem" />
@@ -112,16 +114,12 @@ export default function LoginForm() {
               </InputGroup>
             </FormControl>
             <Button
-              variant="solid"
+              variant="primary"
               w="100%"
               mt="1.5rem"
-              bg="#000000"
-              color="#ffffff"
-              fontSize="sm"
               _focus={{ outline: "none" }}
-              _active={{ bg: "#000000" }}
-              _hover={{ bg: "#232324" }}
-              h="50px"
+              minH="50px"
+              type="submit"
             >
               Continue
             </Button>
@@ -132,7 +130,6 @@ export default function LoginForm() {
               color="#000000"
               justifyContent="space-between"
               spacing={0}
-              // gap={3}
               flexDir={{ base: "column", md: "row" }}
             >
               <Text mb={3}>

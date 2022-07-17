@@ -22,7 +22,7 @@ const Signup: NextPage = () => {
     <div>
       <Head>
         <title>Anonry | Login</title>
-        <meta name="Anonry" content="Anonry" />
+        <meta name="description" content="log into your anonry account" />
         <link rel="icon" href="" />
       </Head>
 

@@ -37,7 +37,7 @@ const Home: NextPage = () => {
     <div>
       <Head>
         <title>Anonry</title>
-        <meta name="Anonry" content="Anonry" />
+        <meta name="description" content="Anonry" />
         <link rel="icon" href="" />
       </Head>
       <DashboardLayout>

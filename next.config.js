@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
   reactStrictMode: true,
   images: {
     domains: ["https://robohash.org/"],
@@ -7,4 +11,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-// https://robohash.org/30

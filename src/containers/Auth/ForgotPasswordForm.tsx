@@ -7,15 +7,9 @@ import {
   Button,
   FormControl,
   FormLabel,
-  InputGroup,
-  InputRightElement,
   Center,
-  Divider,
-  HStack,
   Link,
 } from "@chakra-ui/react";
-import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
 
 export default function ForgotPasswordForm() {
   const [show, setShow] = React.useState(false);
@@ -65,16 +59,12 @@ export default function ForgotPasswordForm() {
             </FormControl>
 
             <Button
-              variant="solid"
+              variant="primary"
               w="100%"
               mt="1.5rem"
-              bg="#000000"
-              color="#ffffff"
-              fontSize="sm"
               _focus={{ outline: "none" }}
-              _active={{ bg: "#000000" }}
-              _hover={{ bg: "#232324" }}
-              h="50px"
+              minH="50px"
+              type="submit"
             >
               Continue
             </Button>

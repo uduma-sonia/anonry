@@ -19,6 +19,7 @@ export default function DashboardSidebar() {
   const defaultRoutes = [
     {
       route: "/dashboard",
+      sub_route: "/",
       label: "Home",
       icon: <AiFillHome />,
     },
@@ -67,8 +68,9 @@ export default function DashboardSidebar() {
       </Box>
 
       <UnorderedList listStyleType="none" spacing={0}>
-        {defaultRoutes.map(({ route, label, icon }) => {
-          const isActive = router.pathname === route;
+        {defaultRoutes.map(({ route, label, icon, sub_route }) => {
+          const isActive =
+            router.pathname === route || router.pathname === sub_route;
 
           return (
             <ListItem

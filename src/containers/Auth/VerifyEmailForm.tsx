@@ -52,7 +52,7 @@ export default function VerifyEmailForm() {
               Verify email
             </Heading>
 
-            <Text color="#000000" fontSize="sm" mt="1.5rem">
+            <Text color="#000000" fontSize="sm" mt="1.5rem" textAlign="center">
               Enter the OTP sent to{" "}
               <Text as="span" fontWeight="semibold">
                 sohnyauduma@gmail.com
@@ -64,21 +64,15 @@ export default function VerifyEmailForm() {
                 <PinInputField _focus={{ border: "2px solid #000000" }} />
                 <PinInputField _focus={{ border: "2px solid #000000" }} />
                 <PinInputField _focus={{ border: "2px solid #000000" }} />
-                <PinInputField _focus={{ border: "2px solid #000000" }} />
-                <PinInputField _focus={{ border: "2px solid #000000" }} />
               </PinInput>
             </HStack>
 
             <Button
-              variant="solid"
+              variant="primary"
               w="100%"
-              bg="#000000"
-              color="#ffffff"
-              fontSize="sm"
               _focus={{ outline: "none" }}
-              _active={{ bg: "#000000" }}
-              _hover={{ bg: "#232324" }}
-              h="50px"
+              minH="50px"
+              type="submit"
             >
               Continue
             </Button>

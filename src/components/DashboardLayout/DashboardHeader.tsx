@@ -23,6 +23,7 @@ export default function DashboardHeader({ onOpen }: any) {
               display={{ sm: "block", xl: "none" }}
               onClick={onOpen}
               mr="1rem"
+              type="button"
             >
               <GiHamburgerMenu />
             </Button>
@@ -36,6 +37,7 @@ export default function DashboardHeader({ onOpen }: any) {
               variant="primary"
               display={{ sm: "none", xl: "block" }}
               mr="1rem"
+              type="button"
             >
               <Link href="/dairy" passHref>
                 New
@@ -48,6 +50,7 @@ export default function DashboardHeader({ onOpen }: any) {
               variant="primary"
               display={{ sm: "block", xl: "none" }}
               mr="1rem"
+              type="button"
             >
               <Link href="/dairy" passHref>
                 <AiOutlinePlus />
@@ -58,12 +61,14 @@ export default function DashboardHeader({ onOpen }: any) {
               size="sm"
               src="https://robohash.org/40"
               display={{ base: "block", xl: "none" }}
+              name="unnamed user"
             />
 
             <Avatar
               size="md"
               src="https://robohash.org/40"
               display={{ base: "none", xl: "block" }}
+              name="unnamed user"
             />
           </Box>
         </HStack>
