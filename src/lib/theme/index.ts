@@ -11,7 +11,7 @@ const theme = extendTheme({
       // secondary: "#717579",
       // base: "#11142d",
       // gray: "#171B1E",
-      // danger: "#FC2E53",
+      danger: "#f55874",
       // dark: "#171725",
     },
   },

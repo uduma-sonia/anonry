@@ -12,7 +12,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 export default function DashboardHeader({ onOpen }: any) {
   return (
-    <Box position="sticky" top="0px" bg="#F7F7F7">
+    <Box position="sticky" top="0px" bg="#F7F7F7" zIndex="999">
       <Box h="100px" px={{ base: "1.2rem", lg: "4rem" }}>
         <HStack h="100%" justifyContent="space-between">
           <Box display="flex" alignItems="center">
