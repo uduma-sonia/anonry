@@ -3,6 +3,7 @@ import {
   Link as ChakraLink,
   UnorderedList,
   ListItem,
+  Text,
 } from "@chakra-ui/react";
 import { AiFillHome } from "react-icons/ai";
 import { RiBookletFill } from "react-icons/ri";
@@ -85,9 +86,8 @@ export default function DashboardSidebar() {
                   _hover={{ textDecor: "none" }}
                   _focus={{ outline: "none" }}
                   d="flex"
-                  gap="1rem"
                 >
-                  {icon}
+                  <Text mr="1rem">{icon}</Text>
                   {label}
                 </ChakraLink>
               </Link>

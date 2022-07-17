@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
           <DashboardSidebar />
         </Box>
 
-        <Box bg="#F7F7F7">
+        <Box bg="#F7F7F7" minH="100vh">
           <DashboardHeader onOpen={onOpen} />
           <Box
             maxWidth="1500px"
