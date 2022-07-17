@@ -12,6 +12,7 @@ export default function Notes() {
           border="1px solid gray"
           borderRadius={4}
           fontSize="sm"
+          type="button"
         >
           Notes
         </Tab>
@@ -24,6 +25,7 @@ export default function Notes() {
           borderRadius={4}
           fontSize="sm"
           mx="1rem"
+          type="button"
         >
           Published
         </Tab>
@@ -35,6 +37,7 @@ export default function Notes() {
           border="1px solid gray"
           borderRadius={4}
           fontSize="sm"
+          type="button"
         >
           Likes
         </Tab>

@@ -3,9 +3,13 @@ import { Box, Heading, Text, HStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 
 const [LatestNotes, Statistics, Notes] = [
-  dynamic(() => import("@components/Dashboard").then((mod) => mod.LatestNotes)),
-  dynamic(() => import("@components/Dashboard").then((mod) => mod.Statistics)),
-  dynamic(() => import("@components/Dashboard").then((mod) => mod.Notes)),
+  dynamic<any>(() =>
+    import("@components/Dashboard").then((mod) => mod.LatestNotes)
+  ),
+  dynamic<any>(() =>
+    import("@components/Dashboard").then((mod) => mod.Statistics)
+  ),
+  dynamic<any>(() => import("@components/Dashboard").then((mod) => mod.Notes)),
 ];
 
 export default function DashboardView() {
