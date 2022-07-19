@@ -14,6 +14,10 @@ export const Button: ComponentStyleConfig = {
       fontWeight: "normal",
       fontSize: "sm",
       _hover: { bgColor: "brand.500" },
+      _loading: {
+        _hover: { bgColor: "black" },
+        _focus: { bgColor: "black" },
+      },
     },
   },
 };
