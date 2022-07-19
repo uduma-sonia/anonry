@@ -91,7 +91,7 @@ export default function LoginForm() {
               </Box>
             ),
           });
-          router.push("/");
+          router.push("/dashboard");
         }
       } catch (err: any) {
         console.log(err);

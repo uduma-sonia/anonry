@@ -4,6 +4,7 @@ import {
   UnorderedList,
   ListItem,
   Text,
+  Button,
 } from "@chakra-ui/react";
 import { AiFillHome } from "react-icons/ai";
 import { RiBookletFill } from "react-icons/ri";
@@ -13,6 +14,7 @@ import { IoMdCog } from "react-icons/io";
 import { FaTrash } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export default function DashboardSidebar() {
   const router = useRouter();
@@ -97,6 +99,23 @@ export default function DashboardSidebar() {
           );
         })}
       </UnorderedList>
+
+      <Button
+        variant="link"
+        color="#fff"
+        pl="4rem"
+        fontWeight="300"
+        fontSize="sm"
+        mt="2rem"
+        _hover={{ textDecor: "none" }}
+        _focus={{ outline: "none" }}
+        onClick={async () => {
+          await signOut({ redirect: false });
+          router.push("/login");
+        }}
+      >
+        Logout
+      </Button>
     </Box>
   );
 }

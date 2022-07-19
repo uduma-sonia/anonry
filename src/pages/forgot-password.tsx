@@ -7,7 +7,7 @@ const ForgotPasswordForm = dynamic(
   () => import("@containers/Auth/ForgotPasswordForm"),
   {
     loading: () => (
-      <Center>
+      <Center w="100vw" h="100vh">
         <Spinner
           thickness="5px"
           speed="0.8s"
