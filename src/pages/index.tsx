@@ -7,7 +7,7 @@ import { Center, Spinner } from "@chakra-ui/react";
 const [DashboardView, DashboardLayout] = [
   dynamic(() => import("@containers/Dashboard/DashboardView"), {
     loading: () => (
-      <Center h="100vh" w="100vw">
+      <Center h="100vh">
         <Spinner
           thickness="5px"
           speed="0.8s"
@@ -20,7 +20,7 @@ const [DashboardView, DashboardLayout] = [
   }),
   dynamic(() => import("@components/DashboardLayout/DashboardLayout"), {
     loading: () => (
-      <Center h="100vh" w="100vw">
+      <Center h="100vh">
         <Spinner
           thickness="5px"
           speed="0.8s"
