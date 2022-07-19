@@ -5,7 +5,7 @@ import { Center, Spinner } from "@chakra-ui/react";
 
 const LoginForm = dynamic(() => import("@containers/Auth/LoginForm"), {
   loading: () => (
-    <Center>
+    <Center w="100vw" h="100vh">
       <Spinner
         thickness="5px"
         speed="0.8s"

@@ -1,4 +1,5 @@
-import type { NextPage } from "next";
+import type { GetServerSidePropsContext, NextPage } from "next";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { Center, Spinner } from "@chakra-ui/react";
@@ -6,7 +7,7 @@ import { Center, Spinner } from "@chakra-ui/react";
 const [DashboardView, DashboardLayout] = [
   dynamic(() => import("@containers/Dashboard/DashboardView"), {
     loading: () => (
-      <Center>
+      <Center h="100vh" w="100vw">
         <Spinner
           thickness="5px"
           speed="0.8s"
@@ -19,7 +20,7 @@ const [DashboardView, DashboardLayout] = [
   }),
   dynamic(() => import("@components/DashboardLayout/DashboardLayout"), {
     loading: () => (
-      <Center>
+      <Center h="100vh" w="100vw">
         <Spinner
           thickness="5px"
           speed="0.8s"
@@ -47,5 +48,24 @@ const Dashboard: NextPage = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+}
 
 export default Dashboard;

@@ -7,7 +7,7 @@ const VerifyEmailForm = dynamic(
   () => import("@containers/Auth/VerifyEmailForm"),
   {
     loading: () => (
-      <Center>
+      <Center w="100vw" h="100vh">
         <Spinner
           thickness="5px"
           speed="0.8s"
