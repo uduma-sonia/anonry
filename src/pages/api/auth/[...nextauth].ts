@@ -59,6 +59,7 @@ const options = {
     verifyRequest: "/verify-email",
     signIn: "/login",
   },
+  secret: "testing",
 };
 
 export default (
