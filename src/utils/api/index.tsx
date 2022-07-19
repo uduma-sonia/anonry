@@ -2,7 +2,7 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 import authService from "./auth";
 
-export const API_ENDPOINT = process.env.NEXT_PUBLIC_API_URL;
+export const API_ENDPOINT = "https://anonry.herokuapp.com";
 const isBrowser = typeof window !== undefined;
 
 export const api = axios.create({
