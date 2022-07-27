@@ -110,7 +110,7 @@ export default function SignupForm() {
         <Box maxW="540px" mx="auto">
           <Link
             letterSpacing="-2px"
-            fontWeight="bold"
+            fontWeight="800"
             color="#000000"
             fontSize="2xl"
             _hover={{ textDecoration: "none" }}
@@ -221,9 +221,9 @@ export default function SignupForm() {
                       type="button"
                     >
                       {show ? (
-                        <AiOutlineEyeInvisible size="1.4rem" />
-                      ) : (
                         <AiOutlineEye size="1.4rem" />
+                      ) : (
+                        <AiOutlineEyeInvisible size="1.4rem" />
                       )}
                     </Button>
                   </InputRightElement>

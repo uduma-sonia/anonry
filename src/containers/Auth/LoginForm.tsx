@@ -200,9 +200,9 @@ export default function LoginForm() {
                       type="button"
                     >
                       {show ? (
-                        <AiOutlineEyeInvisible size="1.4rem" />
-                      ) : (
                         <AiOutlineEye size="1.4rem" />
+                      ) : (
+                        <AiOutlineEyeInvisible size="1.4rem" />
                       )}
                     </Button>
                   </InputRightElement>
@@ -229,7 +229,7 @@ export default function LoginForm() {
               spacing={0}
               flexDir={{ base: "column", md: "row" }}
             >
-              <Text mb={3}>
+              <Text mb={{ base: 3, lg: 0 }}>
                 Don&apos;t Have an account?{" "}
                 <Link
                   href="/signup"

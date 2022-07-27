@@ -38,11 +38,33 @@ function authService({ api }: Service) {
     return result;
   };
 
+  const forgotPassword = async (
+    data: { email: string },
+    reqConfig?: ReqConfig
+  ) => {
+    const result = await api.post(`${prefix}/forgot-password`, data, {
+      ...reqConfig,
+    });
+    return result;
+  };
+
+  const resetPassword = async (
+    data: { email: string; otp: string; password: string },
+    reqConfig?: ReqConfig
+  ) => {
+    const result = await api.post(`${prefix}/reset-password`, data, {
+      ...reqConfig,
+    });
+    return result;
+  };
+
   return Object.freeze({
     signup,
     login,
     verifyEmail,
     resendOtp,
+    forgotPassword,
+    resetPassword,
   });
 }
 

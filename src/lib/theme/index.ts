@@ -16,8 +16,8 @@ const theme = extendTheme({
     },
   },
   fonts: {
-    body: "Poppins, system-ui",
-    heading: "Poppins, system-ui",
+    body: "Inter, system-ui",
+    heading: "Inter, system-ui",
   },
   fontSizes: {
     xxs: "0.62rem",
