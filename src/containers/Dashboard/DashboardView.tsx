@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Heading, Text, HStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
+import { useUser } from "@utils/hooks/useUser";
 
 const [LatestNotes, Statistics, Notes] = [
   dynamic<any>(() =>
@@ -13,12 +14,14 @@ const [LatestNotes, Statistics, Notes] = [
 ];
 
 export default function DashboardView() {
+  const { data: user } = useUser();
+
   return (
     <Box mb="200px">
       <Heading fontWeight="normal" fontSize="lg">
         Welcome,{" "}
-        <Text as="span" fontWeight="medium">
-          Name
+        <Text as="span" fontWeight="medium" textTransform="capitalize">
+          {user?.data?.data?.user_name}
         </Text>
       </Heading>
 
@@ -30,7 +33,7 @@ export default function DashboardView() {
       >
         <LatestNotes />
 
-        <Statistics />
+        <Statistics data={user?.data?.data} />
       </HStack>
 
       <Notes />

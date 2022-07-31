@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getSession } from "next-auth/react";
 import authService from "./auth";
+import userService from "./user";
 
 export const API_ENDPOINT = "https://anonry.herokuapp.com";
 const isBrowser = typeof window !== undefined;
@@ -44,3 +45,4 @@ const addTokenToRequest = async (request: any) => {
 api.interceptors.request.use(addTokenToRequest);
 
 export const authAPI = authService({ api });
+export const userAPI = userService({ api });

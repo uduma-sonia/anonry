@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text, Heading } from "@chakra-ui/react";
 
-export default function Statistics() {
+export default function Statistics({ data }: any) {
   return (
     <Box
       w={{ base: "100%", lg: "40%" }}
@@ -12,7 +12,7 @@ export default function Statistics() {
       color="#000"
     >
       <Box textAlign="center">
-        <Text>0</Text>
+        <Text>{data?.no_of_entries}</Text>
 
         <Heading fontWeight="medium" fontSize="xl">
           Notes
@@ -21,7 +21,7 @@ export default function Statistics() {
 
       <Box mt="2rem" display="flex" justifyContent="space-between">
         <Box textAlign="center">
-          <Text>0</Text>
+          <Text>{data?.no_of_published_entries}</Text>
 
           <Text fontWeight="medium" fontSize="md">
             Published
@@ -29,7 +29,7 @@ export default function Statistics() {
         </Box>
 
         <Box textAlign="center">
-          <Text>0</Text>
+          <Text>{data?.no_of_notes}</Text>
 
           <Text fontWeight="medium" fontSize="md">
             Likes
@@ -37,7 +37,7 @@ export default function Statistics() {
         </Box>
 
         <Box textAlign="center">
-          <Text>0</Text>
+          <Text>{data?.no_of_likes}</Text>
 
           <Text fontWeight="medium" fontSize="md">
             Saved
