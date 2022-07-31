@@ -10,9 +10,19 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useUser } from "@utils/hooks/useUser";
+import { useRouter } from "next/router";
 
 export default function DashboardHeader({ onOpen }: any) {
   const { data: user } = useUser();
+  const router = useRouter();
+
+  const routerName = () => {
+    if (router.pathname === "/" || router.pathname === "/dashboard") {
+      return "Home";
+    } else if (router.pathname === "/diary") {
+      return "Diary";
+    }
+  };
 
   return (
     <Box position="sticky" top="0px" bg="#F7F7F7" zIndex="999">
@@ -31,7 +41,9 @@ export default function DashboardHeader({ onOpen }: any) {
               <GiHamburgerMenu />
             </Button>
 
-            <Heading fontSize={{ base: "lg", lg: "xl" }}>Home</Heading>
+            <Heading fontSize={{ base: "lg", lg: "xl" }}>
+              {routerName()}
+            </Heading>
           </Box>
 
           <Box display="flex" alignItems="center">
