@@ -29,7 +29,6 @@ export default function DashboardView() {
         my="2rem"
         flexDirection={{ base: "column", lg: "row" }}
         spacing={0}
-        alignItems="flex-start"
       >
         <LatestNotes />
 

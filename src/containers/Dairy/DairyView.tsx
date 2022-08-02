@@ -16,6 +16,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import dynamic from "next/dynamic";
+
+const [DairyForm] = [dynamic(() => import("@components/Dairy/DairyForm"))];
 
 export default function DairyView() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,32 +51,7 @@ export default function DairyView() {
         </Box>
       </Box>
 
-      <Box px={{ lg: "1rem" }}>
-        <Box display="flex">
-          <Input
-            placeholder="title"
-            border="none"
-            bg="white"
-            _focus={{ outline: "none" }}
-          />
-
-          <Button variant="primary" ml="2rem">
-            Save
-          </Button>
-        </Box>
-
-        <Textarea
-          mt="1rem"
-          rows={14}
-          border="none"
-          placeholder="Start typing..."
-          bg="white"
-          resize="none"
-          className="tiny-scrollbar"
-          _focus={{ outline: "none" }}
-        />
-      </Box>
-
+      <DairyForm />
       <IconButton
         display={{ base: "flex", lg: "none" }}
         position="fixed"

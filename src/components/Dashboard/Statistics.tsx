@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, Heading } from "@chakra-ui/react";
+import { Box, Text, Checkbox } from "@chakra-ui/react";
 
 export default function Statistics({ data }: any) {
   return (
@@ -11,7 +11,60 @@ export default function Statistics({ data }: any) {
       bg="white"
       color="#000"
     >
-      <Box textAlign="center">
+      <Text fontWeight="medium" fontSize="xl" mb="1rem">
+        Tasks
+      </Text>
+
+      <Box display="flex" justifyContent="space-between" mb="2rem">
+        <Checkbox>
+          <Box>
+            <Text fontSize="sm" opacity="0.8">
+              Buy Milk
+            </Text>
+          </Box>
+        </Checkbox>
+        <Text fontSize="sm" opacity="0.8">
+          7 hours
+        </Text>
+      </Box>
+      <Box display="flex" justifyContent="space-between" mb="2rem">
+        <Checkbox>
+          <Box>
+            <Text fontSize="sm" opacity="0.8">
+              Buy Milk
+            </Text>
+          </Box>
+        </Checkbox>
+        <Text fontSize="sm" opacity="0.8">
+          7 hours
+        </Text>
+      </Box>
+      <Box display="flex" justifyContent="space-between" mb="2rem">
+        <Checkbox>
+          <Box>
+            <Text fontSize="sm" opacity="0.8">
+              Buy Milk
+            </Text>
+          </Box>
+        </Checkbox>
+        <Text fontSize="sm" opacity="0.8">
+          7 hours
+        </Text>
+      </Box>
+      <Box display="flex" justifyContent="space-between" mb="2rem">
+        <Checkbox>
+          <Box>
+            <Text fontSize="sm" opacity="0.8">
+              Buy Milk
+            </Text>
+          </Box>
+        </Checkbox>
+        <Text fontSize="sm" opacity="0.8">
+          7 hours
+        </Text>
+      </Box>
+
+      {/* <Box textAlign="center">
         <Text>{data?.no_of_entries}</Text>
 
         <Heading fontWeight="medium" fontSize="xl">
@@ -43,7 +96,7 @@ export default function Statistics({ data }: any) {
             Saved
           </Text>
         </Box>
-      </Box>
+      </Box> */}
     </Box>
   );
 }
