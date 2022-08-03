@@ -2,26 +2,36 @@ import React from "react";
 import {
   Box,
   Text,
-  Input,
-  Button,
-  Textarea,
   Drawer,
   DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import dynamic from "next/dynamic";
+import { swrKeys } from "@utils/swrKeys";
+import useSWR, { SWRConfiguration } from "swr";
+import { entriesAPI } from "@utils/api";
+import { useRouter } from "next/router";
 
-const [DairyForm] = [dynamic(() => import("@components/Dairy/DairyForm"))];
+const [DairyForm, AllEntries] = [
+  dynamic(() => import("@components/Dairy/DairyForm")),
+  dynamic(() => import("@components/Dairy/AllEntries")),
+];
 
 export default function DairyView() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
+  const { data: entries } = useSWR(
+    router.isReady && swrKeys.getUserEntries,
+    async () => entriesAPI.getUserEntries(),
+    {
+      revalidateOnMount: true,
+    }
+  );
 
   return (
     <Box
@@ -40,18 +50,10 @@ export default function DairyView() {
         overflowY="auto"
         className="tiny-scrollbar"
       >
-        <Box mb="2rem" borderBottom="1px solid #d7d7d7" pb="10px">
-          <Text fontWeight="medium" mb="0.6rem">
-            A meatier lorem ipsum
-          </Text>
-
-          <Text fontSize="13px">
-            Spicy jalapeno bacon ipsum dolor amet kevin tenderloin
-          </Text>
-        </Box>
+        <AllEntries entries={entries?.data?.data} />
       </Box>
-
       <DairyForm />
+
       <IconButton
         display={{ base: "flex", lg: "none" }}
         position="fixed"
@@ -87,51 +89,7 @@ export default function DairyView() {
           />
 
           <DrawerBody pt="2rem">
-            <Box mb="2rem" borderBottom="1px solid #d7d7d7" pb="10px">
-              <Text fontWeight="medium" mb="0.6rem">
-                A meatier lorem ipsum
-              </Text>
-
-              <Text fontSize="13px">
-                Spicy jalapeno bacon ipsum dolor amet kevin tenderloin
-              </Text>
-            </Box>
-            <Box mb="2rem" borderBottom="1px solid #d7d7d7" pb="10px">
-              <Text fontWeight="medium" mb="0.6rem">
-                A meatier lorem ipsum
-              </Text>
-
-              <Text fontSize="13px">
-                Spicy jalapeno bacon ipsum dolor amet kevin tenderloin
-              </Text>
-            </Box>
-            <Box mb="2rem" borderBottom="1px solid #d7d7d7" pb="10px">
-              <Text fontWeight="medium" mb="0.6rem">
-                A meatier lorem ipsum
-              </Text>
-
-              <Text fontSize="13px">
-                Spicy jalapeno bacon ipsum dolor amet kevin tenderloin
-              </Text>
-            </Box>
-            <Box mb="2rem" borderBottom="1px solid #d7d7d7" pb="10px">
-              <Text fontWeight="medium" mb="0.6rem">
-                A meatier lorem ipsum
-              </Text>
-
-              <Text fontSize="13px">
-                Spicy jalapeno bacon ipsum dolor amet kevin tenderloin
-              </Text>
-            </Box>
-            <Box mb="2rem" borderBottom="1px solid #d7d7d7" pb="10px">
-              <Text fontWeight="medium" mb="0.6rem">
-                A meatier lorem ipsum
-              </Text>
-
-              <Text fontSize="13px">
-                Spicy jalapeno bacon ipsum dolor amet kevin tenderloin
-              </Text>
-            </Box>
+            <AllEntries entries={entries?.data?.data} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>

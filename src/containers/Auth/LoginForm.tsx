@@ -162,10 +162,10 @@ export default function LoginForm() {
                 mt="1.5rem"
                 isInvalid={Boolean(errors.identifier)}
               >
-                <FormLabel fontSize="sm">Email or UserName</FormLabel>
+                <FormLabel fontSize="sm">Email or Username</FormLabel>
 
                 <Input
-                  type="email"
+                  type="text"
                   _focus={{ border: "1px solid #00000090" }}
                   h="50px"
                   id="identifier"

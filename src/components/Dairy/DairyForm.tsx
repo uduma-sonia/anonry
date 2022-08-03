@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +15,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { entriesAPI } from "@utils/api";
+import { useSWRConfig } from "swr";
+
+import { swrKeys } from "@utils/swrKeys";
 
 const schema = z.object({
   title: z.string().min(1),
@@ -24,6 +28,8 @@ const schema = z.object({
 export default function DairyForm() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const toast = useToast();
+  const { mutate } = useSWRConfig();
+  const entriesCacheKey = swrKeys.getUserEntries;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -39,7 +45,7 @@ export default function DairyForm() {
   setValue("tags", selectedTags);
 
   const handleSelect = (tag: any) => {
-    if (selectedTags.length === 5) {
+    if (selectedTags.length === 3) {
       setSelectedTags(selectedTags);
     } else {
       setSelectedTags([...selectedTags, tag]);
@@ -51,33 +57,14 @@ export default function DairyForm() {
     setSelectedTags(modifiedArr);
   };
 
-  const onSubmit = useCallback(
-    async (data) => {
-      try {
-        setIsSubmitting(true);
-        const result = await entriesAPI.createEntry(data);
-        if (result) {
-          reset();
-          setSelectedTags([]);
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {result?.data?.message}
-              </Box>
-            ),
-          });
-        }
-      } catch (err: any) {
+  const onSubmit = useCallback(async (data) => {
+    try {
+      setIsSubmitting(true);
+      const result = await entriesAPI.createEntry(data);
+      if (result) {
+        reset();
+        setSelectedTags([]);
+        mutate(entriesCacheKey);
         toast({
           position: "top-right",
           duration: 9000,
@@ -86,21 +73,38 @@ export default function DairyForm() {
             <Box
               color="white"
               p={3}
-              bg="#fa4e37"
+              bg="black"
               borderRadius={10}
               textAlign="center"
               fontSize="xs"
             >
-              {err ?? "Error, try again"}
+              {result?.data?.message}
             </Box>
           ),
         });
-      } finally {
-        setIsSubmitting(false);
       }
-    },
-    [reset, toast]
-  );
+    } catch (err: any) {
+      toast({
+        position: "top-right",
+        duration: 9000,
+        isClosable: true,
+        render: () => (
+          <Box
+            color="white"
+            p={3}
+            bg="#fa4e37"
+            borderRadius={10}
+            textAlign="center"
+            fontSize="xs"
+          >
+            {err ?? "Error, try again"}
+          </Box>
+        ),
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, []);
 
   return (
     <Box px={{ lg: "1rem" }} as="form" onSubmit={handleSubmit(onSubmit)}>
@@ -133,7 +137,13 @@ export default function DairyForm() {
         </Button>
       </Box>
 
-      <Box mt="1rem" display="flex" flexWrap="nowrap" gap="10px">
+      <Box
+        mt="1rem"
+        display="flex"
+        flexWrap="nowrap"
+        gap="10px"
+        overflowX="auto"
+      >
         {selectedTags.map((tag) => (
           <Tag
             bg="black"
