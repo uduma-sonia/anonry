@@ -17,9 +17,16 @@ function entriesService({ api }: Service) {
     const result = await api.get(`${prefix}`, { ...reqConfig });
     return result;
   };
+
+  const deleteUserEntries = async (data: any) => {
+    const result = await api.delete(`${prefix}`, data);
+    return result;
+  };
+
   return Object.freeze({
     createEntry,
     getUserEntries,
+    deleteUserEntries,
   });
 }
 

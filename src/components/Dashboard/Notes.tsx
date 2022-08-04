@@ -1,4 +1,12 @@
-import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import {
+  Box,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Text,
+} from "@chakra-ui/react";
 import NotesCard from "./NotesCard";
 
 export default function Notes({ notes }: any) {
@@ -45,6 +53,9 @@ export default function Notes({ notes }: any) {
 
       <TabPanels mt="2rem">
         <TabPanel p={0}>
+          <Text mb="2rem" fontWeight="medium">
+            {notes?.length} notes
+          </Text>
           <Box
             display="grid"
             gridTemplateColumns={{

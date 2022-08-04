@@ -1,8 +1,25 @@
-import { Box, Heading, Text, Button, Tag } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  Button,
+  Tag,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { format } from "date-fns";
 import { FiEdit3 } from "react-icons/fi";
+import DeleteEntryModal from "@components/Modals/DeleteEntryModal";
+import { useState } from "react";
 
 export default function NotesCard({ note }: any) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [currentNote, setCurrentNote] = useState();
+
+  const openDeleteModal = () => {
+    setCurrentNote(note);
+    onOpen();
+  };
+
   return (
     <Box
       bg="white"
@@ -12,7 +29,9 @@ export default function NotesCard({ note }: any) {
       mb="1.5rem"
       mr={{ base: "0rem", lg: "1.5rem" }}
       borderRadius={10}
+      h="fit-content"
     >
+      <DeleteEntryModal isOpen={isOpen} onClose={onClose} note={currentNote} />
       <Heading fontSize="md" fontWeight="medium" mb="0.6rem">
         {note?.title}
 
@@ -61,6 +80,7 @@ export default function NotesCard({ note }: any) {
           variant="link"
           color="text.danger"
           _focus={{ outline: "1px solid gray" }}
+          onClick={openDeleteModal}
         >
           Delete
         </Button>
