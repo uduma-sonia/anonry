@@ -1,8 +1,10 @@
 import React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Button, Center } from "@chakra-ui/react";
 import LatestNotesCard from "./LatestNotesCard";
+import { AiOutlinePlus } from "react-icons/ai";
+import Link from "next/link";
 
-export default function LatestNotes() {
+export default function LatestNotes({ data }: any) {
   return (
     <Box
       border="1px solid #d7d7d7"
@@ -18,13 +20,32 @@ export default function LatestNotes() {
         Latest Notes
       </Text>
 
-      {dummyData.map((item) => {
-        return (
-          <Box key={item.id} mb="1rem">
-            <LatestNotesCard data={item} />
-          </Box>
-        );
-      })}
+      {data?.entries?.length === 0 && (
+        <Center h="140px" bg="#f7f7f7" borderRadius={10}>
+          <Link href="/diary" passHref>
+            <Button
+              leftIcon={<AiOutlinePlus />}
+              variant="link"
+              _focus={{ outline: "none" }}
+              color="#000"
+            >
+              Create Note
+            </Button>
+          </Link>
+        </Center>
+      )}
+
+      {data?.entries?.length > 0 && (
+        <>
+          {data?.entries?.slice(0, 2).map((item: any) => {
+            return (
+              <Box key={item._id} mb="1rem">
+                <LatestNotesCard data={item} />
+              </Box>
+            );
+          })}
+        </>
+      )}
     </Box>
   );
 }

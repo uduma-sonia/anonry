@@ -2,7 +2,7 @@ import { Box, Heading, Text, Button, Tag } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { FiEdit3 } from "react-icons/fi";
 
-export default function NotesCard() {
+export default function NotesCard({ note }: any) {
   return (
     <Box
       bg="white"
@@ -14,26 +14,28 @@ export default function NotesCard() {
       borderRadius={10}
     >
       <Heading fontSize="md" fontWeight="medium" mb="0.6rem">
-        A meatier lorem ipsum
-        <Tag
-          ml="1rem"
-          fontSize="9px"
-          opacity="0.7"
-          bg="transparent"
-          border="none"
-        >
-          <FiEdit3 />
-          Edited
-        </Tag>
+        {note?.title}
+
+        {note?.edited && (
+          <Tag
+            ml="1rem"
+            fontSize="9px"
+            opacity="0.7"
+            bg="transparent"
+            border="none"
+          >
+            <FiEdit3 />
+            Edited
+          </Tag>
+        )}
       </Heading>
 
       <Text fontSize="sm" opacity="0.8">
-        Spicy jalapeno bacon ipsum dolor amet kevin tenderloin ball tip
-        drumstick, t-bone strip steak biltong meatloaf pastrami
+        {note?.description}
       </Text>
 
       <Text my="1rem" textAlign="right" fontSize="xs" opacity="0.8">
-        {format(new Date("2022-08-02T03:36:49.452785+01:00"), "PP")}
+        {format(new Date(note.createdAt), "P")}
       </Text>
 
       <Box>

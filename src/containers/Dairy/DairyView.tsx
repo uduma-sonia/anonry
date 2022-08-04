@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Box,
-  Text,
   Drawer,
   DrawerBody,
   DrawerOverlay,
@@ -11,10 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import dynamic from "next/dynamic";
-import { swrKeys } from "@utils/swrKeys";
-import useSWR, { SWRConfiguration } from "swr";
-import { entriesAPI } from "@utils/api";
-import { useRouter } from "next/router";
+import { useEntries } from "@utils/hooks/useEntries";
 
 const [DairyForm, AllEntries] = [
   dynamic(() => import("@components/Dairy/DairyForm")),
@@ -23,15 +19,7 @@ const [DairyForm, AllEntries] = [
 
 export default function DairyView() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
-
-  const { data: entries } = useSWR(
-    router.isReady && swrKeys.getUserEntries,
-    async () => entriesAPI.getUserEntries(),
-    {
-      revalidateOnMount: true,
-    }
-  );
+  const { data: entries } = useEntries();
 
   return (
     <Box

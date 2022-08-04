@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Heading, Text, HStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useUser } from "@utils/hooks/useUser";
+import { useEntries } from "@utils/hooks/useEntries";
 
 const [LatestNotes, Statistics, Notes] = [
   dynamic<any>(() =>
@@ -15,6 +16,7 @@ const [LatestNotes, Statistics, Notes] = [
 
 export default function DashboardView() {
   const { data: user } = useUser();
+  const { data: entries } = useEntries();
 
   return (
     <Box mb="200px">
@@ -30,12 +32,12 @@ export default function DashboardView() {
         flexDirection={{ base: "column", lg: "row" }}
         spacing={0}
       >
-        <LatestNotes />
+        <LatestNotes data={user?.data?.data} />
 
         <Statistics data={user?.data?.data} />
       </HStack>
 
-      <Notes />
+      <Notes notes={entries?.data?.data} />
     </Box>
   );
 }

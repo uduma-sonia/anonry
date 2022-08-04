@@ -1,7 +1,7 @@
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import NotesCard from "./NotesCard";
 
-export default function Notes() {
+export default function Notes({ notes }: any) {
   return (
     <Tabs>
       <TabList border="none" justifyContent="center">
@@ -14,7 +14,7 @@ export default function Notes() {
           fontSize="sm"
           type="button"
         >
-          Notes
+          All Notes
         </Tab>
 
         <Tab
@@ -39,7 +39,7 @@ export default function Notes() {
           fontSize="sm"
           type="button"
         >
-          Likes
+          Bookmarks
         </Tab>
       </TabList>
 
@@ -53,20 +53,15 @@ export default function Notes() {
               "2xl": "repeat(3, 1fr)",
             }}
           >
-            <NotesCard />
-            <NotesCard />
-            <NotesCard />
-            <NotesCard />
+            {notes?.map((item: any) => (
+              <NotesCard key={item._id} note={item} />
+            ))}
           </Box>
         </TabPanel>
 
-        <TabPanel>
-          <p>two!</p>
-        </TabPanel>
+        <TabPanel>PUBLISHED</TabPanel>
 
-        <TabPanel>
-          <p>three!</p>
-        </TabPanel>
+        <TabPanel>BOOKMARKS</TabPanel>
       </TabPanels>
     </Tabs>
   );
