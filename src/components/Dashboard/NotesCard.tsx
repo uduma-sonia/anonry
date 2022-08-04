@@ -53,6 +53,20 @@ export default function NotesCard({ note }: any) {
         {note?.description}
       </Text>
 
+      <Box mt="1rem" display="flex" flexWrap="wrap" gap="10px">
+        {note?.tags.map(({ name, _id }: { name: string; _id: string }) => (
+          <Tag
+            key={_id}
+            fontSize="xs"
+            opacity="0.7"
+            borderRadius="20px"
+            w="fit-content"
+          >
+            {name}
+          </Tag>
+        ))}
+      </Box>
+
       <Text my="1rem" textAlign="right" fontSize="xs" opacity="0.8">
         {format(new Date(note.createdAt), "P")}
       </Text>

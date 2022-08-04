@@ -1,10 +1,10 @@
 import React from "react";
-import { Box, Text, Button, Center } from "@chakra-ui/react";
+import { Box, Text, Button, Center, Stack, Skeleton } from "@chakra-ui/react";
 import LatestNotesCard from "./LatestNotesCard";
 import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
 
-export default function LatestNotes({ data }: any) {
+export default function LatestNotes({ data, error }: any) {
   return (
     <Box
       border="1px solid #d7d7d7"
@@ -19,6 +19,21 @@ export default function LatestNotes({ data }: any) {
       <Text fontWeight="medium" fontSize="xl" mb="1rem">
         Latest Notes
       </Text>
+
+      {!error && !data && (
+        <>
+          <Stack>
+            <Skeleton height="10px" w="80%" />
+            <Skeleton height="15px" />
+            <Skeleton height="15px" />
+          </Stack>
+          <Stack mt="3rem">
+            <Skeleton height="10px" w="80%" />
+            <Skeleton height="15px" />
+            <Skeleton height="15px" />
+          </Stack>
+        </>
+      )}
 
       {data?.entries?.length === 0 && (
         <Center h="140px" bg="#f7f7f7" borderRadius={10}>
@@ -49,16 +64,3 @@ export default function LatestNotes({ data }: any) {
     </Box>
   );
 }
-
-const dummyData = [
-  {
-    id: "1",
-    title: "A meatier lorem ipsum",
-    text: "Spicy jalapeno bacon ipsum dolor amet kevin tenderloin ball tip drumstick, t-bone strip steak biltong meatloaf pastrami",
-  },
-  {
-    id: "2",
-    title: "A meatier lorem ipsum",
-    text: "Spicy jalapeno bacon ipsum dolor amet kevin tenderloin ball tip drumstick, t-bone strip steak biltong meatloaf pastrami",
-  },
-];

@@ -118,7 +118,7 @@ h6 {
 
 /* Tiny scrollbar for Chrome, Safari and Opera */
 .tiny-scrollbar::-webkit-scrollbar {
-  width: 0.3em;
+  width: 0.15em;
   opacity: 0;
 }
 .tiny-scrollbar {
@@ -129,6 +129,6 @@ h6 {
   opacity: 0;
 }
 .tiny-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.552);
   border-radius: 1em;
 }

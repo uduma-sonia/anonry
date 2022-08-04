@@ -4,19 +4,17 @@ import dynamic from "next/dynamic";
 import { useUser } from "@utils/hooks/useUser";
 import { useEntries } from "@utils/hooks/useEntries";
 
-const [LatestNotes, Statistics, Notes] = [
+const [LatestNotes, Tasks, Notes] = [
   dynamic<any>(() =>
     import("@components/Dashboard").then((mod) => mod.LatestNotes)
   ),
-  dynamic<any>(() =>
-    import("@components/Dashboard").then((mod) => mod.Statistics)
-  ),
+  dynamic<any>(() => import("@components/Dashboard").then((mod) => mod.Tasks)),
   dynamic<any>(() => import("@components/Dashboard").then((mod) => mod.Notes)),
 ];
 
 export default function DashboardView() {
-  const { data: user } = useUser();
-  const { data: entries } = useEntries();
+  const { data: user, error } = useUser();
+  const { data: entries, error: entryError } = useEntries();
 
   return (
     <Box mb="200px">
@@ -32,12 +30,12 @@ export default function DashboardView() {
         flexDirection={{ base: "column", lg: "row" }}
         spacing={0}
       >
-        <LatestNotes data={user?.data?.data} />
+        <LatestNotes data={user?.data?.data} error={error} />
 
-        <Statistics data={user?.data?.data} />
+        <Tasks data={user?.data?.data} />
       </HStack>
 
-      <Notes notes={entries?.data?.data} />
+      <Notes notes={entries?.data?.data} entryError={entryError} />
     </Box>
   );
 }

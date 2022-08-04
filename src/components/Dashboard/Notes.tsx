@@ -6,10 +6,12 @@ import {
   Tab,
   TabPanel,
   Text,
+  Center,
+  Spinner,
 } from "@chakra-ui/react";
 import NotesCard from "./NotesCard";
 
-export default function Notes({ notes }: any) {
+export default function Notes({ notes, entryError }: any) {
   return (
     <Tabs>
       <TabList border="none" justifyContent="center">
@@ -54,8 +56,21 @@ export default function Notes({ notes }: any) {
       <TabPanels mt="2rem">
         <TabPanel p={0}>
           <Text mb="2rem" fontWeight="medium">
-            {notes?.length} notes
+            {notes?.length} {notes?.length < 2 ? "note" : "notes"}
           </Text>
+
+          {!entryError && !notes && (
+            <Center h="200px">
+              <Spinner
+                thickness="5px"
+                speed="0.8s"
+                emptyColor="gray.200"
+                color="#000000"
+                size="xl"
+              />
+            </Center>
+          )}
+
           <Box
             display="grid"
             gridTemplateColumns={{

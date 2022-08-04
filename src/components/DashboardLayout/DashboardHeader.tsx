@@ -54,12 +54,12 @@ export default function DashboardHeader({ onOpen }: any) {
               mr="1rem"
               type="button"
             >
-              <Link href="/dairy" passHref>
+              <Link href="/diary" passHref>
                 New
               </Link>
             </Button>
 
-            <Link href="/dairy" passHref>
+            <Link href="/diary" passHref>
               <Button
                 p="7px"
                 _focus={{ outline: "none" }}
