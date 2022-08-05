@@ -18,8 +18,8 @@ function entriesService({ api }: Service) {
     return result;
   };
 
-  const deleteUserEntries = async (data: any) => {
-    const result = await api.delete(`${prefix}`, data);
+  const deleteUserEntries = async (id: string) => {
+    const result = await api.delete(`${prefix}/${id}`);
     return result;
   };
 

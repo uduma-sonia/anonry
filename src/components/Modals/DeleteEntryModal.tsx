@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useRef, useState } from "react";
 import {
   AlertDialog,
@@ -19,24 +18,18 @@ export default function DeleteEntryModal({ isOpen, onClose, note }: any) {
   const cancelRef: any = useRef();
   const toast = useToast();
   const { mutate } = useSWRConfig();
-  const entriesCacheKey = swrKeys.getUserEntries;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleDelete = useCallback(async () => {
     try {
       setIsSubmitting(true);
-
-      const data = {
-        entry_id: note?._id,
-      };
-
-      const result = await entriesAPI.deleteUserEntries(data);
-
+      const result = await entriesAPI.deleteUserEntries(note?._id);
       if (result) {
-        mutate(entriesCacheKey);
+        mutate(swrKeys.getUserEntries);
+        mutate(swrKeys.getUserProfile);
         toast({
           position: "top-right",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
           render: () => (
             <Box
@@ -56,7 +49,7 @@ export default function DeleteEntryModal({ isOpen, onClose, note }: any) {
       console.log(err);
       toast({
         position: "top-right",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
         render: () => (
           <Box
@@ -74,7 +67,7 @@ export default function DeleteEntryModal({ isOpen, onClose, note }: any) {
     } finally {
       setIsSubmitting(false);
     }
-  }, []);
+  }, [mutate, note, toast]);
 
   return (
     <>

@@ -20,8 +20,8 @@ import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
 
 const schema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
+  title: z.string().min(1).max(100),
+  description: z.string().min(1).max(1000),
   tags: z.any(),
 });
 
@@ -67,7 +67,7 @@ export default function DairyForm() {
         mutate(entriesCacheKey);
         toast({
           position: "top-right",
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
           render: () => (
             <Box
@@ -86,7 +86,7 @@ export default function DairyForm() {
     } catch (err: any) {
       toast({
         position: "top-right",
-        duration: 9000,
+        duration: 4000,
         isClosable: true,
         render: () => (
           <Box

@@ -55,9 +55,17 @@ export default function Notes({ notes, entryError }: any) {
 
       <TabPanels mt="2rem">
         <TabPanel p={0}>
-          <Text mb="2rem" fontWeight="medium">
-            {notes?.length} {notes?.length < 2 ? "note" : "notes"}
-          </Text>
+          {notes?.length > 0 && (
+            <Text mb="2rem" fontWeight="medium">
+              {notes?.length} {notes?.length < 2 ? "note" : "notes"}
+            </Text>
+          )}
+
+          {notes?.length === 0 && (
+            <Text mt="6rem" textAlign="center" fontSize="sm" color="#000">
+              You are yet to create notes
+            </Text>
+          )}
 
           {!entryError && !notes && (
             <Center h="200px">
@@ -85,9 +93,9 @@ export default function Notes({ notes, entryError }: any) {
           </Box>
         </TabPanel>
 
-        <TabPanel>PUBLISHED</TabPanel>
+        <TabPanel>Coming Soon!</TabPanel>
 
-        <TabPanel>BOOKMARKS</TabPanel>
+        <TabPanel>Coming Soon!</TabPanel>
       </TabPanels>
     </Tabs>
   );
