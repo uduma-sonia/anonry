@@ -60,30 +60,41 @@ export default function PostCard() {
         Sit and stare eat fish on floor pushes butt to face
       </Heading>
 
-      <Text fontSize="sm" mt="0.7rem" opacity="0.7">
+      <Text fontSize="sm" mt="0.7rem" opacity="0.7" noOfLines={3}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
       </Text>
 
-      <Box mt="1rem" display="flex" justifyContent="flex-end">
-        <IconButton
-          aria-label=""
-          icon={<BsSuitHeart size="1.3rem" />}
-          _focus={{ outline: "none" }}
-          mr="1rem"
-          bg="none"
-          _hover={{ bg: "none" }}
-          _active={{ bg: "none" }}
-        />
+      <Box
+        mt="1rem"
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Text fontSize="sm" color="#000000" fontWeight="medium">
+          100 likes
+        </Text>
 
-        <IconButton
-          aria-label=""
-          icon={<VscBookmark size="1.3rem" />}
-          _focus={{ outline: "none" }}
-          bg="none"
-          _hover={{ bg: "none" }}
-          _active={{ bg: "none" }}
-        />
+        <Box>
+          <IconButton
+            aria-label=""
+            icon={<BsSuitHeart size="1.3rem" />}
+            _focus={{ outline: "none" }}
+            mr="1rem"
+            bg="none"
+            _hover={{ bg: "none" }}
+            _active={{ bg: "none" }}
+          />
+
+          <IconButton
+            aria-label=""
+            icon={<VscBookmark size="1.3rem" />}
+            _focus={{ outline: "none" }}
+            bg="none"
+            _hover={{ bg: "none" }}
+            _active={{ bg: "none" }}
+          />
+        </Box>
       </Box>
     </Box>
   );

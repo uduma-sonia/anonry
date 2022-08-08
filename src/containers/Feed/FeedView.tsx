@@ -9,11 +9,16 @@ const [Feed, SortingForm] = [
 
 export default function FeedView() {
   return (
-    <Box display="flex" gap="30px" position="relative">
-      <Box w="60%" position="relative">
+    <Box
+      display="flex"
+      gap="30px"
+      position="relative"
+      flexDirection={{ base: "column", lg: "row" }}
+    >
+      <Box w={{ base: "100%", lg: "60%" }} position="relative">
         <Feed />
       </Box>
-      <Box w="40%">
+      <Box w={{ base: "100%", lg: "40%" }}>
         <SortingForm />
       </Box>
     </Box>
