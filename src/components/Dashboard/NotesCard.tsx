@@ -8,16 +8,32 @@ import {
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { FiEdit3 } from "react-icons/fi";
-import DeleteEntryModal from "@components/Modals/DeleteEntryModal";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+import Link from "next/link";
+
+const [DeleteEntry, PublishEntry] = [
+  dynamic(() => import("../Modals").then((mod) => mod.DeleteEntry)),
+  dynamic(() => import("../Modals").then((mod) => mod.PublishEntry)),
+];
 
 export default function NotesCard({ note }: any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenPublish,
+    onOpen: onOpenPublish,
+    onClose: onClosePublish,
+  } = useDisclosure();
   const [currentNote, setCurrentNote] = useState();
 
   const openDeleteModal = () => {
     setCurrentNote(note);
     onOpen();
+  };
+
+  const openPublishModal = () => {
+    setCurrentNote(note);
+    onOpenPublish();
   };
 
   return (
@@ -31,7 +47,12 @@ export default function NotesCard({ note }: any) {
       borderRadius={10}
       h="fit-content"
     >
-      <DeleteEntryModal isOpen={isOpen} onClose={onClose} note={currentNote} />
+      <PublishEntry
+        isOpen={isOpenPublish}
+        onClose={onClosePublish}
+        note={currentNote}
+      />
+      <DeleteEntry isOpen={isOpen} onClose={onClose} note={currentNote} />
       <Heading fontSize="md" fontWeight="medium" mb="0.6rem">
         {note?.title}
 
@@ -72,23 +93,28 @@ export default function NotesCard({ note }: any) {
       </Text>
 
       <Box>
-        <Button
-          fontSize="xs"
-          variant="link"
-          _focus={{ outline: "1px solid gray" }}
-          color="#000"
-        >
-          Edit
-        </Button>
-        <Button
-          fontSize="xs"
-          variant="link"
-          mx="10px"
-          color="#000000"
-          _focus={{ outline: "1px solid gray" }}
-        >
-          Publish
-        </Button>
+        <Link href={`/diary?id=${note?._id}`} passHref>
+          <Button
+            fontSize="xs"
+            variant="link"
+            _focus={{ outline: "1px solid gray" }}
+            color="#000"
+          >
+            Edit
+          </Button>
+        </Link>
+        {!note?.published && (
+          <Button
+            fontSize="xs"
+            variant="link"
+            mx="10px"
+            color="#000000"
+            _focus={{ outline: "1px solid gray" }}
+            onClick={openPublishModal}
+          >
+            Publish
+          </Button>
+        )}
         <Button
           fontSize="xs"
           variant="link"

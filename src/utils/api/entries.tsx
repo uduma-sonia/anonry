@@ -39,12 +39,18 @@ function entriesService({ api }: Service) {
     return result;
   };
 
+  const publishEntry = async (id: string) => {
+    const result = await api.patch(`${prefix}/${id}`);
+    return result;
+  };
+
   return Object.freeze({
     createEntry,
     getUserEntries,
     deleteUserEntries,
     getSingleEntry,
     updateUserEntries,
+    publishEntry,
   });
 }
 
