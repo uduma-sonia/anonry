@@ -20,8 +20,8 @@ import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
 
 const schema = z.object({
-  title: z.string().min(1).max(100),
-  description: z.string().min(1).max(1000),
+  title: z.string().min(1).max(100).trim(),
+  description: z.string().min(1).max(1000).trim(),
   tags: z.any(),
 });
 

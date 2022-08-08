@@ -1,13 +1,19 @@
 import { Service, ReqConfig } from "../types";
 const prefix = "/entries";
 
-function entriesService({ api }: Service) {
-  type CreateEntry = {
-    title: string;
-    description: string;
-    tags?: any;
-  };
+type CreateEntry = {
+  title: string;
+  description: string;
+  tags?: any;
+};
 
+type UpdateEntry = {
+  title: string;
+  description: string;
+  entry_id: string;
+};
+
+function entriesService({ api }: Service) {
   const createEntry = async (data: CreateEntry, reqConfig?: ReqConfig) => {
     const result = await api.post(`${prefix}`, data, { ...reqConfig });
     return result;
@@ -18,8 +24,18 @@ function entriesService({ api }: Service) {
     return result;
   };
 
+  const getSingleEntry = async (id: any, reqConfig?: ReqConfig) => {
+    const result = await api.get(`${prefix}/${id}`, { ...reqConfig });
+    return result;
+  };
+
   const deleteUserEntries = async (id: string) => {
     const result = await api.delete(`${prefix}/${id}`);
+    return result;
+  };
+
+  const updateUserEntries = async (data: UpdateEntry) => {
+    const result = await api.patch(`${prefix}`, data);
     return result;
   };
 
@@ -27,6 +43,8 @@ function entriesService({ api }: Service) {
     createEntry,
     getUserEntries,
     deleteUserEntries,
+    getSingleEntry,
+    updateUserEntries,
   });
 }
 

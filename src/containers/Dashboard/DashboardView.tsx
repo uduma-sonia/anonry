@@ -35,7 +35,7 @@ export default function DashboardView() {
         <Tasks data={user?.data?.data} />
       </HStack>
 
-      <Notes notes={entries?.data?.data} entryError={entryError} />
+      <Notes notes={entries?.data?.data?.entries} entryError={entryError} />
     </Box>
   );
 }

@@ -84,7 +84,7 @@ export default function DairyView() {
             uh oh, couldn&apos;t retrieve data, try again
           </Text>
         )}
-        {entries?.data?.data.length === 0 && (
+        {entries?.data?.data?.entries.length === 0 && (
           <Text fontSize="sm" color="#000">
             Start Creating notes
           </Text>
@@ -103,8 +103,8 @@ export default function DairyView() {
             </Stack>
           </>
         )}
-        {}
-        <AllEntries entries={entries?.data?.data} />
+
+        <AllEntries entries={entries?.data?.data?.entries} />
       </Box>
 
       {switchForms()}

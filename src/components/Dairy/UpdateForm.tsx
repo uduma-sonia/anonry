@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -8,68 +7,81 @@ import {
   Input,
   Button,
   Textarea,
-  Select,
   Tag,
   TagLabel,
   TagCloseButton,
   useToast,
 } from "@chakra-ui/react";
 import { entriesAPI } from "@utils/api";
-import { useSWRConfig } from "swr";
-
+import useSWR, { useSWRConfig } from "swr";
+import { useRouter } from "next/router";
 import { swrKeys } from "@utils/swrKeys";
 
 const schema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
-  tags: z.any(),
+  title: z.string().min(1).max(100).trim(),
+  description: z.string().min(1).max(1000).trim(),
+  entry_id: z.string(),
 });
 
 export default function UpdateForm() {
   const [selectedTags, setSelectedTags] = useState<any>([]);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const router = useRouter();
+  const { id } = router.query;
   const toast = useToast();
   const { mutate } = useSWRConfig();
-  const entriesCacheKey = swrKeys.getUserEntries;
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { data: entry } = useSWR(
+    router.isReady && swrKeys.getSingleEntry(id),
+    async () => entriesAPI.getSingleEntry(id),
+    {
+      revalidateOnMount: true,
+    }
+  );
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    reset,
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      description: "Still working on this, you can't edit yet",
-      tags: "",
-      title: "title",
-    },
   });
-  setValue("tags", selectedTags);
 
-  const handleSelect = (tag: any) => {
-    if (selectedTags.length === 3) {
-      setSelectedTags(selectedTags);
-    } else {
-      setSelectedTags([...selectedTags, tag]);
+  useEffect(() => {
+    if (entry) {
+      setValue("description", entry?.data?.data?.description);
+      setValue("title", entry?.data?.data?.title);
     }
-  };
+  }, [entry, setValue]);
 
-  const handleRemoveTag = (tag: any) => {
-    let modifiedArr = selectedTags.filter((a: any) => a !== tag);
-    setSelectedTags(modifiedArr);
-  };
-
-  const onSubmit = useCallback(async (data) => {
-    try {
-      setIsSubmitting(true);
-      const result = await entriesAPI.createEntry(data);
-      if (result) {
-        reset();
-        setSelectedTags([]);
-        mutate(entriesCacheKey);
+  const onSubmit = useCallback(
+    async (data) => {
+      try {
+        setIsSubmitting(true);
+        const result = await entriesAPI.updateUserEntries(data);
+        if (result) {
+          mutate(swrKeys.getUserEntries);
+          mutate(swrKeys.getSingleEntry);
+          toast({
+            position: "top-right",
+            duration: 9000,
+            isClosable: true,
+            render: () => (
+              <Box
+                color="white"
+                p={3}
+                bg="black"
+                borderRadius={10}
+                textAlign="center"
+                fontSize="xs"
+              >
+                {result?.data?.message}
+              </Box>
+            ),
+          });
+        }
+      } catch (err: any) {
         toast({
           position: "top-right",
           duration: 9000,
@@ -78,90 +90,56 @@ export default function UpdateForm() {
             <Box
               color="white"
               p={3}
-              bg="black"
+              bg="#fa4e37"
               borderRadius={10}
               textAlign="center"
               fontSize="xs"
             >
-              {result?.data?.message}
+              {err ?? "Error, try again"}
             </Box>
           ),
         });
+      } finally {
+        setIsSubmitting(false);
       }
-    } catch (err: any) {
-      toast({
-        position: "top-right",
-        duration: 9000,
-        isClosable: true,
-        render: () => (
-          <Box
-            color="white"
-            p={3}
-            bg="#fa4e37"
-            borderRadius={10}
-            textAlign="center"
-            fontSize="xs"
-          >
-            {err ?? "Error, try again"}
-          </Box>
-        ),
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, []);
+    },
+    [mutate, toast]
+  );
 
   return (
-    <Box px={{ lg: "1rem" }} as="form">
+    <Box px={{ lg: "1rem" }} as="form" onSubmit={handleSubmit(onSubmit)}>
       <Box display="flex">
+        <Input {...register("entry_id")} hidden value={id} />
         <Input
           placeholder="title"
           border="none"
           bg="white"
+          mr="1rem"
           _focus={{ outline: "none" }}
           {...register("title")}
         />
 
-        <Select
-          w="200px"
-          mx="1rem"
-          bg="#fff"
-          border="none"
-          placeholder="tag"
-          onChange={(e: any) => handleSelect(e.target.value)}
-        >
-          {allTags.map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </Select>
-
         <Button variant="primary" type="submit" isLoading={isSubmitting}>
-          Save
+          Update
         </Button>
       </Box>
 
-      <Box
-        mt="1rem"
-        display="flex"
-        flexWrap="nowrap"
-        gap="10px"
-        overflowX="auto"
-      >
-        {selectedTags.map((tag: any) => (
-          <Tag
-            bg="black"
-            color="#fff"
-            px="10px"
-            py="4px"
-            key={tag}
-            w="fit-content"
-          >
-            <TagLabel>{tag}</TagLabel>
-            <TagCloseButton onClick={() => handleRemoveTag(tag)} />
-          </Tag>
-        ))}
+      <Box mt="1rem" display="flex" flexWrap="wrap" gap="10px">
+        {entry?.data?.data?.tags.map(
+          ({ name, _id }: { name: string; _id: string }) => (
+            <Tag
+              key={_id}
+              fontSize="xs"
+              opacity="0.7"
+              borderRadius="20px"
+              w="fit-content"
+              bg="#00000020"
+              color="#000"
+            >
+              {name}
+            </Tag>
+          )
+        )}
       </Box>
 
       <Textarea

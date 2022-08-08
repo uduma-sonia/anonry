@@ -21,7 +21,7 @@ import * as z from "zod";
 
 const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}/;
 const schema = z.object({
-  user_name: z.string().min(1),
+  user_name: z.string().min(3),
   email: z.string().email(),
   password: z.string().regex(regex),
 });
