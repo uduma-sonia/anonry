@@ -21,6 +21,8 @@ export default function DashboardHeader({ onOpen }: any) {
       return "Home";
     } else if (router.pathname === "/diary") {
       return "Diary";
+    } else if (router.pathname === "/feed") {
+      return "Feed";
     }
   };
 

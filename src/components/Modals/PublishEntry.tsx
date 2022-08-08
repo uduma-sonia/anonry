@@ -26,6 +26,7 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
       const result = await entriesAPI.publishEntry(note?._id);
       if (result) {
         mutate(swrKeys.getUserEntries);
+        onClose();
         toast({
           position: "top-right",
           duration: 4000,
@@ -65,7 +66,7 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
     } finally {
       setIsSubmitting(false);
     }
-  }, [mutate, note, toast]);
+  }, [mutate, note?._id, onClose, toast]);
 
   return (
     <>

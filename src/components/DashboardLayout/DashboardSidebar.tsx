@@ -31,8 +31,8 @@ export default function DashboardSidebar() {
       icon: <RiBookletFill />,
     },
     {
-      route: "/entries",
-      label: "Entries",
+      route: "/feed",
+      label: "Feed",
       icon: <HiOutlineViewBoards />,
     },
     {
@@ -71,8 +71,7 @@ export default function DashboardSidebar() {
 
       <UnorderedList listStyleType="none" spacing={0}>
         {defaultRoutes.map(({ route, label, icon, sub_route }) => {
-          const isActive =
-            router.pathname === route || router.pathname === sub_route;
+          const isActive = router.asPath.includes(route);
 
           return (
             <ListItem
