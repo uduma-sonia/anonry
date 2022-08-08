@@ -19,7 +19,6 @@ No first name and last name collected.
 
 -ChakraUI
 
--SWR CONFIGURATION
 
 ### BACKEND TECHNOLOGIES
 
