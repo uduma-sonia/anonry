@@ -13,8 +13,8 @@ import { useState } from "react";
 import Link from "next/link";
 
 const [DeleteEntry, PublishEntry] = [
-  dynamic(() => import("../Modals").then((mod) => mod.DeleteEntry)),
-  dynamic(() => import("../Modals").then((mod) => mod.PublishEntry)),
+  dynamic<any>(() => import("../Modals").then((mod) => mod.DeleteEntry)),
+  dynamic<any>(() => import("../Modals").then((mod) => mod.PublishEntry)),
 ];
 
 export default function NotesCard({ note }: any) {
