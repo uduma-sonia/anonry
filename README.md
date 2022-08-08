@@ -1,4 +1,4 @@
-DAIRY APP - (Name subject to change later on)
+ANONRY
 
 An app that allows users to take personal notes.
 
@@ -19,7 +19,6 @@ No first name and last name collected.
 
 -ChakraUI
 
--SWR CONFIGURATION
 
 ### BACKEND TECHNOLOGIES
 
