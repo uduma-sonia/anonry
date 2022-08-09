@@ -15,7 +15,12 @@ export default function FeedView() {
       position="relative"
       flexDirection={{ base: "column", lg: "row" }}
     >
-      <Box w={{ base: "100%", lg: "60%" }} position="relative">
+      <Box
+        w={{ base: "100%", lg: "60%" }}
+        maxH="calc(100vh - 120px - 4rem)"
+        overflowY="auto"
+        className="no-scrollbar"
+      >
         <Feed />
       </Box>
       <Box w={{ base: "100%", lg: "40%" }}>

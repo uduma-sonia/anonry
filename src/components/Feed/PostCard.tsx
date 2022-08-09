@@ -8,9 +8,10 @@ export default function PostCard() {
     <Box
       bg="white"
       border="1px solid #d7d7d7"
-      borderRadius="20px"
+      borderRadius="10px"
       p="20px"
       mb="20px"
+      boxShadow="sm"
     >
       <Box display="flex" alignItems="center">
         <Avatar src="" name="Khallekan" size="md" />
