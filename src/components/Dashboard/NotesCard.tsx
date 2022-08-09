@@ -46,6 +46,7 @@ export default function NotesCard({ note }: any) {
       mr={{ base: "0rem", lg: "1.5rem" }}
       borderRadius={10}
       h="fit-content"
+      position="relative"
     >
       <PublishEntry
         isOpen={isOpenPublish}
@@ -53,21 +54,23 @@ export default function NotesCard({ note }: any) {
         note={currentNote}
       />
       <DeleteEntry isOpen={isOpen} onClose={onClose} note={currentNote} />
+      {note?.edited && (
+        <Tag
+          ml="1rem"
+          fontSize="9px"
+          opacity="0.7"
+          bg="transparent"
+          border="none"
+          position="absolute"
+          top="5px"
+          right="10px"
+        >
+          <FiEdit3 />
+          Edited
+        </Tag>
+      )}
       <Heading fontSize="md" fontWeight="medium" mb="0.6rem">
         {note?.title}
-
-        {note?.edited && (
-          <Tag
-            ml="1rem"
-            fontSize="9px"
-            opacity="0.7"
-            bg="transparent"
-            border="none"
-          >
-            <FiEdit3 />
-            Edited
-          </Tag>
-        )}
       </Heading>
 
       <Text fontSize="sm" opacity="0.8">
