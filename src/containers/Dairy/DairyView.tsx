@@ -144,7 +144,7 @@ export default function DairyView() {
           />
 
           <DrawerBody pt="2rem">
-            <AllEntries entries={entries?.data?.data} />
+            <AllEntries entries={entries?.data?.data?.entries} />
           </DrawerBody>
         </DrawerContent>
       </Drawer>
