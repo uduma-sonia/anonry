@@ -25,7 +25,7 @@ function entriesService({ api }: Service) {
   };
 
   const getUserEntries = async (data: UserEntries, reqConfig?: ReqConfig) => {
-    const { limit = 2, page = 1 } = data;
+    const { limit = 20, page = 1 } = data;
 
     const result = await api.get(`${prefix}?limit=${limit}&page=${page}`, {
       ...reqConfig,

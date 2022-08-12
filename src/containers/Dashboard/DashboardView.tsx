@@ -53,6 +53,7 @@ export default function DashboardView() {
         my="2rem"
         flexDirection={{ base: "column", lg: "row" }}
         spacing={0}
+        alignItems="stretch"
       >
         <LatestNotes data={user?.data?.data} error={error} />
 

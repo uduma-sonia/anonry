@@ -16,7 +16,11 @@ export default function Tasks({ data }: any) {
       </Text>
 
       <Box display="flex" justifyContent="space-between" mb="2rem">
-        <Checkbox>
+        <Checkbox
+          defaultChecked
+          _checked={{ textDecor: "line-through" }}
+          colorScheme="blackAlpha"
+        >
           <Box>
             <Text fontSize="sm" opacity="0.8">
               Buy Milk
@@ -27,35 +31,15 @@ export default function Tasks({ data }: any) {
           7 hours
         </Text>
       </Box>
+
       <Box display="flex" justifyContent="space-between" mb="2rem">
-        <Checkbox>
+        <Checkbox
+          _checked={{ textDecor: "line-through" }}
+          colorScheme="blackAlpha"
+        >
           <Box>
             <Text fontSize="sm" opacity="0.8">
-              Buy Milk
-            </Text>
-          </Box>
-        </Checkbox>
-        <Text fontSize="sm" opacity="0.8">
-          7 hours
-        </Text>
-      </Box>
-      <Box display="flex" justifyContent="space-between" mb="2rem">
-        <Checkbox>
-          <Box>
-            <Text fontSize="sm" opacity="0.8">
-              Buy Milk
-            </Text>
-          </Box>
-        </Checkbox>
-        <Text fontSize="sm" opacity="0.8">
-          7 hours
-        </Text>
-      </Box>
-      <Box display="flex" justifyContent="space-between" mb="2rem">
-        <Checkbox>
-          <Box>
-            <Text fontSize="sm" opacity="0.8">
-              Buy Milk
+              Buy Cookies
             </Text>
           </Box>
         </Checkbox>
