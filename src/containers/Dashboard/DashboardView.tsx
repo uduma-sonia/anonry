@@ -2,7 +2,10 @@ import React from "react";
 import { Box, Heading, Text, HStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useUser } from "@utils/hooks/useUser";
-import { useEntries } from "@utils/hooks/useEntries";
+import { entriesAPI } from "@utils/api";
+import { useRouter } from "next/router";
+import { swrKeys } from "@utils/swrKeys";
+import useSWR from "swr";
 
 const [LatestNotes, Tasks, Notes] = [
   dynamic<any>(() =>
@@ -14,7 +17,16 @@ const [LatestNotes, Tasks, Notes] = [
 
 export default function DashboardView() {
   const { data: user, error } = useUser();
-  const { data: entries, error: entryError } = useEntries();
+  const router = useRouter();
+  const { page = 1 } = router.query;
+
+  const { data: entries, error: entryError } = useSWR(
+    router.isReady && swrKeys.getUserEntries,
+    async () => entriesAPI.getUserEntries({ page }),
+    {
+      revalidateOnMount: true,
+    }
+  );
 
   return (
     <Box mb="200px">

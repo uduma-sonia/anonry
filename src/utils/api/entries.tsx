@@ -13,14 +13,23 @@ type UpdateEntry = {
   entry_id: string;
 };
 
+type UserEntries = {
+  limit?: number;
+  page?: string | string[] | number;
+};
+
 function entriesService({ api }: Service) {
   const createEntry = async (data: CreateEntry, reqConfig?: ReqConfig) => {
     const result = await api.post(`${prefix}`, data, { ...reqConfig });
     return result;
   };
 
-  const getUserEntries = async (reqConfig?: ReqConfig) => {
-    const result = await api.get(`${prefix}`, { ...reqConfig });
+  const getUserEntries = async (data: UserEntries, reqConfig?: ReqConfig) => {
+    const { limit = 2, page = 1 } = data;
+
+    const result = await api.get(`${prefix}?limit=${limit}&page=${page}`, {
+      ...reqConfig,
+    });
     return result;
   };
 

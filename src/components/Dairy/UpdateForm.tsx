@@ -2,16 +2,7 @@ import { useCallback, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {
-  Box,
-  Input,
-  Button,
-  Textarea,
-  Tag,
-  TagLabel,
-  TagCloseButton,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Input, Button, Textarea, Tag, useToast } from "@chakra-ui/react";
 import { entriesAPI } from "@utils/api";
 import useSWR, { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
