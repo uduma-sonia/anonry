@@ -23,7 +23,65 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
   const handlePublish = useCallback(async () => {
     try {
       setIsSubmitting(true);
-      const result = await entriesAPI.publishEntry(note?._id);
+
+      const data = {
+        action: "publish",
+      };
+
+      const result = await entriesAPI.publishEntry(data, note?._id);
+      if (result) {
+        mutate(swrKeys.getUserEntries);
+        onClose();
+        toast({
+          position: "top-right",
+          duration: 4000,
+          isClosable: true,
+          render: () => (
+            <Box
+              color="white"
+              p={3}
+              bg="black"
+              borderRadius={10}
+              textAlign="center"
+              fontSize="xs"
+            >
+              {result?.data?.message}
+            </Box>
+          ),
+        });
+      }
+    } catch (err: any) {
+      toast({
+        position: "top-right",
+        duration: 4000,
+        isClosable: true,
+        render: () => (
+          <Box
+            color="white"
+            p={3}
+            bg="#fa4e37"
+            borderRadius={10}
+            textAlign="center"
+            fontSize="xs"
+          >
+            {err ?? "Error, try again"}
+          </Box>
+        ),
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [mutate, note?._id, onClose, toast]);
+
+  const handleUnpublish = useCallback(async () => {
+    try {
+      setIsSubmitting(true);
+
+      const data = {
+        action: "unpublish",
+      };
+
+      const result = await entriesAPI.unPublishEntry(data, note?._id);
       if (result) {
         mutate(swrKeys.getUserEntries);
         onClose();
@@ -80,7 +138,8 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="md" fontWeight="medium">
-              Publish Note
+              {note?.published ? "Unpublish" : "Publish"}
+              Note
             </AlertDialogHeader>
 
             <AlertDialogBody textAlign="center">Are you sure?</AlertDialogBody>
@@ -96,13 +155,23 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
               >
                 Cancel
               </Button>
-              <Button
-                variant="primary"
-                isLoading={isSubmitting}
-                onClick={handlePublish}
-              >
-                Publish
-              </Button>
+              {note?.published ? (
+                <Button
+                  variant="primary"
+                  isLoading={isSubmitting}
+                  onClick={handleUnpublish}
+                >
+                  Unpublish
+                </Button>
+              ) : (
+                <Button
+                  variant="primary"
+                  isLoading={isSubmitting}
+                  onClick={handlePublish}
+                >
+                  Publish
+                </Button>
+              )}
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>

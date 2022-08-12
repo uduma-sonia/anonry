@@ -26,7 +26,7 @@ const ForgotPassword: NextPage = () => {
       <Head>
         <title>Anonry | Forgot password</title>
         <meta name="description" content="retrieve your anonry account" />
-        <link rel="icon" href="" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <>

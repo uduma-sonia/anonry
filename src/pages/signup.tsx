@@ -23,7 +23,7 @@ const Signup: NextPage = () => {
       <Head>
         <title>Anonry | Signup</title>
         <meta name="description" content="Sign up on anonry" />
-        <link rel="icon" href="" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <>

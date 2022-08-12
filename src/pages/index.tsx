@@ -39,7 +39,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Anonry</title>
         <meta name="description" content="Anonry" />
-        <link rel="icon" href="" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <DashboardLayout>
         <DashboardView />

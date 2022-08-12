@@ -23,7 +23,7 @@ const Signup: NextPage = () => {
       <Head>
         <title>Anonry | Login</title>
         <meta name="description" content="log into your anonry account" />
-        <link rel="icon" href="" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <>

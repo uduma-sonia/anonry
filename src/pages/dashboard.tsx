@@ -39,7 +39,7 @@ const Dashboard: NextPage = () => {
       <Head>
         <title>Anonry - Dashboard</title>
         <meta name="description" content="Anonry" />
-        <link rel="icon" href="" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <DashboardLayout>

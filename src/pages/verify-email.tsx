@@ -26,7 +26,7 @@ const VerifyEmail: NextPage = () => {
       <Head>
         <title>Anonry | Verify email</title>
         <meta name="description" content="Verify your anonry email" />
-        <link rel="icon" href="" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
 
       <>

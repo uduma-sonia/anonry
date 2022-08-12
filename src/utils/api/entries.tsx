@@ -48,8 +48,13 @@ function entriesService({ api }: Service) {
     return result;
   };
 
-  const publishEntry = async (id: string) => {
-    const result = await api.patch(`${prefix}/${id}`);
+  const publishEntry = async (data: { action: string }, id: string) => {
+    const result = await api.patch(`${prefix}/${id}`, data);
+    return result;
+  };
+
+  const unPublishEntry = async (data: { action: string }, id: string) => {
+    const result = await api.patch(`${prefix}/${id}`, data);
     return result;
   };
 
@@ -60,6 +65,7 @@ function entriesService({ api }: Service) {
     getSingleEntry,
     updateUserEntries,
     publishEntry,
+    unPublishEntry,
   });
 }
 

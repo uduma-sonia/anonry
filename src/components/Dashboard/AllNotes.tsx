@@ -46,11 +46,13 @@ export default function AllNotes({ notes, entryError, notesMeta }: any) {
         ))}
       </Box>
 
-      <Pagination
-        currentPage={page}
-        currentUrl={"/dashboard"}
-        totalPages={notesMeta?.totalPages}
-      />
+      {notes && (
+        <Pagination
+          currentPage={page}
+          currentUrl={"/dashboard"}
+          totalPages={notesMeta?.totalPages}
+        />
+      )}
     </>
   );
 }

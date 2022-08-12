@@ -106,18 +106,17 @@ export default function NotesCard({ note }: any) {
             Edit
           </Button>
         </Link>
-        {!note?.published && (
-          <Button
-            fontSize="xs"
-            variant="link"
-            mx="10px"
-            color="#000000"
-            _focus={{ outline: "1px solid gray" }}
-            onClick={openPublishModal}
-          >
-            Publish
-          </Button>
-        )}
+
+        <Button
+          fontSize="xs"
+          variant="link"
+          mx="10px"
+          color="#000000"
+          _focus={{ outline: "1px solid gray" }}
+          onClick={openPublishModal}
+        >
+          {note?.published ? "unpublish" : "publish"}
+        </Button>
         <Button
           fontSize="xs"
           variant="link"
