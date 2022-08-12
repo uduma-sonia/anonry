@@ -3,7 +3,7 @@ import NotesCard from "./NotesCard";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useRouter } from "next/router";
 
-export default function AllNotes({ notes, entryError }: any) {
+export default function AllNotes({ notes, entryError, notesMeta }: any) {
   const router = useRouter();
   const { page } = router.query;
 
@@ -57,7 +57,7 @@ export default function AllNotes({ notes, entryError }: any) {
         ))}
       </Box>
 
-      <Box display="flex" justifyContent="flex-end" gap="1px">
+      <Box display="flex" justifyContent="center" gap="1px" mt="2rem">
         <IconButton
           aria-label=""
           icon={<FaChevronLeft />}
@@ -70,6 +70,7 @@ export default function AllNotes({ notes, entryError }: any) {
           borderRadius={0}
           transition="all 0.5s"
           onClick={() => handlePagination(Number(page) - 1)}
+          disabled={Number(page) === 1}
         />
 
         <Tag
@@ -81,7 +82,7 @@ export default function AllNotes({ notes, entryError }: any) {
           justifyContent="center"
           alignItems="center"
         >
-          1
+          {page}
         </Tag>
 
         <IconButton
@@ -96,6 +97,7 @@ export default function AllNotes({ notes, entryError }: any) {
           borderRadius={0}
           transition="all 0.5s"
           onClick={() => handlePagination(Number(page) + 1)}
+          disabled={notesMeta?.totalPages === Number(page)}
         />
       </Box>
     </>

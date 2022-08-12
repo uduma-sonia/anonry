@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Heading, Text, HStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useUser } from "@utils/hooks/useUser";
@@ -21,12 +21,24 @@ export default function DashboardView() {
   const { page = 1 } = router.query;
 
   const { data: entries, error: entryError } = useSWR(
-    router.isReady && swrKeys.getUserEntries,
+    router.isReady && swrKeys.getUserEntries({ page }),
     async () => entriesAPI.getUserEntries({ page }),
     {
       revalidateOnMount: true,
     }
   );
+  useEffect(() => {
+    if (router.isReady && !router.query.page) {
+      router.replace(
+        {
+          pathname: "/dashboard",
+          query: { page: 1 },
+        },
+        undefined,
+        { shallow: true }
+      );
+    }
+  }, [router]);
 
   return (
     <Box mb="200px">
@@ -47,7 +59,11 @@ export default function DashboardView() {
         <Tasks data={user?.data?.data} />
       </HStack>
 
-      <Notes notes={entries?.data?.data?.entries} entryError={entryError} />
+      <Notes
+        notes={entries?.data?.data?.entries}
+        entryError={entryError}
+        notesMeta={entries?.data?.data.pageInfo}
+      />
     </Box>
   );
 }
