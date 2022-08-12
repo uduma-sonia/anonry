@@ -4,7 +4,6 @@ import { useUser } from "@utils/hooks/useUser";
 
 export default function ProfileCard() {
   const { data: user } = useUser();
-  console.log(user);
 
   return (
     <Box
@@ -18,8 +17,8 @@ export default function ProfileCard() {
         size="xl"
         src={user?.data?.data?.avatar}
         name={user?.data?.data?.user_name}
-        display={{ base: "none", xl: "block" }}
         mx="auto"
+        display="block"
       />
 
       <Text fontWeight="medium" fontSize="lg" textAlign="center" mt="1rem">

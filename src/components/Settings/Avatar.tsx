@@ -37,7 +37,6 @@ export default function AvatarView() {
             <Avatar
               size="lg"
               src={ava}
-              display={{ base: "none", xl: "block" }}
               mx="auto"
               cursor="pointer"
               transition="all 0.5s"
@@ -62,7 +61,7 @@ const allAvatars = [
     ava: "https://robohash.org/freaky?set=set2&size=500x500",
   },
   {
-    ava: "https://robohash.org/nutty?set=set2&size=500x500",
+    ava: "https://robohash.org/67w?set=set2&size=500x500",
   },
 
   {

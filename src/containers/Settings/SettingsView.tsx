@@ -10,9 +10,10 @@ import {
 } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 
-const [ProfileCard, AvatarView] = [
+const [ProfileCard, AvatarView, Security] = [
   dynamic(() => import("@components/Settings/ProfileCard")),
   dynamic(() => import("@components/Settings/Avatar")),
+  dynamic(() => import("@components/Settings/Security")),
 ];
 
 export default function SettingsView() {
@@ -59,7 +60,7 @@ export default function SettingsView() {
                 <AvatarView />
               </TabPanel>
               <TabPanel>
-                <p>two!</p>
+                <Security />
               </TabPanel>
             </TabPanels>
           </Tabs>

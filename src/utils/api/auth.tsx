@@ -58,6 +58,16 @@ function authService({ api }: Service) {
     return result;
   };
 
+  const changePassword = async (
+    data: { password: string },
+    reqConfig?: ReqConfig
+  ) => {
+    const result = await api.post(`${prefix}/update-password`, data, {
+      ...reqConfig,
+    });
+    return result;
+  };
+
   return Object.freeze({
     signup,
     login,
@@ -65,6 +75,7 @@ function authService({ api }: Service) {
     resendOtp,
     forgotPassword,
     resetPassword,
+    changePassword,
   });
 }
 
