@@ -44,7 +44,7 @@ export default function DashboardView() {
     <Box mb="200px">
       <Heading fontWeight="normal" fontSize="lg">
         Welcome,{" "}
-        <Text as="span" fontWeight="medium" textTransform="capitalize">
+        <Text as="span" fontWeight="medium">
           {user?.data?.data?.user_name}
         </Text>
       </Heading>

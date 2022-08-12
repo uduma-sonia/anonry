@@ -8,11 +8,11 @@ export default function LatestNotes({ data, error }: any) {
   return (
     <Box
       border="1px solid #d7d7d7"
-      mr={{ lg: "2rem" }}
       borderRadius={10}
       p="1rem"
       bg="white"
       color="#000"
+      mr={{ lg: "2rem" }}
       w={{ base: "100%", lg: "60%" }}
       mb={{ base: "2rem", lg: "0rem" }}
     >

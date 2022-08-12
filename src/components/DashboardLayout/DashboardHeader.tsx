@@ -23,6 +23,8 @@ export default function DashboardHeader({ onOpen }: any) {
       return "Diary";
     } else if (router.pathname === "/feed") {
       return "Feed";
+    } else if (router.pathname === "/settings") {
+      return "Settings";
     }
   };
 
@@ -74,19 +76,25 @@ export default function DashboardHeader({ onOpen }: any) {
               </Button>
             </Link>
 
-            <Avatar
-              size="sm"
-              src={user?.data?.data?.avatar}
-              display={{ base: "block", xl: "none" }}
-              name={user?.data?.data?.user_name}
-            />
+            <Link href="/settings" passHref>
+              <Avatar
+                size="sm"
+                src={user?.data?.data?.avatar}
+                display={{ base: "block", xl: "none" }}
+                name={user?.data?.data?.user_name}
+                cursor="pointer"
+              />
+            </Link>
 
-            <Avatar
-              size="md"
-              src={user?.data?.data?.avatar}
-              display={{ base: "none", xl: "block" }}
-              name={user?.data?.data?.user_name}
-            />
+            <Link href="/settings" passHref>
+              <Avatar
+                size="md"
+                src={user?.data?.data?.avatar}
+                name={user?.data?.data?.user_name}
+                display={{ base: "none", xl: "block" }}
+                cursor="pointer"
+              />
+            </Link>
           </Box>
         </HStack>
       </Box>
