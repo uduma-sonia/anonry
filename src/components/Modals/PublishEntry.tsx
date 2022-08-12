@@ -13,11 +13,15 @@ import {
 import { entriesAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
+import { useRouter } from "next/router";
 
 export default function PublishEntry({ isOpen, onClose, note }: any) {
   const cancelRef: any = useRef();
   const toast = useToast();
   const { mutate } = useSWRConfig();
+  const router = useRouter();
+  const { page = 1 } = router.query;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handlePublish = useCallback(async () => {
@@ -30,7 +34,7 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
 
       const result = await entriesAPI.publishEntry(data, note?._id);
       if (result) {
-        mutate(swrKeys.getUserEntries);
+        mutate(swrKeys.getUserEntries({ page }));
         onClose();
         toast({
           position: "top-right",
@@ -71,7 +75,7 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
     } finally {
       setIsSubmitting(false);
     }
-  }, [mutate, note?._id, onClose, toast]);
+  }, [mutate, note?._id, onClose, page, toast]);
 
   const handleUnpublish = useCallback(async () => {
     try {
@@ -83,7 +87,8 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
 
       const result = await entriesAPI.unPublishEntry(data, note?._id);
       if (result) {
-        mutate(swrKeys.getUserEntries);
+        mutate(swrKeys.getUserEntries({ page }));
+
         onClose();
         toast({
           position: "top-right",
@@ -124,7 +129,7 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
     } finally {
       setIsSubmitting(false);
     }
-  }, [mutate, note?._id, onClose, toast]);
+  }, [mutate, note?._id, onClose, page, toast]);
 
   return (
     <>
