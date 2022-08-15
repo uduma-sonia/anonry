@@ -46,7 +46,7 @@ export default function AllNotes({ notes, entryError, notesMeta }: any) {
         ))}
       </Box>
 
-      {notes && (
+      {notes && notes.length > 0 && (
         <Pagination
           currentPage={page}
           currentUrl={"/dashboard"}

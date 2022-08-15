@@ -7,7 +7,7 @@ const [Feed, SortingForm] = [
   dynamic(() => import("@components/Feed/SortingForm")),
 ];
 
-export default function FeedView() {
+export default function FeedView({ data }: any) {
   return (
     <Box
       display="flex"
@@ -21,7 +21,7 @@ export default function FeedView() {
         overflowY="auto"
         className="no-scrollbar"
       >
-        <Feed />
+        <Feed data={data?.entries} />
       </Box>
       <Box w={{ base: "100%", lg: "40%" }}>
         <SortingForm />

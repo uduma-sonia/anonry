@@ -16,8 +16,14 @@ const entryKeys = {
   getSingleEntry: (id: any) => `/entries/${id}`,
 };
 
+const timelineKeys = {
+  getTimeline: "/timeline",
+};
+
 export const swrKeys = {
   ...usersKeys,
 
   ...entryKeys,
+
+  ...timelineKeys,
 };

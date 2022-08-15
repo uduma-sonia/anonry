@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 import authService from "./auth";
 import userService from "./user";
 import entriesService from "./entries";
+import timelineService from "./timeline";
 
 export const API_ENDPOINT = "https://anonry.herokuapp.com";
 const isBrowser = typeof window !== undefined;
@@ -48,3 +49,4 @@ api.interceptors.request.use(addTokenToRequest);
 export const authAPI = authService({ api });
 export const userAPI = userService({ api });
 export const entriesAPI = entriesService({ api });
+export const timelineAPI = timelineService({ api });
