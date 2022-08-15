@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { entriesAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
-
+import { useTags } from "@utils/hooks/useTags";
 import { swrKeys } from "@utils/swrKeys";
 
 const schema = z.object({
@@ -26,11 +26,11 @@ const schema = z.object({
 });
 
 export default function DairyForm() {
+  const { data: tags } = useTags();
+  const { mutate } = useSWRConfig();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const toast = useToast();
-  const { mutate } = useSWRConfig();
   const entriesCacheKey = swrKeys.getUserEntries;
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -121,13 +121,14 @@ export default function DairyForm() {
           w="200px"
           mx="1rem"
           bg="#fff"
+          _focus={{ outline: "none" }}
           border="none"
           placeholder="tag"
           onChange={(e: any) => handleSelect(e.target.value)}
         >
-          {allTags.map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
+          {tags?.data?.data?.map((tag: any) => (
+            <option key={tag._id} value={tag.name}>
+              {tag.name}
             </option>
           ))}
         </Select>
@@ -173,72 +174,3 @@ export default function DairyForm() {
     </Box>
   );
 }
-
-const allTags: Array<string> = [
-  // emotion tags
-  "happy",
-  "sad",
-  "angry",
-  "scared",
-  "confused",
-  "disgusted",
-  "surprised",
-  "calm",
-  "tired",
-  "bored",
-  "excited",
-  "sleepy",
-  "lonely",
-  "hungry",
-  "thirsty",
-  "sick",
-  "annoyed",
-  "curious",
-  "blessed",
-  "loved",
-  "indifferent",
-  "horny",
-  // activity tags
-  "running",
-  "walking",
-  "cycling",
-  "swimming",
-  "sitting",
-  "standing",
-  "sleeping",
-  "reading",
-  "writing",
-  "listening",
-  "watching",
-  "eating",
-  "drinking",
-  "working",
-  "studying",
-  "shopping",
-  "cleaning",
-  "cooking",
-  // location tags
-  "home",
-  "office",
-  "school",
-  "work",
-  "gym",
-  "park",
-  "restaurant",
-  "cafe",
-  "bar",
-  "shop",
-  "hospital",
-  "bank",
-  "hotel",
-  "airport",
-  "train",
-  "bus",
-  "taxi",
-  "car",
-  "bike",
-  "truck",
-  "humor",
-  "dark humor",
-  "light humor",
-];

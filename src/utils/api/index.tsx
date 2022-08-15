@@ -4,6 +4,7 @@ import authService from "./auth";
 import userService from "./user";
 import entriesService from "./entries";
 import timelineService from "./timeline";
+import tagService from "./tags";
 
 export const API_ENDPOINT = "https://anonry.herokuapp.com";
 const isBrowser = typeof window !== undefined;
@@ -50,3 +51,4 @@ export const authAPI = authService({ api });
 export const userAPI = userService({ api });
 export const entriesAPI = entriesService({ api });
 export const timelineAPI = timelineService({ api });
+export const tagsAPI = tagService({ api });

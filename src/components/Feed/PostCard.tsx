@@ -7,6 +7,7 @@ import { timelineAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
 import { useState } from "react";
+import { FiEdit3 } from "react-icons/fi";
 
 export default function PostCard({ post }: any) {
   const { mutate } = useSWRConfig();
@@ -40,8 +41,24 @@ export default function PostCard({ post }: any) {
       borderRadius="10px"
       p="20px"
       mb="20px"
+      position="relative"
       boxShadow="sm"
     >
+      {post?.edited && (
+        <Tag
+          ml="1rem"
+          fontSize="9px"
+          opacity="0.7"
+          bg="transparent"
+          border="none"
+          position="absolute"
+          top="5px"
+          right="10px"
+        >
+          <FiEdit3 />
+          Edited
+        </Tag>
+      )}
       <Box display="flex" alignItems="center">
         <Avatar src={post?.user?.avatar} name="Khallekan" size="md" />
 

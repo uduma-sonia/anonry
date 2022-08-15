@@ -20,10 +20,16 @@ const timelineKeys = {
   getTimeline: "/timeline",
 };
 
+const tagsKeys = {
+  getTags: "/tags",
+};
+
 export const swrKeys = {
   ...usersKeys,
 
   ...entryKeys,
 
   ...timelineKeys,
+
+  ...tagsKeys,
 };
