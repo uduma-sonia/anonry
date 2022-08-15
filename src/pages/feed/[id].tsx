@@ -39,7 +39,7 @@ const Feed: NextPage = () => {
       <Head>
         <title>Anonry | Post details</title>
         <meta name="description" content="Anonry" />
-        <link rel="icon" href="" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <DashboardLayout>
         <PostDetails />

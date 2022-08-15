@@ -39,7 +39,7 @@ const Dairy: NextPage = () => {
       <Head>
         <title>Anonry - Dairy</title>
         <meta name="description" content="Anonry" />
-        <link rel="icon" href="" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <DashboardLayout>
         <DairyView />
