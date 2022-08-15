@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Box, Avatar, Text, Tag, Heading, IconButton } from "@chakra-ui/react";
-import { BsSuitHeart } from "react-icons/bs";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { VscBookmark } from "react-icons/vsc";
 import format from "date-fns/format";
+import { timelineAPI } from "@utils/api";
+import { useSWRConfig } from "swr";
+import { swrKeys } from "@utils/swrKeys";
+import { useState } from "react";
 
 export default function PostCard({ post }: any) {
+  const { mutate } = useSWRConfig();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleLike = useCallback(
+    async (action: string) => {
+      try {
+        setIsSubmitting(true);
+        const data = {
+          entry_id: post?._id,
+          action: action,
+        };
+        const result = await timelineAPI.handleLike(data);
+        if (result) {
+          mutate(swrKeys.getTimeline);
+        }
+      } catch (err: any) {
+        console.log(err);
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [mutate, post?._id]
+  );
+
   return (
     <Box
       bg="white"
@@ -62,15 +90,33 @@ export default function PostCard({ post }: any) {
         </Text>
 
         <Box>
-          <IconButton
-            aria-label=""
-            icon={<BsSuitHeart size="1.3rem" />}
-            _focus={{ outline: "none" }}
-            mr="1rem"
-            bg="none"
-            _hover={{ bg: "none" }}
-            _active={{ bg: "none" }}
-          />
+          {post.isLiked ? (
+            <IconButton
+              aria-label=""
+              icon={<BsSuitHeartFill size="1.3rem" />}
+              _focus={{ outline: "none" }}
+              mr="1rem"
+              bg="none"
+              _hover={{ bg: "none" }}
+              transition="all 0.7s"
+              _active={{ bg: "none", transform: "scale(1.3)" }}
+              isLoading={isSubmitting}
+              onClick={() => handleLike("unlike")}
+            />
+          ) : (
+            <IconButton
+              aria-label=""
+              icon={<BsSuitHeart size="1.3rem" />}
+              _focus={{ outline: "none" }}
+              mr="1rem"
+              bg="none"
+              _hover={{ bg: "none" }}
+              transition="all 0.7s"
+              _active={{ bg: "none", transform: "scale(1.3)" }}
+              onClick={() => handleLike("like")}
+              isLoading={isSubmitting}
+            />
+          )}
 
           <IconButton
             aria-label=""

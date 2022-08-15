@@ -1,6 +1,10 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
+import { timelineAPI } from "@utils/api";
+import { useRouter } from "next/router";
+import { swrKeys } from "@utils/swrKeys";
+import useSWR from "swr";
 
 const [Feed, SortingForm] = [
   dynamic(() => import("@components/Feed/Feed")),
@@ -8,6 +12,16 @@ const [Feed, SortingForm] = [
 ];
 
 export default function FeedView({ data }: any) {
+  const router = useRouter();
+
+  const { data: timeline, error } = useSWR(
+    router.isReady && swrKeys.getTimeline,
+    async () => timelineAPI.getTimeline(),
+    {
+      revalidateOnMount: true,
+    }
+  );
+
   return (
     <Box
       display="flex"
@@ -21,7 +35,7 @@ export default function FeedView({ data }: any) {
         overflowY="auto"
         className="no-scrollbar"
       >
-        <Feed data={data?.entries} />
+        <Feed data={timeline?.data?.data?.entries} />
       </Box>
       <Box w={{ base: "100%", lg: "40%" }}>
         <SortingForm />

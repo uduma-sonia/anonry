@@ -23,14 +23,9 @@ export default function Feed({ data }: any) {
   return (
     <>
       {data?.map((post: any) => (
-        <Link href="/feed/nskcn0wsmwdkncbyeyd93d" passHref key={post._id}>
-          <ChakraLink
-            _hover={{ textDecor: "none" }}
-            _focus={{ outline: "none" }}
-          >
-            <PostCard post={post} />
-          </ChakraLink>
-        </Link>
+        <React.Fragment key={post._id}>
+          <PostCard post={post} />
+        </React.Fragment>
       ))}
     </>
   );

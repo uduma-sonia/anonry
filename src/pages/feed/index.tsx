@@ -3,8 +3,6 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { Center, Spinner } from "@chakra-ui/react";
-import { timelineAPI } from "@utils/api";
-import { ReqConfig } from "@utils/types";
 
 const [FeedView, DashboardLayout] = [
   dynamic(() => import("@containers/Feed/FeedView")),
@@ -23,7 +21,7 @@ const [FeedView, DashboardLayout] = [
   }),
 ];
 
-const Feed: NextPage = ({ data }: any) => {
+const Feed: NextPage = () => {
   return (
     <div>
       <Head>
@@ -33,7 +31,7 @@ const Feed: NextPage = ({ data }: any) => {
       </Head>
 
       <DashboardLayout>
-        <FeedView data={data?.data?.data} />
+        <FeedView />
       </DashboardLayout>
     </div>
   );
@@ -51,18 +49,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const reqObject: ReqConfig = {
-    headers: {
-      Authorization: `Bearer ${session.token!}`,
-    },
-  };
-
-  const results = await timelineAPI.getTimeline(reqObject);
-
   return {
     props: {
       session,
-      data: results,
     },
   };
 }
