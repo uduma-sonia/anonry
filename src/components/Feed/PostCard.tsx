@@ -57,7 +57,7 @@ export default function PostCard({ post }: any) {
       </Box>
 
       <Box mt="1rem" display="flex" flexWrap="wrap" gap="10px">
-        {post?.tags.map(({ name }: { name: string }) => (
+        {post?.tags?.map(({ name }: { name: string }) => (
           <Tag
             key={name}
             fontSize="xs"
