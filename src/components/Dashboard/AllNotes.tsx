@@ -1,12 +1,14 @@
 import { Box, Text, Center, Spinner } from "@chakra-ui/react";
 import NotesCard from "./NotesCard";
-import { useRouter } from "next/router";
 import Pagination from "@components/Pagination/Pagination";
 
-export default function AllNotes({ notes, entryError, notesMeta }: any) {
-  const router = useRouter();
-  const { page } = router.query;
-
+export default function AllNotes({
+  notes,
+  entryError,
+  notesMeta,
+  handlePagination,
+  currentPage,
+}: any) {
   return (
     <>
       {notes?.length > 0 && (
@@ -40,6 +42,7 @@ export default function AllNotes({ notes, entryError, notesMeta }: any) {
           lg: "repeat(2, 1fr)",
           "2xl": "repeat(3, 1fr)",
         }}
+        gap="1.5rem"
       >
         {notes?.map((item: any) => (
           <NotesCard key={item._id} note={item} />
@@ -48,9 +51,9 @@ export default function AllNotes({ notes, entryError, notesMeta }: any) {
 
       {notes && notes.length > 0 && (
         <Pagination
-          currentPage={page}
-          currentUrl={"/dashboard"}
+          currentPage={currentPage}
           totalPages={notesMeta?.totalPages}
+          handlePagination={handlePagination}
         />
       )}
     </>

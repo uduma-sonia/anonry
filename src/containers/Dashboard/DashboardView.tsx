@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Heading, Text, HStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useUser } from "@utils/hooks/useUser";
@@ -17,32 +17,24 @@ const [LatestNotes, Tasks, Notes] = [
 ];
 
 export default function DashboardView() {
+  const router = useRouter();
+  const [pageNum, setPageNum] = useState(1);
+  const [publishedPageNum, setPublishedPageNum] = useState(1);
+
   const { data: user, error } = useUser();
   const { data: publishedEntries, error: publishedEntriesError } =
-    usePublishedEntries();
-  const router = useRouter();
-  const { page = 1 } = router.query;
+    usePublishedEntries({ publishedPageNum });
 
   const { data: entries, error: entryError } = useSWR(
-    router.isReady && swrKeys.getUserEntries({ page }),
-    async () => entriesAPI.getUserEntries({ page }),
+    router.isReady && swrKeys.getUserEntries({ page: pageNum }),
+    async () => entriesAPI.getUserEntries({ page: pageNum }),
     {
       revalidateOnMount: true,
     }
   );
 
-  useEffect(() => {
-    if (router.isReady && !router.query.page) {
-      router.replace(
-        {
-          pathname: "/dashboard",
-          query: { page: 1 },
-        },
-        undefined,
-        { shallow: true }
-      );
-    }
-  }, [router]);
+  const handlePagination = (val: any) => setPageNum(val);
+  const handlePublishedPagination = (val: any) => setPublishedPageNum(val);
 
   return (
     <Box mb="200px">
@@ -65,12 +57,16 @@ export default function DashboardView() {
       </HStack>
 
       <Notes
+        handlePagination={handlePagination}
+        handlePublishedPagination={handlePublishedPagination}
         notes={entries?.data?.data?.entries}
         entryError={entryError}
         notesMeta={entries?.data?.data.pageInfo}
         publishedEntries={publishedEntries?.data?.data?.entries}
         publishedEntriesError={publishedEntriesError}
         publishedEntriesMeta={publishedEntries?.data?.data?.pageInfo}
+        currentPage={pageNum}
+        publishedCurrentPage={publishedPageNum}
       />
     </Box>
   );

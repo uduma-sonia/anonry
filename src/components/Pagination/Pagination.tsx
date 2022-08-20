@@ -1,32 +1,18 @@
 import { Box, IconButton, Tag } from "@chakra-ui/react";
 import React from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useRouter } from "next/router";
 
 interface PaginationProps {
   totalPages: number;
-  currentUrl: string;
   currentPage: any;
+  handlePagination: any;
 }
 
 export default function Pagination({
   currentPage,
-  currentUrl,
   totalPages,
+  handlePagination,
 }: PaginationProps) {
-  const router = useRouter();
-
-  const handlePagination = (val: number) => {
-    router.push(
-      {
-        pathname: currentUrl,
-        query: { page: val },
-      },
-      undefined,
-      { shallow: true }
-    );
-  };
-
   return (
     <Box display="flex" justifyContent="center" gap="1px" mt="2rem">
       <IconButton

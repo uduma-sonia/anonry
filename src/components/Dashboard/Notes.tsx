@@ -8,6 +8,10 @@ export default function Notes({
   publishedEntries,
   publishedEntriesError,
   publishedEntriesMeta,
+  handlePagination,
+  currentPage,
+  handlePublishedPagination,
+  publishedCurrentPage,
 }: any) {
   return (
     <Tabs>
@@ -51,23 +55,27 @@ export default function Notes({
       </TabList>
 
       <TabPanels mt="2rem">
-        <TabPanel>
+        <TabPanel p={0}>
           <AllNotes
             notes={notes}
             entryError={entryError}
             notesMeta={notesMeta}
+            handlePagination={handlePagination}
+            currentPage={currentPage}
           />
         </TabPanel>
 
-        <TabPanel>
+        <TabPanel p={0}>
           <AllNotes
             notes={publishedEntries}
             entryError={publishedEntriesError}
             notesMeta={publishedEntriesMeta}
+            handlePagination={handlePublishedPagination}
+            currentPage={publishedCurrentPage}
           />
         </TabPanel>
 
-        <TabPanel>Coming Soon!</TabPanel>
+        <TabPanel p={0}>Coming Soon!</TabPanel>
       </TabPanels>
     </Tabs>
   );
