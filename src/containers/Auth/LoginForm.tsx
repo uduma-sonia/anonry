@@ -54,6 +54,11 @@ export default function LoginForm() {
         });
 
         if (result.error) {
+          const errMessage =
+            result.error == "CredentialsSignin"
+              ? "Credentials do not match"
+              : result.error;
+
           toast({
             position: "top-right",
             duration: 9000,
@@ -67,7 +72,7 @@ export default function LoginForm() {
                 textAlign="center"
                 fontSize="xs"
               >
-                {result.error ?? "An error occured, Try again"}
+                {errMessage ?? "An error occured, Try again"}
               </Box>
             ),
           });

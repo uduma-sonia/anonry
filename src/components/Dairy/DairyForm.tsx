@@ -45,7 +45,7 @@ export default function DairyForm() {
   setValue("tags", selectedTags);
 
   const handleSelect = (tag: any) => {
-    if (selectedTags.length === 3) {
+    if (selectedTags.length === 5) {
       setSelectedTags(selectedTags);
     } else {
       setSelectedTags([...selectedTags, tag]);
