@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         value={{
           fallback: pageProps.fallback ?? {},
           revalidateOnMount: false,
-          revalidateOnFocus: false,
+          revalidateOnFocus: true,
         }}
       >
         <ChakraProvider theme={theme}>

@@ -1,7 +1,14 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import AllNotes from "./AllNotes";
 
-export default function Notes({ notes, entryError, notesMeta }: any) {
+export default function Notes({
+  notes,
+  entryError,
+  notesMeta,
+  publishedEntries,
+  publishedEntriesError,
+  publishedEntriesMeta,
+}: any) {
   return (
     <Tabs>
       <TabList border="none" justifyContent="center">
@@ -52,7 +59,13 @@ export default function Notes({ notes, entryError, notesMeta }: any) {
           />
         </TabPanel>
 
-        <TabPanel>Coming Soon!</TabPanel>
+        <TabPanel>
+          <AllNotes
+            notes={publishedEntries}
+            entryError={publishedEntriesError}
+            notesMeta={publishedEntriesMeta}
+          />
+        </TabPanel>
 
         <TabPanel>Coming Soon!</TabPanel>
       </TabPanels>

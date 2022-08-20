@@ -6,6 +6,7 @@ import { entriesAPI } from "@utils/api";
 import { useRouter } from "next/router";
 import { swrKeys } from "@utils/swrKeys";
 import useSWR from "swr";
+import { usePublishedEntries } from "@utils/hooks/usePublishedEntries";
 
 const [LatestNotes, Tasks, Notes] = [
   dynamic<any>(() =>
@@ -17,6 +18,8 @@ const [LatestNotes, Tasks, Notes] = [
 
 export default function DashboardView() {
   const { data: user, error } = useUser();
+  const { data: publishedEntries, error: publishedEntriesError } =
+    usePublishedEntries();
   const router = useRouter();
   const { page = 1 } = router.query;
 
@@ -27,6 +30,7 @@ export default function DashboardView() {
       revalidateOnMount: true,
     }
   );
+
   useEffect(() => {
     if (router.isReady && !router.query.page) {
       router.replace(
@@ -64,6 +68,9 @@ export default function DashboardView() {
         notes={entries?.data?.data?.entries}
         entryError={entryError}
         notesMeta={entries?.data?.data.pageInfo}
+        publishedEntries={publishedEntries?.data?.data?.entries}
+        publishedEntriesError={publishedEntriesError}
+        publishedEntriesMeta={publishedEntries?.data?.data?.pageInfo}
       />
     </Box>
   );

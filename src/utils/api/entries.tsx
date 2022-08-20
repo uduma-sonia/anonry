@@ -16,6 +16,7 @@ type UpdateEntry = {
 type UserEntries = {
   limit?: number;
   page?: string | string[] | number;
+  published?: Boolean;
 };
 
 function entriesService({ api }: Service) {
@@ -25,11 +26,15 @@ function entriesService({ api }: Service) {
   };
 
   const getUserEntries = async (data: UserEntries, reqConfig?: ReqConfig) => {
-    const { limit = 20, page = 1 } = data;
-
-    const result = await api.get(`${prefix}?limit=${limit}&page=${page}`, {
-      ...reqConfig,
-    });
+    const { limit = 2, page = 1, published } = data;
+    const result = await api.get(
+      `${prefix}?limit=${limit}&page=${page}${
+        published && `&published=${published}`
+      } `,
+      {
+        ...reqConfig,
+      }
+    );
     return result;
   };
 
