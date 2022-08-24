@@ -4,6 +4,11 @@ import { Box, Text, Avatar, Button, Center } from "@chakra-ui/react";
 export default function AvatarView() {
   const [selectedAvatar, setSelectedAvatar] = useState("");
 
+  const generateRandomAvatar = () => {
+    const rand = Math.floor(1000 + Math.random() * 9000);
+    return rand;
+  };
+
   return (
     <Box pt="1rem" color="#000">
       <Text fontSize="sm">Select one avatar to change your current avatar</Text>
@@ -15,7 +20,7 @@ export default function AvatarView() {
         gap="20px"
         justifyContent="center"
       >
-        <Avatar src={selectedAvatar} name="buffy" size="xl" />
+        <Avatar src={selectedAvatar} name="anonry" size="xl" />
 
         <Button variant="primary" px="10px" py="5px">
           Save
@@ -32,19 +37,23 @@ export default function AvatarView() {
         }}
         gap="1.8rem"
       >
-        {allAvatars.map(({ ava }) => (
-          <Center key={ava}>
-            <Avatar
-              size="lg"
-              src={ava}
-              mx="auto"
-              cursor="pointer"
-              transition="all 0.5s"
-              _hover={{ transform: "scale(1.1)" }}
-              onClick={() => setSelectedAvatar(ava)}
-            />
-          </Center>
-        ))}
+        {allAvatars.map((item, index) => {
+          const ran = generateRandomAvatar();
+          const nsrc = `https://robohash.org/${ran}?set=${item.id}&size=500x500`;
+          return (
+            <Center key={index}>
+              <Avatar
+                size="lg"
+                src={nsrc}
+                mx="auto"
+                cursor="pointer"
+                transition="all 0.5s"
+                _hover={{ transform: "scale(1.1)" }}
+                onClick={(e) => console.log(nsrc)}
+              />
+            </Center>
+          );
+        })}
       </Box>
     </Box>
   );
@@ -52,41 +61,41 @@ export default function AvatarView() {
 
 const allAvatars = [
   {
-    ava: "https://robohash.org/happy?set=set2&size=500x500",
+    id: "set2",
   },
   {
-    ava: "https://robohash.org/sad?set=set2&size=500x500",
+    id: "set2",
   },
   {
-    ava: "https://robohash.org/freaky?set=set2&size=500x500",
+    id: "set2",
   },
   {
-    ava: "https://robohash.org/67w?set=set2&size=500x500",
-  },
-
-  {
-    ava: "https://robohash.org/6hs?set=set3&size=500x500",
-  },
-  {
-    ava: "https://robohash.org/09p?set=set3&size=500x500",
-  },
-  {
-    ava: "https://robohash.org/fr34?set=set3&size=500x500",
-  },
-  {
-    ava: "https://robohash.org/mbds?set=set3&size=500x500",
+    id: "set2",
   },
 
   {
-    ava: "https://robohash.org/mo34?set=set4&size=500x500",
+    id: "set3",
   },
   {
-    ava: "https://robohash.org/hvf4?set=set4&size=500x500",
+    id: "set3",
   },
   {
-    ava: "https://robohash.org/p9a?set=set4&size=500x500",
+    id: "set3",
   },
   {
-    ava: "https://robohash.org/HVF.png?set=set4&size=500x500",
+    id: "set3",
+  },
+
+  {
+    id: "set4",
+  },
+  {
+    id: "set4",
+  },
+  {
+    id: "set4",
+  },
+  {
+    id: "set4",
   },
 ];

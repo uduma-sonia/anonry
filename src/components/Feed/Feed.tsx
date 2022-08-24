@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Box,
-  Link as ChakraLink,
-  SkeletonCircle,
-  SkeletonText,
-} from "@chakra-ui/react";
+import { Box, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 
 const [PostCard] = [
   dynamic(() => import("./PostCard"), {

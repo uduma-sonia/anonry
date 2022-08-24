@@ -34,7 +34,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
           <Box
             maxWidth="1500px"
             px={{ base: "1.2rem", lg: "4rem" }}
-            pt={{ base: "2rem", lg: "4rem" }}
+            pt={{ base: "2rem", lg: "2.5rem" }}
           >
             {children}
           </Box>

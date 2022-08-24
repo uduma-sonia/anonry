@@ -64,7 +64,7 @@ function entriesService({ api }: Service) {
   };
 
   const getLikes = async (data: UserEntries, reqConfig?: ReqConfig) => {
-    const { limit = 2, page = 1 } = data;
+    const { limit = 20, page = 1 } = data;
     const result = await api.get(`/likes?limit=${limit}&page=${page}`, {
       ...reqConfig,
     });

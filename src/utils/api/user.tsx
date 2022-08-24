@@ -7,8 +7,14 @@ function userService({ api }: Service) {
     return result;
   };
 
+  const updateUser = async (data: any, reqConfig?: ReqConfig) => {
+    const result = await api.get(`${prefix}/users`, { ...reqConfig });
+    return result;
+  };
+
   return Object.freeze({
     getUserProfile,
+    updateUser,
   });
 }
 

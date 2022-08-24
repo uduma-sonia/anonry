@@ -6,7 +6,7 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: ["https://robohash.org/"],
+    domains: ["robohash.org"],
   },
 };
 

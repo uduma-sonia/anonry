@@ -5,6 +5,8 @@ import userService from "./user";
 import entriesService from "./entries";
 import timelineService from "./timeline";
 import tagService from "./tags";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export const API_ENDPOINT = "https://anonry-staging.herokuapp.com";
 const isBrowser = typeof window !== undefined;
@@ -18,17 +20,38 @@ api.interceptors.response.use(
   function (response) {
     return response.data;
   },
-  function (error) {
+  async function (error) {
     if (process.env.NODE_ENV === "development") {
+      console.log(error.response.data.data);
       console.log(error.response.data.data.status);
       console.error(error.response ?? "Error");
     }
 
     let { response } = error;
     let message = "An unexpected error occurred";
+
     if (response) {
+      if (response.status === 401) {
+        const session = await getSession();
+
+        const data = {
+          refreshToken: session?.refresh ?? "",
+        };
+        const result: any = await signIn("refresh", {
+          ...data,
+          redirect: false,
+        });
+
+        if (result.error) {
+          window.location.href = `/login`;
+        }
+      }
+
       if (response.data) {
         message = response.data.data.message;
+
+        if (response.data.data.status) {
+        }
 
         return Promise.reject(message);
       }
@@ -43,8 +66,6 @@ const addTokenToRequest = async (request: any) => {
 
   const session = await getSession();
 
-  console.log(session);
-  
   const token = session?.token ?? "";
   request.headers.Authorization = `Bearer ${token}`;
   return request;

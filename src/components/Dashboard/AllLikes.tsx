@@ -47,7 +47,7 @@ export default function AllLikes() {
       )}
 
       {allLikes?.data?.data?.likes?.map((item: any) => (
-        <LikesCard key={item._id} note={item} />
+        <LikesCard key={item._id} note={item} pageNum={pageNum} />
       ))}
 
       {allLikes?.data?.data?.likes &&

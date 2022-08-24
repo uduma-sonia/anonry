@@ -7,7 +7,7 @@ import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
 import { timelineAPI } from "@utils/api";
 
-export default function LikesCard({ note }: any) {
+export default function LikesCard({ note, pageNum }: any) {
   const { mutate } = useSWRConfig();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -21,7 +21,7 @@ export default function LikesCard({ note }: any) {
         };
         const result = await timelineAPI.handleLike(data);
         if (result) {
-          mutate(swrKeys.getLikes);
+          mutate(swrKeys.getLikes({ page: pageNum }));
         }
       } catch (err: any) {
         console.log(err);
@@ -29,7 +29,7 @@ export default function LikesCard({ note }: any) {
         setIsSubmitting(false);
       }
     },
-    [mutate, note?.entry._id]
+    [mutate, note?.entry._id, pageNum]
   );
 
   return (

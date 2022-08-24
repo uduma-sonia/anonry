@@ -68,6 +68,16 @@ function authService({ api }: Service) {
     return result;
   };
 
+  const refreshToken = async (
+    data: { refreshToken: string },
+    reqConfig?: ReqConfig
+  ) => {
+    const result = await api.post(`${prefix}/refresh-token`, data, {
+      ...reqConfig,
+    });
+    return result;
+  };
+
   return Object.freeze({
     signup,
     login,
@@ -76,6 +86,7 @@ function authService({ api }: Service) {
     forgotPassword,
     resetPassword,
     changePassword,
+    refreshToken,
   });
 }
 
