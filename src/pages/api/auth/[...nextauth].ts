@@ -61,6 +61,7 @@ const options = {
       const signInData = token?.signInData as any;
       session.user = signInData?.data?.user;
       session.token = signInData?.data?.access_token;
+      session.refresh = signInData?.data?.refresh_token;
       return session;
     },
     async jwt({ token, user }: any) {

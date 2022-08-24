@@ -6,7 +6,7 @@ import entriesService from "./entries";
 import timelineService from "./timeline";
 import tagService from "./tags";
 
-export const API_ENDPOINT = "https://anonry.herokuapp.com";
+export const API_ENDPOINT = "https://anonry-staging.herokuapp.com";
 const isBrowser = typeof window !== undefined;
 
 export const api = axios.create({
@@ -20,7 +20,7 @@ api.interceptors.response.use(
   },
   function (error) {
     if (process.env.NODE_ENV === "development") {
-      console.log(error);
+      console.log(error.response.data.data.status);
       console.error(error.response ?? "Error");
     }
 
@@ -28,7 +28,7 @@ api.interceptors.response.use(
     let message = "An unexpected error occurred";
     if (response) {
       if (response.data) {
-        message = response.data.message;
+        message = response.data.data.message;
 
         return Promise.reject(message);
       }
@@ -42,6 +42,9 @@ const addTokenToRequest = async (request: any) => {
   if (!isBrowser || request.headers.Authorization) return request;
 
   const session = await getSession();
+
+  console.log(session);
+  
   const token = session?.token ?? "";
   request.headers.Authorization = `Bearer ${token}`;
   return request;
