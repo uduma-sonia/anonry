@@ -8,7 +8,7 @@ import tagService from "./tags";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
-export const API_ENDPOINT = "https://anonry-staging.herokuapp.com";
+export const API_ENDPOINT = "https://anonry.herokuapp.com";
 const isBrowser = typeof window !== undefined;
 
 export const api = axios.create({
