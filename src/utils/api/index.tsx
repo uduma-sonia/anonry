@@ -20,8 +20,7 @@ api.interceptors.response.use(
   },
   function (error) {
     if (process.env.NODE_ENV === "development") {
-      console.log(error);
-      console.error(error.response ?? "Error");
+      // console.log(error);
     }
 
     let { response } = error;
