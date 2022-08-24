@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Box, Avatar, Text, Tag, Heading, IconButton } from "@chakra-ui/react";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
-import { VscBookmark } from "react-icons/vsc";
 import format from "date-fns/format";
 import { timelineAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
@@ -133,15 +132,6 @@ export default function PostCard({ post }: any) {
               isLoading={isSubmitting}
             />
           )}
-
-          <IconButton
-            aria-label=""
-            icon={<VscBookmark size="1.3rem" />}
-            _focus={{ outline: "none" }}
-            bg="none"
-            _hover={{ bg: "none" }}
-            _active={{ bg: "none" }}
-          />
         </Box>
       </Box>
     </Box>

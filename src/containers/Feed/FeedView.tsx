@@ -31,7 +31,7 @@ export default function FeedView({ data }: any) {
     >
       <Box
         w={{ base: "100%", lg: "60%" }}
-        maxH="calc(100vh - 120px - 4rem)"
+        maxH="calc(100vh - 120px - 2rem)"
         overflowY="auto"
         className="no-scrollbar"
       >
