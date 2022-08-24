@@ -26,7 +26,7 @@ function entriesService({ api }: Service) {
   };
 
   const getUserEntries = async (data: UserEntries, reqConfig?: ReqConfig) => {
-    const { limit = 2, page = 1, published } = data;
+    const { limit = 20, page = 1, published } = data;
     const result = await api.get(
       `${prefix}?limit=${limit}&page=${page}${
         published && `&published=${published}`
@@ -63,6 +63,14 @@ function entriesService({ api }: Service) {
     return result;
   };
 
+  const getLikes = async (data: UserEntries, reqConfig?: ReqConfig) => {
+    const { limit = 2, page = 1 } = data;
+    const result = await api.get(`/likes?limit=${limit}&page=${page}`, {
+      ...reqConfig,
+    });
+    return result;
+  };
+
   return Object.freeze({
     createEntry,
     getUserEntries,
@@ -71,6 +79,7 @@ function entriesService({ api }: Service) {
     updateUserEntries,
     publishEntry,
     unPublishEntry,
+    getLikes,
   });
 }
 

@@ -25,7 +25,7 @@ export default function DeleteEntryModal({ isOpen, onClose, note }: any) {
       setIsSubmitting(true);
       const result = await entriesAPI.deleteUserEntries(note?._id);
       if (result) {
-        mutate(swrKeys.getUserEntries);
+        mutate(swrKeys.getUserEntries({ page: 1 }));
         mutate(swrKeys.getUserProfile);
         toast({
           position: "top-right",

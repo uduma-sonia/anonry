@@ -1,5 +1,6 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import AllNotes from "./AllNotes";
+import AllLikes from "./AllLikes";
 
 export default function Notes({
   notes,
@@ -50,7 +51,7 @@ export default function Notes({
           fontSize="sm"
           type="button"
         >
-          Bookmarks
+          Likes
         </Tab>
       </TabList>
 
@@ -62,6 +63,7 @@ export default function Notes({
             notesMeta={notesMeta}
             handlePagination={handlePagination}
             currentPage={currentPage}
+            type="All notes"
           />
         </TabPanel>
 
@@ -72,10 +74,13 @@ export default function Notes({
             notesMeta={publishedEntriesMeta}
             handlePagination={handlePublishedPagination}
             currentPage={publishedCurrentPage}
+            type="Published notes"
           />
         </TabPanel>
 
-        <TabPanel p={0}>Coming Soon!</TabPanel>
+        <TabPanel p={0}>
+          <AllLikes />
+        </TabPanel>
       </TabPanels>
     </Tabs>
   );

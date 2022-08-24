@@ -42,10 +42,9 @@ export default function NotesCard({ note }: any) {
       color="#000000"
       border="1px solid #d7d7d7"
       p="1rem"
-      // mb="1.5rem"
-      // mr={{ base: "0rem", lg: "1.5rem" }}
       borderRadius={10}
       h="fit-content"
+      mb="1.5rem"
       position="relative"
     >
       <PublishEntry

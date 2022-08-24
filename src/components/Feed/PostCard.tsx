@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Box, Avatar, Text, Tag, Heading, IconButton } from "@chakra-ui/react";
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { VscBookmark } from "react-icons/vsc";
@@ -6,7 +6,6 @@ import format from "date-fns/format";
 import { timelineAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
-import { useState } from "react";
 import { FiEdit3 } from "react-icons/fi";
 
 export default function PostCard({ post }: any) {

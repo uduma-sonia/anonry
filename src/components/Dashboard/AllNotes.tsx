@@ -8,18 +8,19 @@ export default function AllNotes({
   notesMeta,
   handlePagination,
   currentPage,
+  type,
 }: any) {
   return (
-    <>
+    <Box maxW="600px" mx="auto">
       {notes?.length > 0 && (
-        <Text mb="2rem" fontWeight="medium">
-          {notes?.length} {notes?.length < 2 ? "note" : "notes"}
+        <Text mb="2rem" fontSize="sm" fontWeight="medium">
+          {type} ({notes?.length})
         </Text>
       )}
 
       {notes?.length === 0 && (
         <Text mt="6rem" textAlign="center" fontSize="sm" color="#000">
-          You are yet to create notes
+          No data
         </Text>
       )}
 
@@ -35,19 +36,9 @@ export default function AllNotes({
         </Center>
       )}
 
-      <Box
-        display="grid"
-        gridTemplateColumns={{
-          base: "1fr",
-          lg: "repeat(2, 1fr)",
-          "2xl": "repeat(3, 1fr)",
-        }}
-        gap="1.5rem"
-      >
-        {notes?.map((item: any) => (
-          <NotesCard key={item._id} note={item} />
-        ))}
-      </Box>
+      {notes?.map((item: any) => (
+        <NotesCard key={item._id} note={item} />
+      ))}
 
       {notes && notes.length > 0 && (
         <Pagination
@@ -56,6 +47,6 @@ export default function AllNotes({
           handlePagination={handlePagination}
         />
       )}
-    </>
+    </Box>
   );
 }

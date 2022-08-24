@@ -11,6 +11,13 @@ const getAllEntries = (data: any) => {
   return `/entries?${searchParams}`;
 };
 
+const getAllLikes = (data: any) => {
+  const searchParams = new URLSearchParams(
+    formatURLSearchParams({ ...data })
+  ).toString();
+  return `/likes?${searchParams}`;
+};
+
 const getPublishedEntres = (data: any) => {
   const searchParams = new URLSearchParams(
     formatURLSearchParams({ ...data })
@@ -22,6 +29,7 @@ const entryKeys = {
   getUserEntries: getAllEntries,
   getPublishedEntries: getPublishedEntres,
   getSingleEntry: (id: any) => `/entries/${id}`,
+  getLikes: getAllLikes,
 };
 
 const timelineKeys = {
