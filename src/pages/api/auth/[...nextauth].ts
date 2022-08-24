@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { authAPI } from "@utils/api";
+import { api, authAPI } from "@utils/api";
 import Credentials from "next-auth/providers/credentials";
 import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
@@ -21,6 +21,29 @@ const options = {
           });
           return result?.data;
         } catch (error: any) {
+          if (error) {
+            throw new Error(error ?? "Something went wrong");
+          }
+          return null;
+        }
+      },
+    }),
+
+    Credentials({
+      id: "refresh",
+      name: "refresh",
+      credentials: {
+        refreshToken: { label: "refreshToken", type: "string" },
+      },
+      async authorize(credentials, req) {
+        try {
+          const result = await authAPI.refreshToken({
+            refreshToken: credentials?.refreshToken!,
+          });
+          return result?.data;
+        } catch (error: any) {
+          console.log(error);
+
           if (error) {
             throw new Error(error ?? "Something went wrong");
           }
@@ -61,6 +84,7 @@ const options = {
       const signInData = token?.signInData as any;
       session.user = signInData?.data?.user;
       session.token = signInData?.data?.access_token;
+      session.refresh = signInData?.data?.refresh_token;
       return session;
     },
     async jwt({ token, user }: any) {
