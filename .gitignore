@@ -35,3 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 
 /.babelrc
+
+# vscode
+.vscode
+
+# .env
+.env
