@@ -11,6 +11,13 @@ const getAllEntries = (data: any) => {
   return `/entries?${searchParams}`;
 };
 
+const getUserTrash = (data: any) => {
+  const searchParams = new URLSearchParams(
+    formatURLSearchParams({ ...data })
+  ).toString();
+  return `/entries?${searchParams}`;
+};
+
 const getAllLikes = (data: any) => {
   const searchParams = new URLSearchParams(
     formatURLSearchParams({ ...data })
@@ -41,7 +48,7 @@ const tagsKeys = {
 };
 
 const trashKeys = {
-  getUserTrash: "/trash",
+  getUserTrash: getUserTrash,
 };
 
 export const swrKeys = {

@@ -2,8 +2,12 @@ import { Service, ReqConfig } from "../types";
 const prefix = "/trash";
 
 function trashService({ api }: Service) {
-  const getUserTrash = async (reqConfig?: ReqConfig) => {
-    const result = await api.get(`${prefix}`, { ...reqConfig });
+  const getUserTrash = async (data: any, reqConfig?: ReqConfig) => {
+    const { limit = 20, page = 1 } = data;
+
+    const result = await api.get(`${prefix}?limit=${limit}&page=${page}`, {
+      ...reqConfig,
+    });
     return result;
   };
 

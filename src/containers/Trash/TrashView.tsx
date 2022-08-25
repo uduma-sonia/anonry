@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack, Skeleton, Button, useToast } from "@chakra-ui/react";
+import { Box, Stack, Skeleton, Button, useToast, Text } from "@chakra-ui/react";
 import { trashAPI } from "@utils/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
@@ -21,8 +21,8 @@ export default function TrashView() {
   const handlePagination = (val: any) => setPageNum(val);
 
   const { data: trash, error } = useSWR(
-    router.isReady && swrKeys.getUserTrash,
-    async () => trashAPI.getUserTrash(),
+    router.isReady && swrKeys.getUserTrash({ page: pageNum }),
+    async () => trashAPI.getUserTrash({ page: pageNum }),
     {
       revalidateOnMount: true,
     }
@@ -51,7 +51,7 @@ export default function TrashView() {
       const result = await trashAPI.restoreTrash(data);
       if (result) {
         setSelectedNote([]);
-        mutate(swrKeys.getUserTrash);
+        mutate(swrKeys.getUserTrash({ page: pageNum }));
         toast({
           position: "top-right",
           duration: 4000,
@@ -102,7 +102,7 @@ export default function TrashView() {
       const result = await trashAPI.deletePermanently(removeBracket);
       if (result) {
         setSelectedNote([]);
-        mutate(swrKeys.getUserTrash);
+        mutate(swrKeys.getUserTrash({ page: pageNum }));
         toast({
           position: "top-right",
           duration: 4000,
@@ -205,8 +205,14 @@ export default function TrashView() {
           </>
         )}
 
+        {!error && trash?.data?.data?.trash?.length === 0 && (
+          <Text fontWeight={500} textAlign="center" mt="4rem">
+            Trash Empty
+          </Text>
+        )}
+
         <Stack ml={{ lg: "20px" }}>
-          {trash?.data?.data?.trash.map((item: any) => {
+          {trash?.data?.data?.trash?.map((item: any) => {
             return (
               <React.Fragment key={item._id}>
                 <TrashCard data={item} handleSelect={handleSelect} />
@@ -218,7 +224,7 @@ export default function TrashView() {
         {trash?.data?.data?.pageInfo?.totalPages > 1 && (
           <>
             {trash?.data?.data?.trash &&
-              trash?.data?.data?.trash.length > 0 && (
+              trash?.data?.data?.trash?.length > 0 && (
                 <Pagination
                   currentPage={pageNum}
                   totalPages={trash?.data?.data?.pageInfo?.totalPages}
