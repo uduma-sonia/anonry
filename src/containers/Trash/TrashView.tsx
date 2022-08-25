@@ -1,30 +1,24 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Checkbox,
-  Stack,
-  Text,
-  Heading,
-  Skeleton,
-  Button,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Stack, Skeleton, Button, useToast } from "@chakra-ui/react";
 import { trashAPI } from "@utils/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { swrKeys } from "@utils/swrKeys";
 import dynamic from "next/dynamic";
 import { useSWRConfig } from "swr";
+import Pagination from "@components/Pagination/Pagination";
 
 const [TrashCard] = [dynamic(() => import("@components/Trash/TrashCard"))];
 
 export default function TrashView() {
   const router = useRouter();
+  const { mutate } = useSWRConfig();
+  const toast = useToast();
   const [selectedNote, setSelectedNote] = useState<String[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { mutate } = useSWRConfig();
-  const toast = useToast();
+  const [pageNum, setPageNum] = useState(1);
+  const handlePagination = (val: any) => setPageNum(val);
 
   const { data: trash, error } = useSWR(
     router.isReady && swrKeys.getUserTrash,
@@ -220,6 +214,19 @@ export default function TrashView() {
             );
           })}
         </Stack>
+
+        {trash?.data?.data?.pageInfo?.totalPages > 1 && (
+          <>
+            {trash?.data?.data?.trash &&
+              trash?.data?.data?.trash.length > 0 && (
+                <Pagination
+                  currentPage={pageNum}
+                  totalPages={trash?.data?.data?.pageInfo?.totalPages}
+                  handlePagination={handlePagination}
+                />
+              )}
+          </>
+        )}
       </Box>
     </>
   );

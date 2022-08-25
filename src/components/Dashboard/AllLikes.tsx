@@ -10,6 +10,7 @@ import LikesCard from "./LikesCard";
 export default function AllLikes() {
   const router = useRouter();
   const [pageNum, setPageNum] = useState(1);
+  const handlePagination = (val: any) => setPageNum(val);
 
   const { data: allLikes, error: likesError } = useSWR(
     router.isReady && swrKeys.getLikes({ page: pageNum }),
@@ -18,7 +19,6 @@ export default function AllLikes() {
       revalidateOnMount: true,
     }
   );
-  const handlePagination = (val: any) => setPageNum(val);
 
   return (
     <Box maxW="600px" mx="auto">
