@@ -12,9 +12,17 @@ function trashService({ api }: Service) {
     return result;
   };
 
+  const deletePermanently = async (data: any, reqConfig?: ReqConfig) => {
+    const result = await api.delete(`${prefix}/?trash=${data}`, {
+      ...reqConfig,
+    });
+    return result;
+  };
+
   return Object.freeze({
     getUserTrash,
     restoreTrash,
+    deletePermanently,
   });
 }
 

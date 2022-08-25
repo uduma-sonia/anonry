@@ -22,6 +22,7 @@ export default function TrashView() {
   const router = useRouter();
   const [selectedNote, setSelectedNote] = useState<String[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { mutate } = useSWRConfig();
   const toast = useToast();
 
@@ -98,6 +99,59 @@ export default function TrashView() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      setIsSubmitting(true);
+
+      const removeBracket = selectedNote.join(",");
+
+      const result = await trashAPI.deletePermanently(removeBracket);
+      if (result) {
+        setSelectedNote([]);
+        mutate(swrKeys.getUserTrash);
+        toast({
+          position: "top-right",
+          duration: 4000,
+          isClosable: true,
+          render: () => (
+            <Box
+              color="white"
+              p={3}
+              bg="black"
+              borderRadius={10}
+              textAlign="center"
+              fontSize="xs"
+            >
+              {result?.data?.message}
+            </Box>
+          ),
+        });
+      }
+    } catch (err: any) {
+      console.log(err);
+
+      toast({
+        position: "top-right",
+        duration: 4000,
+        isClosable: true,
+        render: () => (
+          <Box
+            color="white"
+            p={3}
+            bg="#fa4e37"
+            borderRadius={10}
+            textAlign="center"
+            fontSize="xs"
+          >
+            {err ?? "Error, try again"}
+          </Box>
+        ),
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <Stack flexDir="row" mb="2rem" spacing={0} gap="2rem">
@@ -105,6 +159,8 @@ export default function TrashView() {
           variant="primary"
           isDisabled={selectedNote.length === 0}
           _focus={{ outline: "none" }}
+          onClick={handleDelete}
+          isLoading={isSubmitting}
         >
           Delete
         </Button>
