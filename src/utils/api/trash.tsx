@@ -7,8 +7,8 @@ function trashService({ api }: Service) {
     return result;
   };
 
-  const restoreTrash = async (reqConfig?: ReqConfig) => {
-    const result = await api.patch(`${prefix}`, { ...reqConfig });
+  const restoreTrash = async (data: any, reqConfig?: ReqConfig) => {
+    const result = await api.patch(`${prefix}`, data, { ...reqConfig });
     return result;
   };
 

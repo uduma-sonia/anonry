@@ -7,18 +7,23 @@ import {
   Heading,
   Skeleton,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { trashAPI } from "@utils/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { swrKeys } from "@utils/swrKeys";
 import dynamic from "next/dynamic";
+import { useSWRConfig } from "swr";
 
 const [TrashCard] = [dynamic(() => import("@components/Trash/TrashCard"))];
 
 export default function TrashView() {
   const router = useRouter();
   const [selectedNote, setSelectedNote] = useState<String[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { mutate } = useSWRConfig();
+  const toast = useToast();
 
   const { data: trash, error } = useSWR(
     router.isReady && swrKeys.getUserTrash,
@@ -40,13 +45,80 @@ export default function TrashView() {
     });
   };
 
-  const handleRestore = () => {};
+  const handleRestore = async () => {
+    try {
+      setIsLoading(true);
+
+      const data = {
+        trash: selectedNote,
+      };
+
+      const result = await trashAPI.restoreTrash(data);
+      if (result) {
+        setSelectedNote([]);
+        mutate(swrKeys.getUserTrash);
+        toast({
+          position: "top-right",
+          duration: 4000,
+          isClosable: true,
+          render: () => (
+            <Box
+              color="white"
+              p={3}
+              bg="black"
+              borderRadius={10}
+              textAlign="center"
+              fontSize="xs"
+            >
+              {result?.data?.message}
+            </Box>
+          ),
+        });
+      }
+    } catch (err: any) {
+      toast({
+        position: "top-right",
+        duration: 4000,
+        isClosable: true,
+        render: () => (
+          <Box
+            color="white"
+            p={3}
+            bg="#fa4e37"
+            borderRadius={10}
+            textAlign="center"
+            fontSize="xs"
+          >
+            {err ?? "Error, try again"}
+          </Box>
+        ),
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
       <Stack flexDir="row" mb="2rem" spacing={0} gap="2rem">
-        <Button variant="primary">Delete</Button>
-        <Button variant="primary">Recover</Button>
+        <Button
+          variant="primary"
+          isDisabled={selectedNote.length === 0}
+          _focus={{ outline: "none" }}
+        >
+          Delete
+        </Button>
+
+        <Button
+          variant="primary"
+          onClick={handleRestore}
+          type="button"
+          isLoading={isLoading}
+          isDisabled={selectedNote.length === 0}
+          _focus={{ outline: "none" }}
+        >
+          Recover
+        </Button>
       </Stack>
 
       <Box pb="100px" maxW="500px">
