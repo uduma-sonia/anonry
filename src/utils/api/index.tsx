@@ -6,7 +6,6 @@ import entriesService from "./entries";
 import timelineService from "./timeline";
 import tagService from "./tags";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 
 export const API_ENDPOINT = "https://anonry.herokuapp.com";
 const isBrowser = typeof window !== undefined;
