@@ -8,7 +8,7 @@ function userService({ api }: Service) {
   };
 
   const updateUser = async (data: any, reqConfig?: ReqConfig) => {
-    const result = await api.get(`${prefix}/users`, { ...reqConfig });
+    const result = await api.patch(`${prefix}/users`, data, { ...reqConfig });
     return result;
   };
 

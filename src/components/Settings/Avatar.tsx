@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Box, Text, Avatar, Button, Center } from "@chakra-ui/react";
+import { userAPI } from "@utils/api";
+import { swrKeys } from "@utils/swrKeys";
+import { useSWRConfig } from "swr";
 
 export default function AvatarView() {
   const [selectedAvatar, setSelectedAvatar] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutate } = useSWRConfig();
 
   const generateRandomAvatar = () => {
     const rand = Math.floor(1000 + Math.random() * 9000);
     return rand;
   };
+
+  const handleSubmit = () => {};
 
   return (
     <Box pt="1rem" color="#000">
@@ -22,7 +29,7 @@ export default function AvatarView() {
       >
         <Avatar src={selectedAvatar} name="anonry" size="xl" />
 
-        <Button variant="primary" px="10px" py="5px">
+        <Button variant="primary" px="10px" py="5px" isLoading={isSubmitting}>
           Save
         </Button>
       </Box>
@@ -49,7 +56,7 @@ export default function AvatarView() {
                 cursor="pointer"
                 transition="all 0.5s"
                 _hover={{ transform: "scale(1.1)" }}
-                onClick={(e) => console.log(nsrc)}
+                onClick={(e) => setSelectedAvatar(nsrc)}
               />
             </Center>
           );
