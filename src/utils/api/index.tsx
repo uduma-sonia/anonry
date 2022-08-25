@@ -6,6 +6,7 @@ import entriesService from "./entries";
 import timelineService from "./timeline";
 import tagService from "./tags";
 import { signIn } from "next-auth/react";
+import trashService from "./trash";
 
 export const API_ENDPOINT = "https://anonry.herokuapp.com";
 const isBrowser = typeof window !== undefined;
@@ -21,8 +22,6 @@ api.interceptors.response.use(
   },
   async function (error) {
     if (process.env.NODE_ENV === "development") {
-      console.log(error.response.data.data);
-      console.log(error.response.data.data.status);
       console.error(error.response ?? "Error");
     }
 
@@ -76,3 +75,4 @@ export const userAPI = userService({ api });
 export const entriesAPI = entriesService({ api });
 export const timelineAPI = timelineService({ api });
 export const tagsAPI = tagService({ api });
+export const trashAPI = trashService({ api });

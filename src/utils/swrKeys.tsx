@@ -40,6 +40,10 @@ const tagsKeys = {
   getTags: "/tags",
 };
 
+const trashKeys = {
+  getUserTrash: "/trash",
+};
+
 export const swrKeys = {
   ...usersKeys,
 
@@ -48,4 +52,6 @@ export const swrKeys = {
   ...timelineKeys,
 
   ...tagsKeys,
+
+  ...trashKeys,
 };

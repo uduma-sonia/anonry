@@ -25,6 +25,8 @@ export default function DashboardHeader({ onOpen }: any) {
       return "Feed";
     } else if (router.pathname === "/settings") {
       return "Settings";
+    } else if (router.pathname === "/trash") {
+      return "Trash";
     }
   };
 
