@@ -89,6 +89,19 @@ export default function AvatarView() {
         gap="20px"
         justifyContent="center"
       >
+        {selectedAvatar.length > 0 && (
+          <Button
+            variant="solid"
+            px="10px"
+            py="5px"
+            _focus={{ outline: "none" }}
+            type="submit"
+            isLoading={isSubmitting}
+            onClick={() => setSelectedAvatar("")}
+          >
+            Abort
+          </Button>
+        )}
         <Avatar
           src={
             selectedAvatar.length ? selectedAvatar : user?.data?.data?.avatar

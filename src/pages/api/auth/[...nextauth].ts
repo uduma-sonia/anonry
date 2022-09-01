@@ -4,6 +4,22 @@ import Credentials from "next-auth/providers/credentials";
 import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
 
+const refreshAccessToken = async (token: any) => {
+  console.trace("NOT SO SILENT NOW ARE WE");
+  
+  const prefix = "/users/auth";
+  try {
+    const result = await api.post(`${prefix}/refresh-token`, {
+      refreshToken: token.refresh_token,
+    });
+
+    return { ...token, ...result.data.data };
+  } catch (error) {
+    console.log("MAD PROBLEMS DEY");
+    return token;
+  }
+};
+
 const options = {
   providers: [
     Credentials({
@@ -81,16 +97,24 @@ const options = {
   callbacks: {
     async session({ session, token }: any) {
       //   Returns result from jwt token below
+
       const signInData = token?.signInData as any;
       session.user = signInData?.data?.user;
       session.token = signInData?.data?.access_token;
       session.refresh = signInData?.data?.refresh_token;
+      session.token_expires = signInData?.data?.access_token_expires;
+      session.refresh_expires = signInData?.data?.refresh_token_expires;
       return session;
     },
     async jwt({ token, user }: any) {
       if (user) {
         //   Sets user to result from authorize
         token.signInData = user;
+      }
+      const currentDate = Date.now();
+
+      if (currentDate >= token?.signInData?.data?.access_token_expires) {
+        token.signInData.data = await refreshAccessToken(token.signInData.data);
       }
       return token;
     },

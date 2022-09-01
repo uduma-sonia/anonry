@@ -25,13 +25,24 @@ api.interceptors.response.use(
       console.error(error.response ?? "Error");
     }
 
-    let { response } = error;
+    let { response, config } = error;
     let message = "An unexpected error occurred";
 
-    if (response) {
-      if (response.status === 401) {
-        const session = await getSession();
+    const { url }: { url: string } = config;
 
+    if (
+      response &&
+      ![
+        "/login",
+        "/signup",
+        "/forgot-password",
+        "/reset-password",
+        "/verify-email",
+      ].includes(url)
+    ) {
+      if (response.status === 401) {
+        config._retry = true;
+        const session = await getSession();
         const data = {
           refreshToken: session?.refresh ?? "",
         };
@@ -39,8 +50,7 @@ api.interceptors.response.use(
           ...data,
           redirect: false,
         });
-
-        if (result.error) {
+        if (result.error && isBrowser) {
           window.location.href = `/login`;
         }
       }
