@@ -33,13 +33,7 @@ export default function DairyForm() {
   const entriesCacheKey = swrKeys.getUserEntries;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    reset,
-  } = useForm({
+  const { register, handleSubmit, setValue, reset } = useForm({
     resolver: zodResolver(schema),
   });
   setValue("tags", selectedTags);

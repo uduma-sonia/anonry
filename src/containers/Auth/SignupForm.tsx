@@ -18,6 +18,10 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { FcGoogle } from "react-icons/fc";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 
 const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}/;
 const schema = z.object({
@@ -30,9 +34,11 @@ type SignUpFormSchema = z.infer<typeof schema>;
 
 export default function SignupForm() {
   const toast = useToast();
+  const router = useRouter();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const {
     register,
@@ -99,6 +105,73 @@ export default function SignupForm() {
     [reset, toast]
   );
 
+  const onGoogleLogin = useCallback(
+    async (data) => {
+      setGoogleLoading(true);
+
+      const output = {
+        token: data?.access_token,
+      };
+
+      try {
+        const result: any = await signIn("google", {
+          ...output,
+          redirect: false,
+        });
+
+        if (result.error) {
+          toast({
+            position: "top-right",
+            duration: 9000,
+            isClosable: true,
+            render: () => (
+              <Box
+                color="white"
+                p={3}
+                bg="#fa4e37"
+                borderRadius={10}
+                textAlign="center"
+                fontSize="xs"
+              >
+                {"An error occured, Try again"}
+              </Box>
+            ),
+          });
+        }
+
+        if (result.ok) {
+          toast({
+            position: "top-right",
+            duration: 2000,
+            isClosable: true,
+            render: () => (
+              <Box
+                color="white"
+                p={3}
+                bg="black"
+                borderRadius={10}
+                textAlign="center"
+                fontSize="xs"
+              >
+                Signed in, Redirecting...
+              </Box>
+            ),
+          });
+          router.push("/dashboard");
+        }
+      } catch (err: any) {
+        console.log(err);
+      } finally {
+        setGoogleLoading(false);
+      }
+    },
+    [router, toast]
+  );
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (tokenResponse) => onGoogleLogin(tokenResponse),
+  });
+
   return (
     <Box bg="white">
       <Box
@@ -128,32 +201,24 @@ export default function SignupForm() {
               Create an Anonry account
             </Heading>
 
-            {/* <Box mt="1.5rem">
-              <FormLabel color="#000000" fontSize="sm">
-                Sign up with Google
-              </FormLabel>
-
+            <Box mt="1.5rem">
               <Button
-                variant="outline"
-                border="1px solid rgb(226, 232, 240)"
-                h="50px"
+                variant="primary"
+                minH="50px"
                 borderRadius={5}
                 w="100%"
                 _focus={{ outline: "none" }}
                 _active={{ bg: "none" }}
                 type="button"
+                fontSize="sm"
+                iconSpacing={4}
+                leftIcon={<FcGoogle size="1.3rem" />}
+                onClick={() => googleLogin()}
+                isLoading={googleLoading}
               >
-                <FcGoogle size="1.5rem" />
+                Sign up with Google
               </Button>
-            </Box> */}
-
-            {/* <Center my="1.5rem" gap="10px">
-              <Divider borderColor="#00000040" />
-              <Text fontWeight="medium" fontSize="sm" color="#000000">
-                Or
-              </Text>
-              <Divider borderColor="#00000040" />
-            </Center> */}
+            </Box>
 
             <Box as="form" onSubmit={handleSubmit(onSubmit)}>
               <FormControl

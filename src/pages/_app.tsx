@@ -4,22 +4,25 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "@lib/theme";
 import { SessionProvider } from "next-auth/react";
 import { SWRConfig } from "swr";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={pageProps?.session}>
-      <SWRConfig
-        value={{
-          fallback: pageProps.fallback ?? {},
-          revalidateOnMount: false,
-          revalidateOnFocus: true,
-        }}
-      >
-        <ChakraProvider theme={theme}>
-          <Component {...pageProps} />
-        </ChakraProvider>
-      </SWRConfig>
-    </SessionProvider>
+    <GoogleOAuthProvider clientId="641963392237-lp0j6msphamku5srl8kjdligdcd146d7.apps.googleusercontent.com">
+      <SessionProvider session={pageProps?.session}>
+        <SWRConfig
+          value={{
+            fallback: pageProps.fallback ?? {},
+            revalidateOnMount: false,
+            revalidateOnFocus: true,
+          }}
+        >
+          <ChakraProvider theme={theme}>
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </SWRConfig>
+      </SessionProvider>
+    </GoogleOAuthProvider>
   );
 }
 

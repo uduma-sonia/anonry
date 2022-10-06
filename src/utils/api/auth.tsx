@@ -22,6 +22,15 @@ function authService({ api }: Service) {
     return result;
   };
 
+  type GoogleLogin = {
+    token: string;
+  };
+
+  const googleLogin = async (data: GoogleLogin, reqConfig?: ReqConfig) => {
+    const result = await api.post(`${prefix}/google`, data, { ...reqConfig });
+    return result;
+  };
+
   type VerifyEmail = {
     email: string;
     otp: string;
@@ -87,6 +96,7 @@ function authService({ api }: Service) {
     resetPassword,
     changePassword,
     refreshToken,
+    googleLogin,
   });
 }
 

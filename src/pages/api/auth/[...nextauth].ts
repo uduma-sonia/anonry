@@ -6,7 +6,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 
 const refreshAccessToken = async (token: any) => {
   console.trace("NOT SO SILENT NOW ARE WE");
-  
+
   const prefix = "/users/auth";
   try {
     const result = await api.post(`${prefix}/refresh-token`, {
@@ -46,6 +46,27 @@ const options = {
     }),
 
     Credentials({
+      id: "google",
+      name: "google",
+      credentials: {
+        token: { label: "identifier", type: "string" },
+      },
+      async authorize(credentials, req) {
+        try {
+          const result = await authAPI.googleLogin({
+            token: credentials?.token!,
+          });
+          return result?.data;
+        } catch (error: any) {
+          if (error) {
+            throw new Error(error ?? "Something went wrong");
+          }
+          return null;
+        }
+      },
+    }),
+
+    Credentials({
       id: "refresh",
       name: "refresh",
       credentials: {
@@ -58,8 +79,6 @@ const options = {
           });
           return result?.data;
         } catch (error: any) {
-          console.log(error);
-
           if (error) {
             throw new Error(error ?? "Something went wrong");
           }
