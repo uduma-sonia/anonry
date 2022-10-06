@@ -12,6 +12,7 @@ import {
   HStack,
   Link,
   useToast,
+  ScaleFade,
 } from "@chakra-ui/react";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { useRouter } from "next/router";
@@ -196,123 +197,125 @@ export default function LoginForm() {
             Anonry
           </Link>
 
-          <Box mt="1rem" border="1px solid #424242" borderRadius={5} p="2rem">
-            <Heading
-              color="#000000"
-              fontSize="xl"
-              opacity="0.8"
-              fontWeight="semibold"
-            >
-              Sign in to your account
-            </Heading>
-            <Box mt="1.5rem">
-              <Button
-                variant="primary"
-                minH="50px"
-                borderRadius={5}
-                w="100%"
-                _focus={{ outline: "none" }}
-                _active={{ bg: "none" }}
-                type="button"
-                fontSize="sm"
-                iconSpacing={4}
-                leftIcon={<FcGoogle size="1.3rem" />}
-                onClick={() => googleLogin()}
-                isLoading={googleLoading}
-              >
-                Sign in with Google
-              </Button>
-            </Box>
-
-            <Box as="form" onSubmit={handleSubmit(onSubmit)}>
-              <FormControl
+          <ScaleFade initialScale={0.8} in={true}>
+            <Box mt="1rem" border="1px solid #424242" borderRadius={5} p="2rem">
+              <Heading
                 color="#000000"
-                mt="1.5rem"
-                isInvalid={Boolean(errors.identifier)}
+                fontSize="xl"
+                opacity="0.8"
+                fontWeight="semibold"
               >
-                <FormLabel fontSize="sm">Email or Username</FormLabel>
+                Sign in to your account
+              </Heading>
+              <Box mt="1.5rem">
+                <Button
+                  variant="primary"
+                  minH="50px"
+                  borderRadius={5}
+                  w="100%"
+                  _focus={{ outline: "none" }}
+                  _active={{ bg: "none" }}
+                  type="button"
+                  fontSize="sm"
+                  iconSpacing={4}
+                  leftIcon={<FcGoogle size="1.3rem" />}
+                  onClick={() => googleLogin()}
+                  isLoading={googleLoading}
+                >
+                  Sign in with Google
+                </Button>
+              </Box>
 
-                <Input
-                  type="text"
-                  _focus={{ border: "1px solid #00000090" }}
-                  h="50px"
-                  id="identifier"
-                  {...register("identifier")}
-                />
-              </FormControl>
+              <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+                <FormControl
+                  color="#000000"
+                  mt="1.5rem"
+                  isInvalid={Boolean(errors.identifier)}
+                >
+                  <FormLabel fontSize="sm">Email or Username</FormLabel>
 
-              <FormControl
-                color="#000000"
-                mt="1.5rem"
-                isInvalid={Boolean(errors.password)}
-              >
-                <FormLabel fontSize="sm">Password</FormLabel>
-
-                <InputGroup size="md">
                   <Input
-                    type={show ? "text" : "password"}
+                    type="text"
                     _focus={{ border: "1px solid #00000090" }}
                     h="50px"
-                    id="password"
-                    {...register("password")}
+                    id="identifier"
+                    {...register("identifier")}
                   />
-                  <InputRightElement h="100%">
-                    <Button
-                      px="0px"
-                      minW="0px"
-                      _focus={{ outline: "none" }}
-                      _active={{ bg: "none" }}
-                      _hover={{ bg: "none" }}
-                      bg="none"
-                      onClick={handleClick}
-                      type="button"
-                    >
-                      {show ? (
-                        <AiOutlineEye size="1.4rem" />
-                      ) : (
-                        <AiOutlineEyeInvisible size="1.4rem" />
-                      )}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl>
-              <Button
-                variant="primary"
-                w="100%"
-                mt="1.5rem"
-                _focus={{ outline: "none" }}
-                minH="50px"
-                type="submit"
-                isLoading={isSubmitting}
-              >
-                Continue
-              </Button>
-            </Box>
+                </FormControl>
 
-            <HStack
-              mt="1rem"
-              fontSize="sm"
-              color="#000000"
-              justifyContent="space-between"
-              spacing={0}
-              flexDir={{ base: "column", md: "row" }}
-            >
-              <Text mb={{ base: 3, lg: 0 }}>
-                Don&apos;t Have an account?{" "}
-                <Link
-                  href="/signup"
-                  textDecoration="underline"
-                  _focus={{ outline: "none" }}
+                <FormControl
+                  color="#000000"
+                  mt="1.5rem"
+                  isInvalid={Boolean(errors.password)}
                 >
-                  Signup
-                </Link>
-              </Text>
+                  <FormLabel fontSize="sm">Password</FormLabel>
 
-              <Link href="forgot-password" _focus={{ outline: "none" }}>
-                Forgot Password?
-              </Link>
-            </HStack>
-          </Box>
+                  <InputGroup size="md">
+                    <Input
+                      type={show ? "text" : "password"}
+                      _focus={{ border: "1px solid #00000090" }}
+                      h="50px"
+                      id="password"
+                      {...register("password")}
+                    />
+                    <InputRightElement h="100%">
+                      <Button
+                        px="0px"
+                        minW="0px"
+                        _focus={{ outline: "none" }}
+                        _active={{ bg: "none" }}
+                        _hover={{ bg: "none" }}
+                        bg="none"
+                        onClick={handleClick}
+                        type="button"
+                      >
+                        {show ? (
+                          <AiOutlineEye size="1.4rem" />
+                        ) : (
+                          <AiOutlineEyeInvisible size="1.4rem" />
+                        )}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+                <Button
+                  variant="primary"
+                  w="100%"
+                  mt="1.5rem"
+                  _focus={{ outline: "none" }}
+                  minH="50px"
+                  type="submit"
+                  isLoading={isSubmitting}
+                >
+                  Continue
+                </Button>
+              </Box>
+
+              <HStack
+                mt="1rem"
+                fontSize="sm"
+                color="#000000"
+                justifyContent="space-between"
+                spacing={0}
+                flexDir={{ base: "column", md: "row" }}
+              >
+                <Text mb={{ base: 3, lg: 0 }}>
+                  Don&apos;t Have an account?{" "}
+                  <Link
+                    href="/signup"
+                    textDecoration="underline"
+                    _focus={{ outline: "none" }}
+                  >
+                    Signup
+                  </Link>
+                </Text>
+
+                <Link href="forgot-password" _focus={{ outline: "none" }}>
+                  Forgot Password?
+                </Link>
+              </HStack>
+            </Box>
+          </ScaleFade>
         </Box>
       </Box>
     </Box>

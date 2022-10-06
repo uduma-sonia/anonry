@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputRightElement,
   Link,
+  ScaleFade,
   useToast,
 } from "@chakra-ui/react";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
@@ -191,136 +192,138 @@ export default function SignupForm() {
             Anonry
           </Link>
 
-          <Box mt="1rem" border="1px solid #424242" borderRadius={5} p="2rem">
-            <Heading
-              color="#000000"
-              fontSize="xl"
-              opacity="0.8"
-              fontWeight="semibold"
-            >
-              Create an Anonry account
-            </Heading>
-
-            <Box mt="1.5rem">
-              <Button
-                variant="primary"
-                minH="50px"
-                borderRadius={5}
-                w="100%"
-                _focus={{ outline: "none" }}
-                _active={{ bg: "none" }}
-                type="button"
-                fontSize="sm"
-                iconSpacing={4}
-                leftIcon={<FcGoogle size="1.3rem" />}
-                onClick={() => googleLogin()}
-                isLoading={googleLoading}
-              >
-                Sign up with Google
-              </Button>
-            </Box>
-
-            <Box as="form" onSubmit={handleSubmit(onSubmit)}>
-              <FormControl
+          <ScaleFade initialScale={0.8} in={true}>
+            <Box mt="1rem" border="1px solid #424242" borderRadius={5} p="2rem">
+              <Heading
                 color="#000000"
-                mt="1.5rem"
-                isInvalid={Boolean(errors.email)}
+                fontSize="xl"
+                opacity="0.8"
+                fontWeight="semibold"
               >
-                <FormLabel fontSize="sm" htmlFor="email">
-                  Email
-                </FormLabel>
+                Create an Anonry account
+              </Heading>
 
-                <Input
-                  type="email"
-                  id="email"
-                  _focus={{ border: "1px solid #00000090" }}
-                  h="50px"
-                  {...register("email")}
-                />
-              </FormControl>
+              <Box mt="1.5rem">
+                <Button
+                  variant="primary"
+                  minH="50px"
+                  borderRadius={5}
+                  w="100%"
+                  _focus={{ outline: "none" }}
+                  _active={{ bg: "none" }}
+                  type="button"
+                  fontSize="sm"
+                  iconSpacing={4}
+                  leftIcon={<FcGoogle size="1.3rem" />}
+                  onClick={() => googleLogin()}
+                  isLoading={googleLoading}
+                >
+                  Sign up with Google
+                </Button>
+              </Box>
 
-              <FormControl
-                color="#000000"
-                mt="1.5rem"
-                isInvalid={Boolean(errors.user_name)}
-              >
-                <FormLabel fontSize="sm" htmlFor="userName">
-                  Username
-                </FormLabel>
+              <Box as="form" onSubmit={handleSubmit(onSubmit)}>
+                <FormControl
+                  color="#000000"
+                  mt="1.5rem"
+                  isInvalid={Boolean(errors.email)}
+                >
+                  <FormLabel fontSize="sm" htmlFor="email">
+                    Email
+                  </FormLabel>
 
-                <Input
-                  type="text"
-                  id="userName"
-                  _focus={{ border: "1px solid #00000090" }}
-                  h="50px"
-                  {...register("user_name")}
-                />
-              </FormControl>
-
-              <FormControl
-                color="#000000"
-                mt="1.5rem"
-                isInvalid={Boolean(errors.password)}
-              >
-                <FormLabel fontSize="sm" htmlFor="password">
-                  Password
-                </FormLabel>
-
-                <InputGroup size="md">
                   <Input
-                    type={show ? "text" : "password"}
-                    id="password"
+                    type="email"
+                    id="email"
                     _focus={{ border: "1px solid #00000090" }}
                     h="50px"
-                    {...register("password")}
+                    {...register("email")}
                   />
-                  <InputRightElement h="100%">
-                    <Button
-                      px="0px"
-                      minW="0px"
+                </FormControl>
+
+                <FormControl
+                  color="#000000"
+                  mt="1.5rem"
+                  isInvalid={Boolean(errors.user_name)}
+                >
+                  <FormLabel fontSize="sm" htmlFor="userName">
+                    Username
+                  </FormLabel>
+
+                  <Input
+                    type="text"
+                    id="userName"
+                    _focus={{ border: "1px solid #00000090" }}
+                    h="50px"
+                    {...register("user_name")}
+                  />
+                </FormControl>
+
+                <FormControl
+                  color="#000000"
+                  mt="1.5rem"
+                  isInvalid={Boolean(errors.password)}
+                >
+                  <FormLabel fontSize="sm" htmlFor="password">
+                    Password
+                  </FormLabel>
+
+                  <InputGroup size="md">
+                    <Input
+                      type={show ? "text" : "password"}
+                      id="password"
+                      _focus={{ border: "1px solid #00000090" }}
+                      h="50px"
+                      {...register("password")}
+                    />
+                    <InputRightElement h="100%">
+                      <Button
+                        px="0px"
+                        minW="0px"
+                        _focus={{ outline: "none" }}
+                        _active={{ bg: "none" }}
+                        _hover={{ bg: "none" }}
+                        bg="none"
+                        onClick={handleClick}
+                        type="button"
+                      >
+                        {show ? (
+                          <AiOutlineEye size="1.4rem" />
+                        ) : (
+                          <AiOutlineEyeInvisible size="1.4rem" />
+                        )}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+
+                <Button
+                  variant="primary"
+                  w="100%"
+                  mt="1.5rem"
+                  _focus={{ outline: "none" }}
+                  minH="50px"
+                  type="submit"
+                  isLoading={isSubmitting}
+                >
+                  Continue
+                </Button>
+
+                <Box mt="1rem" fontSize="sm" color="#000000">
+                  <Text>
+                    Have an account?{" "}
+                    <Link
+                      href="/login"
+                      textDecoration="underline"
                       _focus={{ outline: "none" }}
-                      _active={{ bg: "none" }}
-                      _hover={{ bg: "none" }}
-                      bg="none"
-                      onClick={handleClick}
-                      type="button"
                     >
-                      {show ? (
-                        <AiOutlineEye size="1.4rem" />
-                      ) : (
-                        <AiOutlineEyeInvisible size="1.4rem" />
-                      )}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl>
-
-              <Button
-                variant="primary"
-                w="100%"
-                mt="1.5rem"
-                _focus={{ outline: "none" }}
-                minH="50px"
-                type="submit"
-                isLoading={isSubmitting}
-              >
-                Continue
-              </Button>
-
-              <Box mt="1rem" fontSize="sm" color="#000000">
-                <Text>
-                  Have an account?{" "}
-                  <Link
-                    href="/login"
-                    textDecoration="underline"
-                    _focus={{ outline: "none" }}
-                  >
-                    Login
-                  </Link>
-                </Text>
+                      Login
+                    </Link>
+                  </Text>
+                </Box>
               </Box>
             </Box>
-          </Box>
+          </ScaleFade>
         </Box>
       </Box>
     </Box>
