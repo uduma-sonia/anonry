@@ -7,7 +7,7 @@ import { Center, Spinner, useDisclosure } from "@chakra-ui/react";
 import { useUser } from "@utils/hooks/useUser";
 import { useEffect } from "react";
 
-const [DashboardView, DashboardLayout] = [
+const [DashboardView, DashboardLayout, SetUsername] = [
   dynamic(() => import("@containers/Dashboard/DashboardView"), {
     loading: () => (
       <Center h="100vh">
@@ -34,6 +34,9 @@ const [DashboardView, DashboardLayout] = [
       </Center>
     ),
   }),
+  dynamic<any>(() =>
+    import("@components/Modals").then((mod) => mod.SetUsername)
+  ),
 ];
 
 const Home: NextPage = () => {
@@ -57,6 +60,8 @@ const Home: NextPage = () => {
         <meta name="description" content="Anonry" />
         <link rel="icon" href="/favicon.png" />
       </Head>
+
+      <SetUsername isOpen={isOpen} onClose={onClose} />
       <DashboardLayout>
         <DashboardView />
       </DashboardLayout>
