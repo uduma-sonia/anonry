@@ -46,7 +46,6 @@ export default function DeleteEntryModal({ isOpen, onClose, note }: any) {
         });
       }
     } catch (err: any) {
-      console.log(err);
       toast({
         position: "top-right",
         duration: 4000,

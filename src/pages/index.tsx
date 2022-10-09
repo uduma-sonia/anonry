@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { GetServerSidePropsContext, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { Center, Spinner } from "@chakra-ui/react";
+import { Center, Spinner, useDisclosure } from "@chakra-ui/react";
+import { useUser } from "@utils/hooks/useUser";
+import { useEffect } from "react";
 
 const [DashboardView, DashboardLayout] = [
   dynamic(() => import("@containers/Dashboard/DashboardView"), {
@@ -34,10 +37,23 @@ const [DashboardView, DashboardLayout] = [
 ];
 
 const Home: NextPage = () => {
+  const { data: user } = useUser();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  useEffect(() => {
+    if (user) {
+      const userName = user?.data?.data.user_name;
+
+      if (!userName) {
+        onOpen();
+      }
+    }
+  }, [user]);
+
   return (
     <div>
       <Head>
-        <title>Anonry</title>
+        <title>Anonry - Dashboard</title>
         <meta name="description" content="Anonry" />
         <link rel="icon" href="/favicon.png" />
       </Head>

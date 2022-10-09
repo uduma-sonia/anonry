@@ -71,8 +71,7 @@ export default function DashboardSidebar() {
 
       <UnorderedList listStyleType="none" spacing={0}>
         {defaultRoutes.map(({ route, label, icon, sub_route }) => {
-          const isActive =
-            router.asPath.includes(route) || router.asPath.includes(sub_route);
+          const isActive = router.asPath.includes(route);
 
           return (
             <ListItem
