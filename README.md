@@ -11,17 +11,24 @@ No first name and last name collected.
 
 ### FRONTEND TECHNOLOGIES 
 
--JavaScript
 
--Next.js
+- Nextjs
 
--TypeScript
+- TypeScript
 
--ChakraUI
+- ChakraUI
 
 
-### BACKEND TECHNOLOGIES
+### Features
 
--NodeJs
+- Google Login
 
--Express
+- PWA
+
+- Create note
+
+- Publish notes
+
+- Edit posts
+
+- Like posts
