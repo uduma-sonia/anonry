@@ -102,7 +102,7 @@ export default function PostCard({ post }: any) {
         alignItems="center"
       >
         <Text fontSize="sm" color="#000000" fontWeight="medium">
-          {post?.no_of_likes} {post?.no_of_likes === 1 ? "like" : "likes"}
+          {post?.no_of_likes} {post?.no_of_likes <= 1 ? "like" : "likes"}
         </Text>
 
         <Box>
