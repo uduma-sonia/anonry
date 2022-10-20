@@ -122,8 +122,6 @@ export default function TrashView() {
         });
       }
     } catch (err: any) {
-      console.log(err);
-
       toast({
         position: "top-right",
         duration: 4000,
@@ -211,7 +209,7 @@ export default function TrashView() {
           </Text>
         )}
 
-        <Stack ml={{ lg: "20px" }}>
+        <Stack spacing={0} gap="20px">
           {trash?.data?.data?.trash?.map((item: any) => {
             return (
               <React.Fragment key={item._id}>

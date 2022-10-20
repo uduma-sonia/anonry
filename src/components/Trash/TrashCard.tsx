@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Checkbox, Heading, Box, Tag } from "@chakra-ui/react";
+import { Checkbox, Heading, Box } from "@chakra-ui/react";
 
 export default function TrashCard({ data, handleSelect }: any) {
   return (
@@ -12,33 +12,13 @@ export default function TrashCard({ data, handleSelect }: any) {
         bg="white"
         border="1px solid #d7d7d7"
         borderRadius="10px"
-        p="20px"
-        mb="20px"
+        p="15px"
         position="relative"
         boxShadow="sm"
       >
-        <Heading fontSize="md" fontWeight="medium" mt="0.5rem">
+        <Heading fontSize="md" fontWeight="medium">
           {data?.entry?.title}
         </Heading>
-
-        <Text fontSize="sm" mt="0.7rem" opacity="0.7">
-          {data?.entry?.description}
-        </Text>
-
-        <Box mt="1rem" display="flex" flexWrap="wrap" gap="10px">
-          {data?.entry?.tags?.map(({ name }: { name: string }) => (
-            <Tag
-              key={name}
-              fontSize="xs"
-              opacity="0.7"
-              borderRadius="20px"
-              w="fit-content"
-              fontWeight="400"
-            >
-              {name}
-            </Tag>
-          ))}
-        </Box>
       </Box>
     </Checkbox>
   );
