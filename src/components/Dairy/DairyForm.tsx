@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,12 +11,12 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
-  useToast,
 } from "@chakra-ui/react";
 import { entriesAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
 import { useTags } from "@utils/hooks/useTags";
 import { swrKeys } from "@utils/swrKeys";
+import { successToast, errorToast } from "@lib/toast";
 
 const schema = z.object({
   title: z.string().min(1).max(100).trim(),
@@ -28,9 +27,8 @@ const schema = z.object({
 export default function DairyForm() {
   const { data: tags } = useTags();
   const { mutate } = useSWRConfig();
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const toast = useToast();
   const entriesCacheKey = swrKeys.getUserEntries;
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register, handleSubmit, setValue, reset } = useForm({
@@ -51,54 +49,25 @@ export default function DairyForm() {
     setSelectedTags(modifiedArr);
   };
 
-  const onSubmit = useCallback(async (data) => {
-    try {
-      setIsSubmitting(true);
-      const result = await entriesAPI.createEntry(data);
-      if (result) {
-        reset();
-        setSelectedTags([]);
-        mutate(entriesCacheKey);
-        toast({
-          position: "top-right",
-          duration: 4000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="black"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {result?.data?.message}
-            </Box>
-          ),
-        });
+  const onSubmit = useCallback(
+    async (data) => {
+      try {
+        setIsSubmitting(true);
+        const result = await entriesAPI.createEntry(data);
+        if (result) {
+          reset();
+          setSelectedTags([]);
+          mutate(entriesCacheKey);
+          successToast({ message: result?.data?.message });
+        }
+      } catch (err: any) {
+        errorToast({ message: err ?? "An error occured, Try again" });
+      } finally {
+        setIsSubmitting(false);
       }
-    } catch (err: any) {
-      toast({
-        position: "top-right",
-        duration: 4000,
-        isClosable: true,
-        render: () => (
-          <Box
-            color="white"
-            p={3}
-            bg="#fa4e37"
-            borderRadius={10}
-            textAlign="center"
-            fontSize="xs"
-          >
-            {err ?? "Error, try again"}
-          </Box>
-        ),
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, []);
+    },
+    [entriesCacheKey, mutate, reset]
+  );
 
   return (
     <Box px={{ lg: "1rem" }} as="form" onSubmit={handleSubmit(onSubmit)}>

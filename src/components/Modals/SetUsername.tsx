@@ -6,7 +6,6 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Button,
-  useToast,
   Box,
   FormLabel,
   FormControl,
@@ -18,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { userAPI } from "@utils/api";
+import { successToast, errorToast } from "@lib/toast";
 
 interface ModalProps {
   isOpen: boolean;
@@ -31,7 +31,6 @@ type LoginSchema = z.infer<typeof schema>;
 
 export default function SetUsername({ isOpen, onClose }: ModalProps) {
   const cancelRef: any = useRef();
-  const toast = useToast();
   const { mutate } = useSWRConfig();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -52,47 +51,15 @@ export default function SetUsername({ isOpen, onClose }: ModalProps) {
           mutate(swrKeys.getUserProfile);
           onClose();
 
-          toast({
-            position: "top-right",
-            duration: 2000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {result?.data?.message}
-              </Box>
-            ),
-          });
+          successToast({ message: result?.data?.message });
         }
       } catch (error: any) {
-        toast({
-          position: "top-right",
-          duration: 9000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="#fa4e37"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {error ?? "Error, try again"}
-            </Box>
-          ),
-        });
+        errorToast({ message: error ?? "An error occured, Try again" });
       } finally {
         setIsSubmitting(false);
       }
     },
-    [mutate, onClose, toast]
+    [mutate, onClose]
   );
 
   return (

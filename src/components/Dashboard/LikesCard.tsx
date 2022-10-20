@@ -6,6 +6,7 @@ import { BsSuitHeartFill } from "react-icons/bs";
 import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
 import { timelineAPI } from "@utils/api";
+import { errorToast } from "@lib/toast";
 
 export default function LikesCard({ note, pageNum }: any) {
   const { mutate } = useSWRConfig();
@@ -24,7 +25,7 @@ export default function LikesCard({ note, pageNum }: any) {
           mutate(swrKeys.getLikes({ page: pageNum }));
         }
       } catch (err: any) {
-        console.log(err);
+        errorToast({ message: err ?? "An error occured, Try again" });
       } finally {
         setIsSubmitting(false);
       }

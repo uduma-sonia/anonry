@@ -9,7 +9,6 @@ import {
   FormLabel,
   Center,
   Link,
-  useToast,
   InputGroup,
   InputRightElement,
   PinInput,
@@ -23,6 +22,7 @@ import * as z from "zod";
 import { authAPI } from "@utils/api";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { successToast, errorToast } from "@lib/toast";
 
 const otpLength = 4;
 const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}/;
@@ -36,7 +36,6 @@ const schema = z.object({
 type ForgotPasswordSchema = z.infer<typeof schema>;
 
 export default function ResetPasswordForm() {
-  const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -66,48 +65,16 @@ export default function ResetPasswordForm() {
 
         if (result) {
           reset();
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {result?.data?.message}
-              </Box>
-            ),
-          });
+          successToast({ message: result?.data?.message });
           router.push("/login");
         }
       } catch (err: any) {
-        toast({
-          position: "top-right",
-          duration: 9000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="#fa4e37"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {err ?? "Error, try again"}
-            </Box>
-          ),
-        });
+        errorToast({ message: err ?? "An error occured, Try again" });
       } finally {
         setIsSubmitting(false);
       }
     },
-    [email, reset, router, toast]
+    [email, reset, router]
   );
 
   return (

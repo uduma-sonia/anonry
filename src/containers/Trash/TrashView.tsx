@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack, Skeleton, Button, useToast, Text } from "@chakra-ui/react";
+import { Box, Stack, Skeleton, Button, Text } from "@chakra-ui/react";
 import { trashAPI } from "@utils/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
@@ -7,13 +7,13 @@ import { swrKeys } from "@utils/swrKeys";
 import dynamic from "next/dynamic";
 import { useSWRConfig } from "swr";
 import Pagination from "@components/Pagination/Pagination";
+import { successToast, errorToast } from "@lib/toast";
 
 const [TrashCard] = [dynamic(() => import("@components/Trash/TrashCard"))];
 
 export default function TrashView() {
   const router = useRouter();
   const { mutate } = useSWRConfig();
-  const toast = useToast();
   const [selectedNote, setSelectedNote] = useState<String[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,42 +52,10 @@ export default function TrashView() {
       if (result) {
         setSelectedNote([]);
         mutate(swrKeys.getUserTrash({ page: pageNum }));
-        toast({
-          position: "top-right",
-          duration: 4000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="black"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {result?.data?.message}
-            </Box>
-          ),
-        });
+        successToast({ message: result?.data?.message });
       }
     } catch (err: any) {
-      toast({
-        position: "top-right",
-        duration: 4000,
-        isClosable: true,
-        render: () => (
-          <Box
-            color="white"
-            p={3}
-            bg="#fa4e37"
-            borderRadius={10}
-            textAlign="center"
-            fontSize="xs"
-          >
-            {err ?? "Error, try again"}
-          </Box>
-        ),
-      });
+      errorToast({ message: err ?? "An error occured, Try again" });
     } finally {
       setIsLoading(false);
     }
@@ -103,42 +71,10 @@ export default function TrashView() {
       if (result) {
         setSelectedNote([]);
         mutate(swrKeys.getUserTrash({ page: pageNum }));
-        toast({
-          position: "top-right",
-          duration: 4000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="black"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {result?.data?.message}
-            </Box>
-          ),
-        });
+        successToast({ message: result?.data?.message });
       }
     } catch (err: any) {
-      toast({
-        position: "top-right",
-        duration: 4000,
-        isClosable: true,
-        render: () => (
-          <Box
-            color="white"
-            p={3}
-            bg="#fa4e37"
-            borderRadius={10}
-            textAlign="center"
-            fontSize="xs"
-          >
-            {err ?? "Error, try again"}
-          </Box>
-        ),
-      });
+      errorToast({ message: err ?? "An error occured, Try again" });
     } finally {
       setIsSubmitting(false);
     }

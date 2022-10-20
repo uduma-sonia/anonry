@@ -2,11 +2,12 @@ import { useCallback, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Box, Input, Button, Textarea, Tag, useToast } from "@chakra-ui/react";
+import { Box, Input, Button, Textarea, Tag } from "@chakra-ui/react";
 import { entriesAPI } from "@utils/api";
 import useSWR, { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 import { swrKeys } from "@utils/swrKeys";
+import { successToast, errorToast } from "@lib/toast";
 
 const schema = z.object({
   title: z.string().min(1).max(100).trim(),
@@ -15,11 +16,9 @@ const schema = z.object({
 });
 
 export default function UpdateForm() {
-  const [selectedTags, setSelectedTags] = useState<any>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const router = useRouter();
   const { id } = router.query;
-  const toast = useToast();
   const { mutate } = useSWRConfig();
 
   const { data: entry } = useSWR(
@@ -54,47 +53,15 @@ export default function UpdateForm() {
         if (result) {
           mutate(swrKeys.getUserEntries);
           mutate(swrKeys.getSingleEntry);
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {result?.data?.message}
-              </Box>
-            ),
-          });
+          successToast({ message: result?.data?.message });
         }
       } catch (err: any) {
-        toast({
-          position: "top-right",
-          duration: 9000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="#fa4e37"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {err ?? "Error, try again"}
-            </Box>
-          ),
-        });
+        errorToast({ message: err ?? "An error occured, Try again" });
       } finally {
         setIsSubmitting(false);
       }
     },
-    [mutate, toast]
+    [mutate]
   );
 
   return (

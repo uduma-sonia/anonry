@@ -6,6 +6,7 @@ import { timelineAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
 import { FiEdit3 } from "react-icons/fi";
+import { errorToast } from "@lib/toast";
 
 export default function PostCard({ post }: any) {
   const { mutate } = useSWRConfig();
@@ -24,7 +25,7 @@ export default function PostCard({ post }: any) {
           mutate(swrKeys.getTimeline);
         }
       } catch (err: any) {
-        console.log(err);
+        errorToast({ message: err ?? "An error occured, Try again" });
       } finally {
         setIsSubmitting(false);
       }

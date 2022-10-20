@@ -10,7 +10,6 @@ import {
   PinInput,
   PinInputField,
   Stack,
-  useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
@@ -19,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { authAPI } from "@utils/api";
 import { signIn } from "next-auth/react";
+import { successToast, errorToast } from "@lib/toast";
 
 const otpLength = 4;
 
@@ -31,7 +31,6 @@ const schema = z.object({
 type verifySchema = z.infer<typeof schema>;
 
 export default function VerifyEmailForm() {
-  const toast = useToast();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { email } = router.query;
@@ -59,43 +58,13 @@ export default function VerifyEmailForm() {
         });
 
         if (result.error) {
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="#fa4e37"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {result.error ?? "An error occured, Try again"}
-              </Box>
-            ),
+          errorToast({
+            message: result?.error ?? "An error occured, Try again",
           });
         }
 
         if (result.ok) {
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                Verified, Redirecting...
-              </Box>
-            ),
-          });
+          successToast({ message: "Verified. Redirecting..." });
           router.push("/dashboard");
         }
       } catch (err: any) {
@@ -104,7 +73,7 @@ export default function VerifyEmailForm() {
         setIsSubmitting(false);
       }
     },
-    [email, router, toast]
+    [email, router]
   );
 
   const onResend = async () => {
@@ -115,43 +84,11 @@ export default function VerifyEmailForm() {
       };
       const result = await authAPI.resendOtp(data);
       if (result) {
-        toast({
-          position: "top-right",
-          duration: 9000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="black"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {/* @ts-ignore */}
-              {result.message ?? "Sent"}
-            </Box>
-          ),
-        });
+        // @ts-ignore
+        successToast({ message: result?.message ?? "Sent" });
       }
     } catch (err: any) {
-      toast({
-        position: "top-right",
-        duration: 9000,
-        isClosable: true,
-        render: () => (
-          <Box
-            color="white"
-            p={3}
-            bg="#fa4e37"
-            borderRadius={10}
-            textAlign="center"
-            fontSize="xs"
-          >
-            {err ?? err.message ?? "An error occured, Try again"}
-          </Box>
-        ),
-      });
+      errorToast({ message: err ?? "An error occured, Try again" });
     }
   };
 

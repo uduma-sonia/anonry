@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from "react";
-import { Box, Text, Avatar, Button, Center, useToast } from "@chakra-ui/react";
+import { Box, Text, Avatar, Button, Center } from "@chakra-ui/react";
 import { useUser } from "@utils/hooks/useUser";
 import { avatarSets } from "@utils/avatarSets";
 import { userAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
+import { successToast, errorToast } from "@lib/toast";
 
 export default function AvatarView() {
   const [selectedAvatar, setSelectedAvatar] = useState("");
   const [allAvatars, setAllAvatars] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const toast = useToast();
   const { data: user } = useUser();
   const { mutate } = useSWRConfig();
 
@@ -34,48 +34,15 @@ export default function AvatarView() {
         const result = await userAPI.updateUser({ avatar: data });
         if (result) {
           mutate(swrKeys.getUserProfile);
-
-          toast({
-            position: "top-right",
-            duration: 2000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {result?.data?.message}
-              </Box>
-            ),
-          });
+          successToast({ message: result?.data?.message });
         }
       } catch (error: any) {
-        toast({
-          position: "top-right",
-          duration: 9000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="#fa4e37"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {error ?? "Error, try again"}
-            </Box>
-          ),
-        });
+        errorToast({ message: error ?? "An error occured, Try again" });
       } finally {
         setIsSubmitting(false);
       }
     },
-    [mutate, toast]
+    [mutate]
   );
 
   return (

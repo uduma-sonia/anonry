@@ -6,7 +6,6 @@ import {
   FormLabel,
   InputGroup,
   InputRightElement,
-  useToast,
 } from "@chakra-ui/react";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { useCallback, useState } from "react";
@@ -14,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { authAPI } from "@utils/api";
+import { successToast, errorToast } from "@lib/toast";
 
 const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}/;
 const schema = z.object({
@@ -24,7 +24,6 @@ type UpdateSchema = z.infer<typeof schema>;
 export default function Security() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -44,47 +43,15 @@ export default function Security() {
         const result = await authAPI.changePassword(data);
         if (result) {
           reset();
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {result?.data?.message}
-              </Box>
-            ),
-          });
+          successToast({ message: result?.data?.message });
         }
       } catch (err: any) {
-        toast({
-          position: "top-right",
-          duration: 9000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="#fa4e37"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {err ?? "Error, try again"}
-            </Box>
-          ),
-        });
+        errorToast({ message: err ?? "An error occured, Try again" });
       } finally {
         setIsSubmitting(false);
       }
     },
-    [reset, toast]
+    [reset]
   );
 
   return (

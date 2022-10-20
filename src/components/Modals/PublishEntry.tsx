@@ -7,16 +7,15 @@ import {
   AlertDialogContent,
   AlertDialogOverlay,
   Button,
-  useToast,
   Box,
 } from "@chakra-ui/react";
 import { entriesAPI } from "@utils/api";
 import { useSWRConfig } from "swr";
 import { swrKeys } from "@utils/swrKeys";
+import { successToast, errorToast } from "@lib/toast";
 
 export default function PublishEntry({ isOpen, onClose, note }: any) {
   const cancelRef: any = useRef();
-  const toast = useToast();
   const { mutate } = useSWRConfig();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -32,46 +31,14 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
       if (result) {
         mutate(swrKeys.getUserEntries);
         onClose();
-        toast({
-          position: "top-right",
-          duration: 4000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="black"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {result?.data?.message}
-            </Box>
-          ),
-        });
+        successToast({ message: result?.data?.message });
       }
     } catch (err: any) {
-      toast({
-        position: "top-right",
-        duration: 4000,
-        isClosable: true,
-        render: () => (
-          <Box
-            color="white"
-            p={3}
-            bg="#fa4e37"
-            borderRadius={10}
-            textAlign="center"
-            fontSize="xs"
-          >
-            {err ?? "Error, try again"}
-          </Box>
-        ),
-      });
+      errorToast({ message: err ?? "An error occured, Try again" });
     } finally {
       setIsSubmitting(false);
     }
-  }, [mutate, note?._id, onClose, toast]);
+  }, [mutate, note?._id, onClose]);
 
   const handleUnpublish = useCallback(async () => {
     try {
@@ -86,46 +53,14 @@ export default function PublishEntry({ isOpen, onClose, note }: any) {
         mutate(swrKeys.getUserEntries({ page: 1 }));
 
         onClose();
-        toast({
-          position: "top-right",
-          duration: 4000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="black"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {result?.data?.message}
-            </Box>
-          ),
-        });
+        successToast({ message: result?.data?.message });
       }
     } catch (err: any) {
-      toast({
-        position: "top-right",
-        duration: 4000,
-        isClosable: true,
-        render: () => (
-          <Box
-            color="white"
-            p={3}
-            bg="#fa4e37"
-            borderRadius={10}
-            textAlign="center"
-            fontSize="xs"
-          >
-            {err ?? "Error, try again"}
-          </Box>
-        ),
-      });
+      errorToast({ message: err ?? "An error occured, Try again" });
     } finally {
       setIsSubmitting(false);
     }
-  }, [mutate, note?._id, onClose, toast]);
+  }, [mutate, note?._id, onClose]);
 
   return (
     <>

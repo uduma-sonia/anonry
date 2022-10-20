@@ -11,7 +11,6 @@ import {
   InputRightElement,
   Link,
   ScaleFade,
-  useToast,
 } from "@chakra-ui/react";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { authAPI } from "utils/api";
@@ -23,6 +22,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
+import { successToast, errorToast } from "@lib/toast";
 
 const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}/;
 const schema = z.object({
@@ -34,7 +34,6 @@ const schema = z.object({
 type SignUpFormSchema = z.infer<typeof schema>;
 
 export default function SignupForm() {
-  const toast = useToast();
   const router = useRouter();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -63,47 +62,16 @@ export default function SignupForm() {
 
         if (result) {
           reset();
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                OTP has been sent to your email
-              </Box>
-            ),
-          });
+
+          successToast({ message: "OTP has been sent to your email" });
         }
       } catch (err: any) {
-        toast({
-          position: "top-right",
-          duration: 9000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="#fa4e37"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {err ?? "Error, try again"}
-            </Box>
-          ),
-        });
+        errorToast({ message: err ?? "An error occured, Try again" });
       } finally {
         setIsSubmitting(false);
       }
     },
-    [reset, toast]
+    [reset]
   );
 
   const onGoogleLogin = useCallback(
@@ -121,52 +89,20 @@ export default function SignupForm() {
         });
 
         if (result.error) {
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="#fa4e37"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {"An error occured, Try again"}
-              </Box>
-            ),
-          });
+          errorToast({ message: "An error occured, Try again" });
         }
 
         if (result.ok) {
-          toast({
-            position: "top-right",
-            duration: 2000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                Signed in, Redirecting...
-              </Box>
-            ),
-          });
+          successToast({ message: "Signed in, Redirecting..." });
           router.push("/dashboard");
         }
       } catch (err: any) {
-        console.log(err);
+        errorToast({ message: "An error occured, Try again" });
       } finally {
         setGoogleLoading(false);
       }
     },
-    [router, toast]
+    [router]
   );
 
   const googleLogin = useGoogleLogin({

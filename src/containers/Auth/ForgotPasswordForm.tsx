@@ -9,13 +9,13 @@ import {
   FormLabel,
   Center,
   Link,
-  useToast,
 } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { authAPI } from "@utils/api";
+import { successToast, errorToast } from "@lib/toast";
 
 const schema = z.object({
   email: z.string().min(1),
@@ -23,7 +23,6 @@ const schema = z.object({
 type ForgotPasswordSchema = z.infer<typeof schema>;
 
 export default function ForgotPasswordForm() {
-  const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -48,48 +47,19 @@ export default function ForgotPasswordForm() {
 
         if (result) {
           reset();
-          toast({
-            position: "top-right",
-            duration: 9000,
-            isClosable: true,
-            render: () => (
-              <Box
-                color="white"
-                p={3}
-                bg="black"
-                borderRadius={10}
-                textAlign="center"
-                fontSize="xs"
-              >
-                {result?.data?.message ??
-                  "Your password reset details has been sent to your email"}
-              </Box>
-            ),
+          successToast({
+            message:
+              result?.data?.message ??
+              "Your password reset details has been sent to your email",
           });
         }
       } catch (err: any) {
-        toast({
-          position: "top-right",
-          duration: 9000,
-          isClosable: true,
-          render: () => (
-            <Box
-              color="white"
-              p={3}
-              bg="#fa4e37"
-              borderRadius={10}
-              textAlign="center"
-              fontSize="xs"
-            >
-              {err ?? "Error, try again"}
-            </Box>
-          ),
-        });
+        errorToast({ message: err ?? "Error, try again" });
       } finally {
         setIsSubmitting(false);
       }
     },
-    [reset, toast]
+    [reset]
   );
 
   return (
