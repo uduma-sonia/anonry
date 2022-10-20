@@ -1,27 +1,29 @@
 ANONRY
 
-An app that allows users to take personal notes.
-
-Users can also decide to publish those notes anonymously for others to see.
-
-Everything done on the app is anonymously, picture cannot be posted, posts are made under usernames.
-
-No first name and last name collected.
+A web app for taking personal notes with a twist.
+Notes can be published for others to view, but everything is done anonymously, pictures cannot be posted and posts are made under usernames
 
 
 ### FRONTEND TECHNOLOGIES 
 
--JavaScript
 
--Next.js
+- Nextjs
 
--TypeScript
+- TypeScript
 
--ChakraUI
+- ChakraUI
 
 
-### BACKEND TECHNOLOGIES
+### Features
 
--NodeJs
+- Google Login
 
--Express
+- PWA
+
+- Create note
+
+- Publish notes
+
+- Edit posts
+
+- Like posts
