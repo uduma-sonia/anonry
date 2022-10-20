@@ -1,23 +1,3 @@
-// const withPWA = require("next-pwa");
-
-// /** @type {import('next').NextConfig} */
-
-// module.exports = withPWA({
-//   pwa: {
-//     dest: "public",
-//     register: true,
-//     skipWaiting: true,
-//   },
-//   i18n: {
-//     locales: ["en"],
-//     defaultLocale: "en",
-//   },
-//   reactStrictMode: true,
-// images: {
-//   domains: ["robohash.org"],
-// },
-// });
-
 const withPWA = require("next-pwa");
 
 /** @type {import('next').NextConfig} */
