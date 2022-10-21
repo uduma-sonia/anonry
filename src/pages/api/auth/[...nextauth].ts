@@ -37,9 +37,6 @@ const options = {
           });
           return result?.data;
         } catch (error: any) {
-          if (error) {
-            throw new Error(error ?? "Something went wrong");
-          }
           return null;
         }
       },
@@ -138,10 +135,10 @@ const options = {
       return token;
     },
   },
+  secret: "testing",
   pages: {
     signIn: "/api/auth/signin",
   },
-  secret: "testing",
 };
 
 export default (
