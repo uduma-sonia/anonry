@@ -139,7 +139,7 @@ const options = {
     },
   },
   pages: {
-    signin: "api/auth/sigin",
+    signIn: "/auth/signin",
   },
   secret: "testing",
 };
