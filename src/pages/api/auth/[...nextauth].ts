@@ -23,8 +23,8 @@ const refreshAccessToken = async (token: any) => {
 const options = {
   providers: [
     Credentials({
-      id: "signin",
-      name: "signin",
+      id: "credentials",
+      name: "Credentials",
       credentials: {
         identifier: { label: "identifier", type: "string" },
         password: { label: "password", type: "password" },

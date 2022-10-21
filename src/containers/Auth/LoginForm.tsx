@@ -51,7 +51,7 @@ export default function LoginForm() {
       setIsSubmitting(true);
 
       try {
-        const result: any = await signIn("signin", {
+        const result: any = await signIn("credentials", {
           ...data,
           redirect: false,
         });
