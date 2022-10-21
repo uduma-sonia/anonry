@@ -139,8 +139,7 @@ const options = {
     },
   },
   pages: {
-    verifyRequest: "/verify-email",
-    signIn: "/login",
+    signin: "api/auth/sigin",
   },
   secret: "testing",
 };
