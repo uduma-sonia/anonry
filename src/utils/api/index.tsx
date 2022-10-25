@@ -75,6 +75,7 @@ const addTokenToRequest = async (request: any) => {
 
   const session = await getSession();
 
+  //@ts-ignore
   const token = session?.token ?? "";
   request.headers.Authorization = `Bearer ${token}`;
   return request;
