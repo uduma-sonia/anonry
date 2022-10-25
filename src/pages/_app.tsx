@@ -15,6 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider session={nextSession}>
         <SWRConfig
           value={{
+            // @ts-ignore
             fallback: pageProps.fallback ?? {},
             revalidateOnMount: false,
             revalidateOnFocus: true,
