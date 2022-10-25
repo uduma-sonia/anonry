@@ -44,6 +44,7 @@ api.interceptors.response.use(
         config._retry = true;
         const session = await getSession();
         const data = {
+          //@ts-ignore
           refreshToken: session?.refresh ?? "",
         };
         const result: any = await signIn("refresh", {
