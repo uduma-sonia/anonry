@@ -8,7 +8,7 @@ import tagService from "./tags";
 import { signIn } from "next-auth/react";
 import trashService from "./trash";
 
-export const API_ENDPOINT = "https://anonry.herokuapp.com";
+export const API_ENDPOINT = "https://anonry.onrender.com";
 const isBrowser = typeof window !== undefined;
 
 export const api = axios.create({

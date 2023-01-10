@@ -102,6 +102,7 @@ export default function VerifyEmailForm() {
       >
         <Box maxW="540px" mx="auto">
           <Link
+            href="/"
             letterSpacing="-2px"
             fontWeight="bold"
             color="#000000"
