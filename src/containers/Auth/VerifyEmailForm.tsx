@@ -68,7 +68,6 @@ export default function VerifyEmailForm() {
           router.push("/dashboard");
         }
       } catch (err: any) {
-        console.log(err);
       } finally {
         setIsSubmitting(false);
       }

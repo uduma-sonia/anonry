@@ -5,8 +5,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import NextAuth, { NextAuthOptions } from "next-auth";
 
 const refreshAccessToken = async (token: any) => {
-  console.trace("NOT SO SILENT NOW ARE WE");
-
   const prefix = "/users/auth";
   try {
     const result = await api.post(`${prefix}/refresh-token`, {
@@ -15,7 +13,6 @@ const refreshAccessToken = async (token: any) => {
 
     return { ...token, ...result.data.data };
   } catch (error) {
-    console.log("MAD PROBLEMS DEY");
     return token;
   }
 };
