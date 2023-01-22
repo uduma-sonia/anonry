@@ -23,7 +23,7 @@ export default function TaskDetails() {
         />
 
         <IconButton
-          icon={<AiFillCamera />}
+          icon={<AiFillCamera size="1rem" />}
           aria-label=""
           variant="solid"
           size="xs"

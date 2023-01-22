@@ -33,7 +33,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
           <DashboardHeader onOpen={onOpen} />
           <Box
             maxWidth="1500px"
-            px={{ base: "1.2rem", lg: "4rem" }}
+            px={{ base: "1.2rem", lg: "4rem", "2xl": "10rem" }}
             pt={{ base: "2rem", lg: "2.5rem" }}
           >
             {children}
