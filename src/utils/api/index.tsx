@@ -9,8 +9,7 @@ import { signIn } from "next-auth/react";
 import trashService from "./trash";
 
 // export const API_ENDPOINT = "https://anonry.onrender.com";
-export const API_ENDPOINT =
-  "https://spurtx-toolkit-api-staging-v2.herokuapp.com/api/v1";
+export const API_ENDPOINT = "https://toolkit-admin.herokuapp.com/api/v1";
 const isBrowser = typeof window !== undefined;
 
 export const api = axios.create({
