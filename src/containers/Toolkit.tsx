@@ -18,6 +18,7 @@ export default function ToolkitView() {
 
   return (
     <div>
+      {/* @ts-ignore */}
       <div>{entries?.message ?? "Fetching"}</div>
     </div>
   );
