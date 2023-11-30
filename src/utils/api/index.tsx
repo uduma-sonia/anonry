@@ -8,7 +8,9 @@ import tagService from "./tags";
 import { signIn } from "next-auth/react";
 import trashService from "./trash";
 
-export const API_ENDPOINT = "https://anonry.onrender.com";
+// export const API_ENDPOINT = "https://anonry.onrender.com";
+export const API_ENDPOINT =
+  "https://spurtx-toolkit-api-staging-v2.herokuapp.com/api/v1";
 const isBrowser = typeof window !== undefined;
 
 export const api = axios.create({
@@ -75,9 +77,13 @@ const addTokenToRequest = async (request: any) => {
 
   const session = await getSession();
 
+  console.log("SESSION>>>>", session);
+
+  request.headers["x-access-token"] =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhhODE4MjIwLWFjNGMtNGNkYi1iMjM4LThlMDVlMjVmNWM1MSIsImlhdCI6MTcwMTM0NjM3NSwiZXhwIjoxNzAxMzgyMzc1fQ.cVdc-tc35UVo8WWeqff3A6ucEA0_2GTp1X_rvfxGito";
   //@ts-ignore
   const token = session?.token ?? "";
-  request.headers.Authorization = `Bearer ${token}`;
+  // request.headers.Authorization = `Bearer `;
   return request;
 };
 api.interceptors.request.use(addTokenToRequest);

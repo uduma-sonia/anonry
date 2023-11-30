@@ -72,6 +72,8 @@ const Dairy: NextPage = () => {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
 
+  console.log("SESSION>>", session);
+
   if (!session) {
     return {
       redirect: {

@@ -71,6 +71,17 @@ function entriesService({ api }: Service) {
     return result;
   };
 
+  const getAllPublishedAppraisals = async (reqConfig?: ReqConfig) => {
+    // const { page, take, searchQuery } = data;
+
+    const result = await api.get(
+      `/spur/appraisal/employee/ee713c88-39f1-45a1-9faa-f45d3310c1b6?take=3&page=1`,
+      { ...reqConfig }
+    );
+
+    return result;
+  };
+
   return Object.freeze({
     createEntry,
     getUserEntries,
@@ -80,6 +91,7 @@ function entriesService({ api }: Service) {
     publishEntry,
     unPublishEntry,
     getLikes,
+    getAllPublishedAppraisals,
   });
 }
 
